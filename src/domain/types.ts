@@ -24,17 +24,3 @@ export type Challenge = {
   description: string;
   items: ChallengeItem[];
 };
-
-export type MultipleChoiceQuestionState =
-  | { kind: "NotAnswered" }
-  | { kind: "Answered"; selectedOptionId: string }
-  | { kind: "Correct" }
-  | { kind: "Incorrect"; selectedOptionId: string };
-
-export type ChallengeItemState = MultipleChoiceQuestionState;
-
-export type State = {
-  challenge: Challenge;
-  itemStates: ChallengeItemState[];
-  currentItemIndex: number;
-};

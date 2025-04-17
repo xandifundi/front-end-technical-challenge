@@ -1,5 +1,5 @@
 import { useChallenge } from "@/ui/hooks/useChallenge";
-import { ChallengeStartPage } from "./ChallengeStartPage";
+import { ChallengeStartPage } from "./pages/startPage/ChallengeStartPage";
 
 export type ChallengeContainerProps = {
   challengeId: string;
