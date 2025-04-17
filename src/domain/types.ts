@@ -4,6 +4,7 @@ export type MultipleChoiceQuestionOption = {
 };
 
 export type MultipleChoiceQuestion = {
+  kind: "MultipleChoiceQuestion";
   id: string;
   question: string;
   options: MultipleChoiceQuestionOption[];
@@ -12,6 +13,7 @@ export type MultipleChoiceQuestion = {
 };
 
 export type TextPage = {
+  kind: "TextPage";
   id: string;
   content: string;
 };
@@ -20,7 +22,7 @@ export type ChallengeItem = TextPage | MultipleChoiceQuestion;
 
 export type Challenge = {
   id: string;
-  title: string;
+  name: string;
   description: string;
   items: ChallengeItem[];
 };

@@ -1,8 +1,8 @@
-import { ChallengeItemState } from "@/state/types";
+import { ChallengeItem } from "@/state/types";
 import pageStyles from "@/ui/styles/page.module.css";
 
 export type ChallengeItemPageProps = {
-  itemState: ChallengeItemState;
+  item: ChallengeItem;
   onPrevious: () => void;
   onNext: () => void;
 };

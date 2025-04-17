@@ -20,10 +20,15 @@ export type TextPageItem = {
   state: TextPageState;
 };
 
-export type ChallengeItemState = TextPageState | MultipleChoiceQuestionState;
+export type ChallengeItem = TextPageItem | MultipleChoiceQuestionItem;
 
-export type State = {
+export type ChallengePage =
+  | { kind: "StartPage" }
+  | { kind: "ResultsPage" }
+  | { kind: "ItemPage"; itemIndex: number };
+
+export type ChallengeState = {
   challenge: Challenge;
-  itemStates: ChallengeItemState[];
-  currentItemIndex: number;
+  items: ChallengeItem[];
+  page: ChallengePage;
 };

@@ -1,5 +1,5 @@
 import { useChallenge } from "@/ui/hooks/useChallenge";
-import { ChallengeStartPage } from "./pages/startPage/ChallengeStartPage";
+import { Challenge } from "./Challenge";
 
 export type ChallengeContainerProps = {
   challengeId: string;
@@ -8,27 +8,19 @@ export type ChallengeContainerProps = {
 export function ChallengeContainer(props: ChallengeContainerProps) {
   const { challengeId } = props;
 
-  const challengeState = useChallenge({ challengeId });
+  const challengeResult = useChallenge({ challengeId });
 
-  switch (challengeState.kind) {
+  switch (challengeResult.kind) {
     case "Loading": {
       return <div>Loading...</div>;
     }
     case "Error": {
-      return <div>Error: {challengeState.error}</div>;
+      return <div>Error: {challengeResult.error}</div>;
     }
     case "Success": {
-      const { challenge } = challengeState;
+      const { challengeState } = challengeResult;
 
-      return (
-        <ChallengeStartPage
-          challengeName={challenge.title}
-          challengeDescription={challenge.description}
-          onStart={() => {
-            console.log("Challenge started");
-          }}
-        />
-      );
+      return <Challenge challengeState={challengeState} />;
     }
   }
 }

@@ -1,6 +1,7 @@
 import React from "react";
-import type { Challenge } from "@/domain/types";
 import * as API from "@/utils/api";
+import { ChallengeState } from "@/state/types";
+import { makeInitialState } from "@/state/makeInitialState";
 
 export type UseChallengeProps = {
   challengeId: string;
@@ -10,7 +11,7 @@ export type UseChallengeProps = {
 export type UseChallengeState =
   | { kind: "Loading" }
   | { kind: "Error"; error: string }
-  | { kind: "Success"; challenge: Challenge };
+  | { kind: "Success"; challengeState: ChallengeState };
 
 export function useChallenge(props: UseChallengeProps) {
   const { challengeId } = props;
@@ -23,7 +24,8 @@ export function useChallenge(props: UseChallengeProps) {
     async function fetchChallenge() {
       try {
         const challenge = await API.fetchChallenge({ challengeId });
-        setState({ kind: "Success", challenge });
+        const challengeState = makeInitialState({ challenge });
+        setState({ kind: "Success", challengeState });
       } catch (error) {
         setState({ kind: "Error", error: String(error) });
       }

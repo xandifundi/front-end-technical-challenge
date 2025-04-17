@@ -1,19 +1,19 @@
 import pageStyles from "@/ui/styles/page.module.css";
+import type { Challenge } from "@/domain/types";
 
 export type ChallengeStartPageProps = {
-  challengeName: string;
-  challengeDescription: string;
+  challenge: Challenge;
   onStart: () => void;
 };
 
 export function ChallengeStartPage(props: ChallengeStartPageProps) {
-  const { challengeName, challengeDescription, onStart } = props;
+  const { challenge, onStart } = props;
 
   return (
     <div className={pageStyles.page}>
       <main>
-        <h1>{challengeName}</h1>
-        <div>{challengeDescription}</div>
+        <h1>{challenge.name}</h1>
+        <div>{challenge.description}</div>
         <div>
           <button onClick={onStart}>Start Challenge</button>
         </div>

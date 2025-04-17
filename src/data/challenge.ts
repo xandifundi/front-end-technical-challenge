@@ -1,11 +1,13 @@
 import { Challenge, TextPage, MultipleChoiceQuestion } from "@/domain/types";
 
 const introduction: TextPage = {
+  kind: "TextPage",
   id: "1",
   content: "This is a sample text page.",
 };
 
 const q1: MultipleChoiceQuestion = {
+  kind: "MultipleChoiceQuestion",
   id: "2",
   question: "What is the capital of France?",
   options: [
@@ -19,6 +21,7 @@ const q1: MultipleChoiceQuestion = {
 };
 
 const q2: MultipleChoiceQuestion = {
+  kind: "MultipleChoiceQuestion",
   id: "3",
   question: "What is the largest planet in our solar system?",
   options: [
@@ -32,6 +35,7 @@ const q2: MultipleChoiceQuestion = {
 };
 
 const q3: MultipleChoiceQuestion = {
+  kind: "MultipleChoiceQuestion",
   id: "4",
   question: "What is the chemical symbol for gold?",
   options: [
@@ -46,7 +50,7 @@ const q3: MultipleChoiceQuestion = {
 
 export const challenge: Challenge = {
   id: "1",
-  title: "Sample Challenge",
+  name: "Sample Challenge",
   description: "This is a sample challenge.",
   items: [introduction, q1, q2, q3],
 };
