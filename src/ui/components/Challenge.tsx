@@ -1,23 +1,37 @@
-import type { ChallengeState } from "@/state/types";
+import type { Challenge } from "@/domain/types";
 import { ChallengeStartPage } from "./pages/startPage/ChallengeStartPage";
 import { ChallengeResultsPage } from "./pages/resultsPage/ChallengeResultsPage";
 import { ChallengeItemPage } from "./pages/itemPage/ChallengeItemPage";
+import { useChallengeState } from "@/ui/hooks/useChallengeState";
 
 export type ChallengeProps = {
-  challengeState: ChallengeState;
+  challenge: Challenge;
 };
 
 export function Challenge(props: ChallengeProps) {
-  const { challengeState } = props;
-  const { challenge } = challengeState;
+  const { challenge } = props;
+
+  const { challengeState, handleEvent } = useChallengeState({ challenge });
 
   switch (challengeState.page.kind) {
     case "StartPage": {
-      return <ChallengeStartPage challenge={challenge} onStart={() => {}} />;
+      return (
+        <ChallengeStartPage
+          challenge={challenge}
+          onStart={() => {
+            handleEvent({ kind: "StartChallenge" });
+          }}
+        />
+      );
     }
     case "ResultsPage": {
       return (
-        <ChallengeResultsPage challenge={challenge} onRestart={() => {}} />
+        <ChallengeResultsPage
+          challenge={challenge}
+          onRestart={() => {
+            handleEvent({ kind: "RestartChallenge" });
+          }}
+        />
       );
     }
     case "ItemPage": {
@@ -26,8 +40,12 @@ export function Challenge(props: ChallengeProps) {
       return (
         <ChallengeItemPage
           item={item}
-          onPrevious={() => {}}
-          onNext={() => {}}
+          onPrevious={() => {
+            handleEvent({ kind: "GoToPreviousItem" });
+          }}
+          onNext={() => {
+            handleEvent({ kind: "GoToNextItem" });
+          }}
         />
       );
     }

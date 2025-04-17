@@ -1,22 +1,20 @@
 import React from "react";
 import * as API from "@/utils/api";
-import { ChallengeState } from "@/state/types";
-import { makeInitialState } from "@/state/makeInitialState";
+import { Challenge } from "@/domain/types";
 
 export type UseChallengeProps = {
   challengeId: string;
 };
 
-// TODO: Make this less type safe as an exercise?
-export type UseChallengeState =
+export type UseChallengeResult =
   | { kind: "Loading" }
   | { kind: "Error"; error: string }
-  | { kind: "Success"; challengeState: ChallengeState };
+  | { kind: "Success"; challenge: Challenge };
 
 export function useChallenge(props: UseChallengeProps) {
   const { challengeId } = props;
 
-  const [state, setState] = React.useState<UseChallengeState>({
+  const [result, setResult] = React.useState<UseChallengeResult>({
     kind: "Loading",
   });
 
@@ -24,15 +22,14 @@ export function useChallenge(props: UseChallengeProps) {
     async function fetchChallenge() {
       try {
         const challenge = await API.fetchChallenge({ challengeId });
-        const challengeState = makeInitialState({ challenge });
-        setState({ kind: "Success", challengeState });
+        setResult({ kind: "Success", challenge });
       } catch (error) {
-        setState({ kind: "Error", error: String(error) });
+        setResult({ kind: "Error", error: String(error) });
       }
     }
 
     fetchChallenge();
   }, [challengeId]);
 
-  return state;
+  return result;
 }

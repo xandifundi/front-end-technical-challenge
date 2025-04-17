@@ -18,9 +18,9 @@ export function ChallengeContainer(props: ChallengeContainerProps) {
       return <div>Error: {challengeResult.error}</div>;
     }
     case "Success": {
-      const { challengeState } = challengeResult;
+      const { challenge } = challengeResult;
 
-      return <Challenge challengeState={challengeState} />;
+      return <Challenge challenge={challenge} />;
     }
   }
 }
