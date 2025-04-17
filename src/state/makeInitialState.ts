@@ -16,7 +16,7 @@ function makeMultipleChoiceQuestionItem(
   return {
     kind: "MultipleChoiceQuestion",
     question,
-    state: { kind: "NotAnswered" },
+    state: { kind: "NotMarked", selectedOptionId: null },
   };
 }
 

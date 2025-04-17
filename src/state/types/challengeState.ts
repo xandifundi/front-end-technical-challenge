@@ -1,10 +1,13 @@
-import { MultipleChoiceQuestion, TextPage, Challenge } from "@/domain/types";
+import {
+  MultipleChoiceQuestion,
+  MultipleChoiceQuestionResult,
+  TextPage,
+  Challenge,
+} from "@/domain/types";
 
 export type MultipleChoiceQuestionState =
-  | { kind: "NotAnswered" }
-  | { kind: "Answered"; selectedOptionId: string }
-  | { kind: "Correct" }
-  | { kind: "Incorrect"; selectedOptionId: string };
+  | { kind: "NotMarked"; selectedOptionId: string | null }
+  | { kind: "Marked"; result: MultipleChoiceQuestionResult };
 
 export type MultipleChoiceQuestionItem = {
   kind: "MultipleChoiceQuestion";

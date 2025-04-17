@@ -12,6 +12,10 @@ export type MultipleChoiceQuestion = {
   explanation: string;
 };
 
+export type MultipleChoiceQuestionResult =
+  | { kind: "Correct" }
+  | { kind: "Incorrect"; selectedOptionId: string };
+
 export type TextPage = {
   kind: "TextPage";
   id: string;
