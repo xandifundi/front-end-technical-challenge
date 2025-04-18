@@ -5,9 +5,19 @@ import {
   Challenge,
 } from "@/domain/types";
 
+export type MultipleChoiceQuestionStateNotMarked = {
+  kind: "NotMarked";
+  selectedOptionId: string | null;
+};
+
+export type MultipleChoiceQuestionStateMarked = {
+  kind: "Marked";
+  result: MultipleChoiceQuestionResult;
+};
+
 export type MultipleChoiceQuestionState =
-  | { kind: "NotMarked"; selectedOptionId: string | null }
-  | { kind: "Marked"; result: MultipleChoiceQuestionResult };
+  | MultipleChoiceQuestionStateNotMarked
+  | MultipleChoiceQuestionStateMarked;
 
 export type MultipleChoiceQuestionItem = {
   kind: "MultipleChoiceQuestion";
