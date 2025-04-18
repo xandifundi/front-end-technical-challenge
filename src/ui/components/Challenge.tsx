@@ -11,9 +11,9 @@ export type ChallengeProps = {
 export function Challenge(props: ChallengeProps) {
   const { challenge } = props;
 
-  const { challengeState, handleEvent } = useChallengeState({ challenge });
+  const { state, handleEvent } = useChallengeState({ challenge });
 
-  switch (challengeState.page.kind) {
+  switch (state.page.kind) {
     case "StartPage": {
       return (
         <ChallengeStartPage
@@ -35,8 +35,8 @@ export function Challenge(props: ChallengeProps) {
       );
     }
     case "ItemPage": {
-      const { itemIndex } = challengeState.page;
-      const item = challengeState.items[itemIndex];
+      const { itemIndex } = state.page;
+      const item = state.items[itemIndex];
       return <ChallengeItemPage item={item} onEvent={handleEvent} />;
     }
   }

@@ -9,7 +9,7 @@ import { ChallengeItemFooter } from "../common/ChallengeItemFooter";
 
 export type MultipleChoiceQuestionPageProps = {
   item: MultipleChoiceQuestionItem;
-  onPrevious: () => void;
+  onBack: () => void;
   onNext: () => void;
   onOptionSelected: (optionId: string) => void;
   onCheckAnswer: () => void;
@@ -18,12 +18,10 @@ export type MultipleChoiceQuestionPageProps = {
 export function MultipleChoiceQuestionPage(
   props: MultipleChoiceQuestionPageProps
 ) {
-  const { item, onOptionSelected, onCheckAnswer, onPrevious, onNext } = props;
+  const { item, onOptionSelected, onCheckAnswer, onBack, onNext } = props;
   const { question, state } = item;
 
-  const footer = (
-    <ChallengeItemFooter onPrevious={onPrevious} onNext={onNext} />
-  );
+  const footer = <ChallengeItemFooter onBack={onBack} onNext={onNext} />;
 
   switch (state.kind) {
     case "NotMarked": {

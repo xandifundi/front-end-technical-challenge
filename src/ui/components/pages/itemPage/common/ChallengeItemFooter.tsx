@@ -1,14 +1,14 @@
 export type ChallengeItemFooterProps = {
-  onPrevious: () => void;
+  onBack: () => void;
   onNext: () => void;
 };
 
 export function ChallengeItemFooter(props: ChallengeItemFooterProps) {
-  const { onPrevious, onNext } = props;
+  const { onBack, onNext } = props;
 
   return (
     <div>
-      <button onClick={onPrevious}>Previous</button>
+      <button onClick={onBack}>Back</button>
       <button onClick={onNext}>Next</button>
     </div>
   );

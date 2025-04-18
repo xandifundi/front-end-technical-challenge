@@ -1,23 +1,20 @@
 import { TextSnippetItem } from "@/state/types";
-import pageStyles from "@/ui/styles/page.module.css";
+import { ChallengeItemLayout } from "../common/ChallengeItemLayout";
+import { ChallengeItemFooter } from "../common/ChallengeItemFooter";
 
 export type TextSnippetPageProps = {
   item: TextSnippetItem;
-  onPrevious: () => void;
+  onBack: () => void;
   onNext: () => void;
 };
 
 export function TextSnippetPage(props: TextSnippetPageProps) {
-  const { item, onPrevious, onNext } = props;
+  const { item, onBack, onNext } = props;
   const { snippet } = item;
 
-  return (
-    <div className={pageStyles.page}>
-      <main>{snippet.content}</main>
-      <footer>
-        <button onClick={onPrevious}>Previous</button>
-        <button onClick={onNext}>Next</button>
-      </footer>
-    </div>
-  );
+  const footer = <ChallengeItemFooter onBack={onBack} onNext={onNext} />;
+
+  const main = <div>{snippet.content}</div>;
+
+  return <ChallengeItemLayout main={main} footer={footer} />;
 }

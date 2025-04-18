@@ -11,17 +11,17 @@ export type UseChallengeStateProps = {
 export function useChallengeState(props: UseChallengeStateProps) {
   const { challenge } = props;
 
-  const [challengeState, setChallengeState] = React.useState<ChallengeState>(
-    () => makeInitialState({ challenge })
+  const [state, setState] = React.useState<ChallengeState>(() =>
+    makeInitialState({ challenge })
   );
 
   function handleEvent(event: ChallengeEvent) {
-    const newState = handleEventInternal({ state: challengeState, event });
-    setChallengeState(newState);
+    const newState = handleEventInternal({ state, event });
+    setState(newState);
   }
 
   return {
-    challengeState,
+    state,
     handleEvent,
   };
 }

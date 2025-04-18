@@ -16,7 +16,7 @@ export function ChallengeItemPage(props: ChallengeItemPageProps): JSX.Element {
       return (
         <TextSnippetPage
           item={item}
-          onPrevious={() => {
+          onBack={() => {
             onEvent({ kind: "GoToPreviousItem" });
           }}
           onNext={() => {
@@ -38,7 +38,7 @@ export function ChallengeItemPage(props: ChallengeItemPageProps): JSX.Element {
           onCheckAnswer={() => {
             onEvent({ kind: "MultipleChoiceQuestionCheckAnswer" });
           }}
-          onPrevious={() => {
+          onBack={() => {
             onEvent({ kind: "GoToPreviousItem" });
           }}
           onNext={() => {

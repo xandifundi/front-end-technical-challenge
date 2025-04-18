@@ -14,6 +14,30 @@ export type HandleEventProps = {
   event: ChallengeEvent;
 };
 
+export function handleEvent(props: HandleEventProps): ChallengeState {
+  const { state, event } = props;
+  switch (event.kind) {
+    case "StartChallenge": {
+      return handleStartChallengeEvent(state);
+    }
+    case "RestartChallenge": {
+      return handleRestartChallengeEvent(state);
+    }
+    case "GoToNextItem": {
+      return handleGoToNextItemEvent(state);
+    }
+    case "GoToPreviousItem": {
+      return handleGoToPreviousItemEvent(state);
+    }
+    case "MultipleChoiceQuestionOptionSelected": {
+      return handleMultipleChoiceQuestionOptionSelectedEvent(state, event);
+    }
+    case "MultipleChoiceQuestionCheckAnswer": {
+      return handleMultipleChoiceQuestionCheckAnswerEvent(state);
+    }
+  }
+}
+
 function handleStartChallengeEvent(state: ChallengeState): ChallengeState {
   return {
     ...state,
@@ -121,28 +145,4 @@ function handleMultipleChoiceQuestionCheckAnswerEvent(
     ...state,
     items: newItems,
   };
-}
-
-export function handleEvent(props: HandleEventProps): ChallengeState {
-  const { state, event } = props;
-  switch (event.kind) {
-    case "StartChallenge": {
-      return handleStartChallengeEvent(state);
-    }
-    case "RestartChallenge": {
-      return handleRestartChallengeEvent(state);
-    }
-    case "GoToNextItem": {
-      return handleGoToNextItemEvent(state);
-    }
-    case "GoToPreviousItem": {
-      return handleGoToPreviousItemEvent(state);
-    }
-    case "MultipleChoiceQuestionOptionSelected": {
-      return handleMultipleChoiceQuestionOptionSelectedEvent(state, event);
-    }
-    case "MultipleChoiceQuestionCheckAnswer": {
-      return handleMultipleChoiceQuestionCheckAnswerEvent(state);
-    }
-  }
 }
