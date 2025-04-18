@@ -6,7 +6,7 @@ import type {
 } from "./types/challengeState";
 import type {
   ChallengeEvent,
-  MultipleChoiceQuestionCheckAnswerEvent,
+  MultipleChoiceQuestionOptionSelectedEvent,
 } from "./types/events";
 
 export type HandleEventProps = {
@@ -58,9 +58,38 @@ function handleGoToPreviousItemEvent(state: ChallengeState): ChallengeState {
   };
 }
 
-function handleMultipleChoiceQuestionCheckAnswerEvent(
+function handleMultipleChoiceQuestionOptionSelectedEvent(
   state: ChallengeState,
-  event: MultipleChoiceQuestionCheckAnswerEvent
+  event: MultipleChoiceQuestionOptionSelectedEvent
+): ChallengeState {
+  const { items, page } = state;
+  if (page.kind !== "ItemPage") {
+    return state;
+  }
+  const { itemIndex } = page;
+  const item = items[itemIndex];
+  if (item.kind !== "MultipleChoiceQuestion") {
+    return state;
+  }
+  const { selectedOptionId } = event;
+  const newItem: MultipleChoiceQuestionItem = {
+    ...item,
+    state: {
+      kind: "NotMarked",
+      selectedOptionId,
+    },
+  };
+  const newItems: ChallengeItem[] = items.map((_, index) =>
+    index === itemIndex ? newItem : items[index]
+  );
+  return {
+    ...state,
+    items: newItems,
+  };
+}
+
+function handleMultipleChoiceQuestionCheckAnswerEvent(
+  state: ChallengeState
 ): ChallengeState {
   const { items, page } = state;
   if (page.kind !== "ItemPage") {
@@ -72,7 +101,8 @@ function handleMultipleChoiceQuestionCheckAnswerEvent(
     return state;
   }
   const { question } = item;
-  const { selectedOptionId } = event;
+  const selectedOptionId =
+    item.state.kind === "NotMarked" ? item.state.selectedOptionId : null;
   const result = Marking.markMultipleChoiceQuestion({
     question,
     selectedOptionId,
@@ -108,8 +138,11 @@ export function handleEvent(props: HandleEventProps): ChallengeState {
     case "GoToPreviousItem": {
       return handleGoToPreviousItemEvent(state);
     }
+    case "MultipleChoiceQuestionOptionSelected": {
+      return handleMultipleChoiceQuestionOptionSelectedEvent(state, event);
+    }
     case "MultipleChoiceQuestionCheckAnswer": {
-      return handleMultipleChoiceQuestionCheckAnswerEvent(state, event);
+      return handleMultipleChoiceQuestionCheckAnswerEvent(state);
     }
   }
 }

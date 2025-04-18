@@ -37,17 +37,7 @@ export function Challenge(props: ChallengeProps) {
     case "ItemPage": {
       const { itemIndex } = challengeState.page;
       const item = challengeState.items[itemIndex];
-      return (
-        <ChallengeItemPage
-          item={item}
-          onPrevious={() => {
-            handleEvent({ kind: "GoToPreviousItem" });
-          }}
-          onNext={() => {
-            handleEvent({ kind: "GoToNextItem" });
-          }}
-        />
-      );
+      return <ChallengeItemPage item={item} onEvent={handleEvent} />;
     }
   }
 }

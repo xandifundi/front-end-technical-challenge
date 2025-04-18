@@ -9,7 +9,7 @@ const introduction: TextSnippet = {
 const q1: MultipleChoiceQuestion = {
   kind: "MultipleChoiceQuestion",
   id: "2",
-  question: "What is the capital of France?",
+  prompt: "What is the capital of France?",
   options: [
     { id: "1", text: "Berlin" },
     { id: "2", text: "Madrid" },
@@ -23,7 +23,7 @@ const q1: MultipleChoiceQuestion = {
 const q2: MultipleChoiceQuestion = {
   kind: "MultipleChoiceQuestion",
   id: "3",
-  question: "What is the largest planet in our solar system?",
+  prompt: "What is the largest planet in our solar system?",
   options: [
     { id: "1", text: "Earth" },
     { id: "2", text: "Jupiter" },
@@ -37,7 +37,7 @@ const q2: MultipleChoiceQuestion = {
 const q3: MultipleChoiceQuestion = {
   kind: "MultipleChoiceQuestion",
   id: "4",
-  question: "What is the chemical symbol for gold?",
+  prompt: "What is the chemical symbol for gold?",
   options: [
     { id: "1", text: "Au" },
     { id: "2", text: "Ag" },

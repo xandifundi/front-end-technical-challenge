@@ -6,7 +6,7 @@ export type MultipleChoiceQuestionOption = {
 export type MultipleChoiceQuestion = {
   kind: "MultipleChoiceQuestion";
   id: string;
-  question: string;
+  prompt: string;
   options: MultipleChoiceQuestionOption[];
   correctOptionId: string;
   explanation: string;
@@ -14,7 +14,7 @@ export type MultipleChoiceQuestion = {
 
 export type MultipleChoiceQuestionResult =
   | { kind: "Correct" }
-  | { kind: "Incorrect"; selectedOptionId: string };
+  | { kind: "Incorrect"; selectedOptionId: string | null };
 
 export type TextSnippet = {
   kind: "TextSnippet";

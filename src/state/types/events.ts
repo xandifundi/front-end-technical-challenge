@@ -14,9 +14,13 @@ export type GoToPreviousItemEvent = {
   kind: "GoToPreviousItem";
 };
 
+export type MultipleChoiceQuestionOptionSelectedEvent = {
+  kind: "MultipleChoiceQuestionOptionSelected";
+  selectedOptionId: string;
+};
+
 export type MultipleChoiceQuestionCheckAnswerEvent = {
   kind: "MultipleChoiceQuestionCheckAnswer";
-  selectedOptionId: string;
 };
 
 export type ChallengeEvent =
@@ -24,4 +28,5 @@ export type ChallengeEvent =
   | RestartChallengeEvent
   | GoToNextItemEvent
   | GoToPreviousItemEvent
+  | MultipleChoiceQuestionOptionSelectedEvent
   | MultipleChoiceQuestionCheckAnswerEvent;

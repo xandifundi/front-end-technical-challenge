@@ -2,7 +2,7 @@ import { MultipleChoiceQuestion, MultipleChoiceQuestionResult } from "./types";
 
 export type MarkMultipleChoiceQuestionProps = {
   question: MultipleChoiceQuestion;
-  selectedOptionId: string;
+  selectedOptionId: string | null;
 };
 
 export function markMultipleChoiceQuestion(
