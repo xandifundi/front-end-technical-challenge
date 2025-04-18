@@ -1,5 +1,5 @@
-import pageStyles from "@/ui/styles/page.module.css";
 import type { Challenge } from "@/domain/types";
+import pageStyles from "@/ui/styles/page.module.css";
 
 export type ChallengeResultsPageProps = {
   challenge: Challenge;
