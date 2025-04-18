@@ -1,13 +1,13 @@
 import type {
   Challenge,
   MultipleChoiceQuestion,
-  TextPage,
+  TextSnippet,
 } from "@/domain/types";
 import type {
   ChallengeState,
   ChallengeItem,
   MultipleChoiceQuestionItem,
-  TextPageItem,
+  TextSnippetItem,
 } from "@/state/types";
 
 function makeMultipleChoiceQuestionItem(
@@ -20,10 +20,10 @@ function makeMultipleChoiceQuestionItem(
   };
 }
 
-function makeTextPageItem(page: TextPage): TextPageItem {
+function makeTextSnippetItem(page: TextSnippet): TextSnippetItem {
   return {
-    kind: "TextPage",
-    page,
+    kind: "TextSnippet",
+    snippet: page,
     state: { kind: "NotViewed" },
   };
 }
@@ -33,8 +33,8 @@ function makeItems(challenge: Challenge): ChallengeItem[] {
     switch (item.kind) {
       case "MultipleChoiceQuestion":
         return makeMultipleChoiceQuestionItem(item);
-      case "TextPage":
-        return makeTextPageItem(item);
+      case "TextSnippet":
+        return makeTextSnippetItem(item);
     }
   });
 }

@@ -1,7 +1,7 @@
 import {
   MultipleChoiceQuestion,
   MultipleChoiceQuestionResult,
-  TextPage,
+  TextSnippet,
   Challenge,
 } from "@/domain/types";
 
@@ -15,15 +15,15 @@ export type MultipleChoiceQuestionItem = {
   state: MultipleChoiceQuestionState;
 };
 
-export type TextPageState = { kind: "NotViewed" } | { kind: "Viewed" };
+export type TextSnippetState = { kind: "NotViewed" } | { kind: "Viewed" };
 
-export type TextPageItem = {
-  kind: "TextPage";
-  page: TextPage;
-  state: TextPageState;
+export type TextSnippetItem = {
+  kind: "TextSnippet";
+  snippet: TextSnippet;
+  state: TextSnippetState;
 };
 
-export type ChallengeItem = TextPageItem | MultipleChoiceQuestionItem;
+export type ChallengeItem = TextSnippetItem | MultipleChoiceQuestionItem;
 
 export type ChallengePage =
   | { kind: "StartPage" }

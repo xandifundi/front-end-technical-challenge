@@ -1,3 +1,0 @@
-export function MultipleChoiceQuestion() {
-  return <div>Multiple Choice Question</div>;
-}

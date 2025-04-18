@@ -1,5 +1,7 @@
 import { ChallengeItem } from "@/state/types";
-import pageStyles from "@/ui/styles/page.module.css";
+import { MultipleChoiceQuestionPage } from "./items/MultipleChoiceQuestionPage";
+import { TextSnippetPage } from "./items/TextSnippetPage";
+import { JSX } from "react";
 
 export type ChallengeItemPageProps = {
   item: ChallengeItem;
@@ -7,16 +9,23 @@ export type ChallengeItemPageProps = {
   onNext: () => void;
 };
 
-export function ChallengeItemPage(props: ChallengeItemPageProps) {
-  const { onPrevious, onNext } = props;
+export function ChallengeItemPage(props: ChallengeItemPageProps): JSX.Element {
+  const { item, onPrevious, onNext } = props;
 
-  return (
-    <div className={pageStyles.page}>
-      <main>Item Page</main>
-      <footer>
-        <button onClick={onPrevious}>Previous</button>
-        <button onClick={onNext}>Next</button>
-      </footer>
-    </div>
-  );
+  switch (item.kind) {
+    case "TextSnippet": {
+      return (
+        <TextSnippetPage item={item} onPrevious={onPrevious} onNext={onNext} />
+      );
+    }
+    case "MultipleChoiceQuestion": {
+      return (
+        <MultipleChoiceQuestionPage
+          item={item}
+          onPrevious={onPrevious}
+          onNext={onNext}
+        />
+      );
+    }
+  }
 }

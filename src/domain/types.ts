@@ -16,13 +16,13 @@ export type MultipleChoiceQuestionResult =
   | { kind: "Correct" }
   | { kind: "Incorrect"; selectedOptionId: string };
 
-export type TextPage = {
-  kind: "TextPage";
+export type TextSnippet = {
+  kind: "TextSnippet";
   id: string;
   content: string;
 };
 
-export type ChallengeItem = TextPage | MultipleChoiceQuestion;
+export type ChallengeItem = TextSnippet | MultipleChoiceQuestion;
 
 export type Challenge = {
   id: string;

@@ -1,7 +1,7 @@
-import { Challenge, TextPage, MultipleChoiceQuestion } from "@/domain/types";
+import { Challenge, TextSnippet, MultipleChoiceQuestion } from "@/domain/types";
 
-const introduction: TextPage = {
-  kind: "TextPage",
+const introduction: TextSnippet = {
+  kind: "TextSnippet",
   id: "1",
   content: "This is a sample text page.",
 };
