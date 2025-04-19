@@ -1,4 +1,7 @@
-import { MultipleChoiceQuestion, MultipleChoiceQuestionResult } from "./types";
+import {
+  MultipleChoiceQuestion,
+  MultipleChoiceQuestionResult,
+} from "@/domain/types";
 
 export type MarkMultipleChoiceQuestionProps = {
   question: MultipleChoiceQuestion;
@@ -13,8 +16,8 @@ export function markMultipleChoiceQuestion(
   const isCorrect = question.correctOptionId === selectedOptionId;
 
   if (isCorrect) {
-    return { kind: "Correct" };
+    return { kind: "Correct", selectedOptionId, marks: 1 };
   }
 
-  return { kind: "Incorrect", selectedOptionId };
+  return { kind: "Incorrect", selectedOptionId, marks: 0 };
 }

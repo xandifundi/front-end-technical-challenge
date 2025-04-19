@@ -23,6 +23,7 @@ Moons are natural satellites that orbit planets; some, like Jupiter’s moon Eur
 const q1: MultipleChoiceQuestion = {
   kind: "MultipleChoiceQuestion",
   id: "a78ce4af",
+  marks: 1,
   prompt: "What contains over 99% of the total mass of the solar system?",
   options: [
     { id: "1", text: "Jupiter" },
@@ -38,6 +39,7 @@ const q1: MultipleChoiceQuestion = {
 const q2: MultipleChoiceQuestion = {
   kind: "MultipleChoiceQuestion",
   id: "f349e135",
+  marks: 1,
   prompt: "Where is the Asteroid Belt located?",
   options: [
     { id: "1", text: "Between Earth and Mars" },
@@ -53,6 +55,7 @@ const q2: MultipleChoiceQuestion = {
 const q3: MultipleChoiceQuestion = {
   kind: "MultipleChoiceQuestion",
   id: "f03dcf42",
+  marks: 1,
   prompt: `Why is Europa, one of Jupiter’s moons, scientifically interesting?`,
   options: [
     { id: "1", text: "It has an active volcano" },

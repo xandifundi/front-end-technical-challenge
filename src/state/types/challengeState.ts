@@ -37,7 +37,7 @@ export type ChallengeItem = TextSnippetItem | MultipleChoiceQuestionItem;
 
 export type ChallengePage =
   | { kind: "StartPage" }
-  | { kind: "ResultsPage" }
+  | { kind: "ResultsPage"; totalMarks: number; marks: number }
   | { kind: "ItemPage"; itemIndex: number };
 
 export type ChallengeState = {

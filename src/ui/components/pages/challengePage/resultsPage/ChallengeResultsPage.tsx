@@ -6,18 +6,23 @@ import styles from "./ChallengeResultsPage.module.css";
 
 export type ChallengeResultsPageProps = {
   challenge: Challenge;
+  totalMarks: number;
+  marks: number;
   onRestart: () => void;
 };
 
 export function ChallengeResultsPage(props: ChallengeResultsPageProps) {
   const { challenge, onRestart } = props;
 
+  const percentage = (props.marks / props.totalMarks) * 100;
+  const percentageInt = Math.floor(percentage);
+
   return (
     <div className={pageStyles.page}>
       <main>
         <Heading>{challenge.name} Results</Heading>
 
-        <div className={styles.results}>Your results are ...</div>
+        <div className={styles.results}>You got {percentageInt}%</div>
 
         <div>
           <Button onClick={onRestart}>Restart</Button>

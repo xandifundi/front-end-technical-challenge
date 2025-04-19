@@ -1,4 +1,4 @@
-import * as Marking from "@/domain/marking";
+import * as Marking from "@/utils/marking";
 import type {
   ChallengeState,
   ChallengeItem,
@@ -59,9 +59,33 @@ function handleCloseChallengeEvent(state: ChallengeState): ChallengeState {
 }
 
 function handleFinishChallengeEvent(state: ChallengeState): ChallengeState {
+  const totalMarks = state.items.reduce((acc, item) => {
+    switch (item.kind) {
+      case "TextSnippet": {
+        return acc;
+      }
+      case "MultipleChoiceQuestion": {
+        return acc + item.question.marks;
+      }
+    }
+  }, 0);
+
+  const marks = state.items.reduce((acc, item) => {
+    switch (item.kind) {
+      case "TextSnippet": {
+        return acc;
+      }
+      case "MultipleChoiceQuestion": {
+        return item.state.kind === "Marked"
+          ? acc + item.state.result.marks
+          : acc;
+      }
+    }
+  }, 0);
+
   return {
     ...state,
-    page: { kind: "ResultsPage" },
+    page: { kind: "ResultsPage", totalMarks, marks },
   };
 }
 

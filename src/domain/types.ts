@@ -10,11 +10,12 @@ export type MultipleChoiceQuestion = {
   options: MultipleChoiceQuestionOption[];
   correctOptionId: string;
   explanation: string;
+  marks: number;
 };
 
 export type MultipleChoiceQuestionResult =
-  | { kind: "Correct" }
-  | { kind: "Incorrect"; selectedOptionId: string | null };
+  | { kind: "Correct"; selectedOptionId: string; marks: number }
+  | { kind: "Incorrect"; selectedOptionId: string | null; marks: number };
 
 export type TextSnippet = {
   kind: "TextSnippet";
