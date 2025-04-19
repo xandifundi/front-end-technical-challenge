@@ -6,7 +6,7 @@ import {
 } from "@/state/types";
 import { Button } from "@/ui/components/common/Button";
 import { HtmlContent } from "@/ui/components/common/HtmlContent";
-import styles from "./MultipleChoiceQuestionPage.module.css";
+import styles from "./MultipleChoiceQuestion.module.css";
 
 export type MultipleChoiceQuestionProps = {
   item: MultipleChoiceQuestionItem;
@@ -92,21 +92,54 @@ function MultipleChoiceQuestionMarked(
 ) {
   const { question, state } = props;
 
+  const selectedOptionId =
+    state.result.kind === "Correct"
+      ? question.correctOptionId
+      : state.result.selectedOptionId;
+
   return (
     <div>
-      <div>
+      <div className={styles.prompt}>
         <HtmlContent content={question.prompt} />
       </div>
 
-      <div>
+      <div className={styles.options}>
         {question.options.map((option) => (
-          <div key={option.id}>{option.text}</div>
+          <div key={option.id} className={styles.option}>
+            <input
+              type="radio"
+              id={option.id}
+              className={styles.optionInput}
+              checked={selectedOptionId === option.id}
+              disabled
+            />
+            <label htmlFor={option.id}>{option.text}</label>
+          </div>
         ))}
       </div>
 
-      <div>{state.result.kind}</div>
+      <div className={styles.result}>
+        <MultipleChoiceQuestionResult state={state} />
+      </div>
 
-      <HtmlContent content={question.explanation} />
+      <div>
+        <HtmlContent content={question.explanation} />
+      </div>
     </div>
   );
+}
+
+function MultipleChoiceQuestionResult({
+  state,
+}: {
+  state: MultipleChoiceQuestionStateMarked;
+}) {
+  switch (state.result.kind) {
+    case "Correct": {
+      return <div>✅ Correct</div>;
+    }
+    case "Incorrect": {
+      return <div>❌ Incorrect</div>;
+    }
+  }
 }
