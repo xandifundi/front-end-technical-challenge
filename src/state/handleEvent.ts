@@ -8,6 +8,7 @@ import type {
   ChallengeEvent,
   MultipleChoiceQuestionOptionSelectedEvent,
 } from "./types/events";
+import { makeInitialState } from "./makeInitialState";
 
 export type HandleEventProps = {
   state: ChallengeState;
@@ -52,10 +53,7 @@ function handleStartChallengeEvent(state: ChallengeState): ChallengeState {
 }
 
 function handleCloseChallengeEvent(state: ChallengeState): ChallengeState {
-  return {
-    ...state,
-    page: { kind: "StartPage" },
-  };
+  return makeInitialState({ challenge: state.challenge });
 }
 
 function handleFinishChallengeEvent(state: ChallengeState): ChallengeState {
@@ -90,10 +88,7 @@ function handleFinishChallengeEvent(state: ChallengeState): ChallengeState {
 }
 
 function handleRestartChallengeEvent(state: ChallengeState): ChallengeState {
-  return {
-    ...state,
-    page: { kind: "StartPage" },
-  };
+  return makeInitialState({ challenge: state.challenge });
 }
 
 function handleGoToNextItemEvent(state: ChallengeState): ChallengeState {
