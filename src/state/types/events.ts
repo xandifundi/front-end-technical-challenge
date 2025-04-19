@@ -2,6 +2,10 @@ export type StartChallengeEvent = {
   kind: "StartChallenge";
 };
 
+export type CloseChallengeEvent = {
+  kind: "CloseChallenge";
+};
+
 export type FinishChallengeEvent = {
   kind: "FinishChallenge";
 };
@@ -29,6 +33,7 @@ export type MultipleChoiceQuestionCheckAnswerEvent = {
 
 export type ChallengeEvent =
   | StartChallengeEvent
+  | CloseChallengeEvent
   | FinishChallengeEvent
   | RestartChallengeEvent
   | GoToNextItemEvent

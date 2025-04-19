@@ -52,7 +52,17 @@ export function ChallengeItemPage(
   return (
     <div className={pageStyles.page}>
       <header className={styles.header}>
-        <ProgressBar current={props.itemNumber} total={props.itemCount} />
+        <div className={styles.headerProgress}>
+          <ProgressBar current={props.itemNumber} total={props.itemCount} />
+        </div>
+        <div>
+          <Button
+            size="small"
+            onClick={() => onEvent({ kind: "CloseChallenge" })}
+          >
+            ✕
+          </Button>
+        </div>
       </header>
       <main>
         <ChallengeItem item={item} onEvent={onEvent} />

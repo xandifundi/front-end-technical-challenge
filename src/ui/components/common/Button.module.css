@@ -1,3 +1,7 @@
-.button {
+.buttonSmall {
+  padding: .125rem 0.25rem;
+}
+
+.buttonLarge {
   padding: .5rem 1rem;
 }
