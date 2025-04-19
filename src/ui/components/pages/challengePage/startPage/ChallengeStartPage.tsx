@@ -1,7 +1,7 @@
 import type { Challenge } from "@/domain/types";
 import { Heading } from "@/ui/components/common/Heading";
 import { Button } from "@/ui/components/common/Button";
-import { HtmlContent } from "@/ui/components/common/HtmlContent";
+import { Markdown } from "@/ui/components/common/Markdown";
 import pageStyles from "@/ui/styles/page.module.css";
 import styles from "./ChallengeStartPage.module.css";
 
@@ -19,7 +19,7 @@ export function ChallengeStartPage(props: ChallengeStartPageProps) {
         <Heading>{challenge.name}</Heading>
 
         <div className={styles.content}>
-          <HtmlContent content={challenge.description} />
+          <Markdown>{challenge.description}</Markdown>
         </div>
 
         <div>

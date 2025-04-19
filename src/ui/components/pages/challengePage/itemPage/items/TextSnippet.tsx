@@ -1,5 +1,5 @@
 import { TextSnippetItem } from "@/state/types";
-import { HtmlContent } from "@/ui/components/common/HtmlContent";
+import { Markdown } from "@/ui/components/common/Markdown";
 
 export type TextSnippetProps = {
   item: TextSnippetItem;
@@ -11,7 +11,7 @@ export function TextSnippet(props: TextSnippetProps) {
 
   return (
     <div>
-      <HtmlContent content={snippet.content} />
+      <Markdown>{snippet.content}</Markdown>
     </div>
   );
 }

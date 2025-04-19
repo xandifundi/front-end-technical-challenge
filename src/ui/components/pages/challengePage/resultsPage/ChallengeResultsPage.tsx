@@ -22,7 +22,10 @@ export function ChallengeResultsPage(props: ChallengeResultsPageProps) {
       <main>
         <Heading>{challenge.name} Results</Heading>
 
-        <div className={styles.results}>You got {percentageInt}%</div>
+        <div className={styles.results}>
+          You got {props.marks} out of {props.totalMarks} marks ({percentageInt}
+          %)
+        </div>
 
         <div>
           <Button onClick={onRestart}>Restart</Button>

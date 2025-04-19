@@ -5,7 +5,7 @@ import {
   MultipleChoiceQuestionStateMarked,
 } from "@/state/types";
 import { Button } from "@/ui/components/common/Button";
-import { HtmlContent } from "@/ui/components/common/HtmlContent";
+import { Markdown } from "@/ui/components/common/Markdown";
 import styles from "./MultipleChoiceQuestion.module.css";
 
 export type MultipleChoiceQuestionProps = {
@@ -53,7 +53,7 @@ function MultipleChoiceQuestionNotMarked(
   return (
     <div>
       <div className={styles.prompt}>
-        <HtmlContent content={question.prompt} />
+        <Markdown>{question.prompt}</Markdown>
       </div>
 
       <div className={styles.options}>
@@ -100,7 +100,7 @@ function MultipleChoiceQuestionMarked(
   return (
     <div>
       <div className={styles.prompt}>
-        <HtmlContent content={question.prompt} />
+        <Markdown>{question.prompt}</Markdown>
       </div>
 
       <div className={styles.options}>
@@ -123,7 +123,7 @@ function MultipleChoiceQuestionMarked(
       </div>
 
       <div>
-        <HtmlContent content={question.explanation} />
+        <Markdown>{question.explanation}</Markdown>
       </div>
     </div>
   );

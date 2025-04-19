@@ -4,9 +4,7 @@ const introduction: TextSnippet = {
   kind: "TextSnippet",
   id: "1",
   content: `
-The solar system consists of the Sun and everything bound to it by gravity.
-
-This includes the eight major planets, their moons, dwarf planets, comets, and asteroids.
+The solar system consists of the Sun and everything bound to it by gravity. This includes the eight major planets, their moons, dwarf planets, comets, and asteroids.
 
 The Sun contains over 99% of the solar system’s total mass and is the primary source of light and energy.
 
@@ -70,7 +68,10 @@ const q3: MultipleChoiceQuestion = {
 export const challenge: Challenge = {
   id: "c8a06163",
   name: "The Solar System",
-  description:
-    "The solar system is a vast and fascinating region of space that includes our Sun and all the celestial bodies that orbit it, such as planets, moons, asteroids, and comets. Understanding the solar system helps us gain insights into the formation of planets, the conditions for life, and the dynamics of space beyond Earth.",
+  description: `
+The solar system is a vast and fascinating region of space that includes our Sun and all the celestial bodies that orbit it, such as planets, moons, asteroids, and comets.
+
+Understanding the solar system helps us gain insights into the formation of planets, the conditions for life, and the dynamics of space beyond Earth.
+`,
   items: [introduction, q1, q2, q3],
 };

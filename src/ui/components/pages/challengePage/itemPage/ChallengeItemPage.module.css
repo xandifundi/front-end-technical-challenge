@@ -9,10 +9,14 @@
   flex-grow: 1;
 }
 
+.main {
+  margin-bottom: 4rem
+}
+
 .footer {
-  margin: 2rem 0 2rem 0;
   display: flex;
   gap: 1rem;
+  margin-bottom: 4rem;
 }
 
 .progressBar {
