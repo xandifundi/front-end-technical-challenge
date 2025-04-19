@@ -1,4 +1,5 @@
 import { TextSnippetItem } from "@/state/types";
+import { HtmlContent } from "@/ui/components/common/HtmlContent";
 import { ChallengeItemLayout } from "../common/ChallengeItemLayout";
 import { ChallengeItemFooter } from "../common/ChallengeItemFooter";
 
@@ -14,7 +15,7 @@ export function TextSnippetPage(props: TextSnippetPageProps) {
 
   const footer = <ChallengeItemFooter onBack={onBack} onNext={onNext} />;
 
-  const main = <div>{snippet.content}</div>;
+  const main = <HtmlContent content={snippet.content} />;
 
   return <ChallengeItemLayout main={main} footer={footer} />;
 }

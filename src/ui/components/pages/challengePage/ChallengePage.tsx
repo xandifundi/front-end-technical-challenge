@@ -1,14 +1,14 @@
 import type { Challenge } from "@/domain/types";
-import { ChallengeStartPage } from "./pages/startPage/ChallengeStartPage";
-import { ChallengeResultsPage } from "./pages/resultsPage/ChallengeResultsPage";
-import { ChallengeItemPage } from "./pages/itemPage/ChallengeItemPage";
 import { useChallengeState } from "@/ui/hooks/useChallengeState";
+import { ChallengeStartPage } from "./startPage/ChallengeStartPage";
+import { ChallengeResultsPage } from "./resultsPage/ChallengeResultsPage";
+import { ChallengeItemPage } from "./itemPage/ChallengeItemPage";
 
-export type ChallengeProps = {
+export type ChallengePageProps = {
   challenge: Challenge;
 };
 
-export function Challenge(props: ChallengeProps) {
+export function ChallengePage(props: ChallengePageProps) {
   const { challenge } = props;
 
   const { state, handleEvent } = useChallengeState({ challenge });
