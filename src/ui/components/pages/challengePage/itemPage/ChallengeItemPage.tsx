@@ -1,51 +1,43 @@
-import type { ChallengeItem, ChallengeEvent } from "@/state/types";
-import { MultipleChoiceQuestionPage } from "./items/MultipleChoiceQuestionPage";
-import { TextSnippetPage } from "./items/TextSnippetPage";
-import { JSX } from "react";
+import React from "react";
+import type {
+  ChallengeItem as ChallengeItemType,
+  ChallengeEvent,
+} from "@/state/types";
+import pageStyles from "@/ui/styles/page.module.css";
+import { Button } from "@/ui/components/common/Button";
+import { ChallengeItem } from "./ChallengeItem";
+import styles from "./ChallengeItemPage.module.css";
 
 export type ChallengeItemPageProps = {
-  item: ChallengeItem;
+  item: ChallengeItemType;
   onEvent: (event: ChallengeEvent) => void;
 };
 
-export function ChallengeItemPage(props: ChallengeItemPageProps): JSX.Element {
+export function ChallengeItemPage(
+  props: ChallengeItemPageProps
+): React.JSX.Element {
   const { item, onEvent } = props;
-
-  switch (item.kind) {
-    case "TextSnippet": {
-      return (
-        <TextSnippetPage
-          item={item}
-          onBack={() => {
+  return (
+    <div className={pageStyles.page}>
+      <main>
+        <ChallengeItem item={item} onEvent={onEvent} />
+      </main>
+      <footer className={styles.footer}>
+        <Button
+          onClick={() => {
             onEvent({ kind: "GoToPreviousItem" });
           }}
-          onNext={() => {
+        >
+          Back
+        </Button>
+        <Button
+          onClick={() => {
             onEvent({ kind: "GoToNextItem" });
           }}
-        />
-      );
-    }
-    case "MultipleChoiceQuestion": {
-      return (
-        <MultipleChoiceQuestionPage
-          item={item}
-          onOptionSelected={(selectedOptionId) => {
-            onEvent({
-              kind: "MultipleChoiceQuestionOptionSelected",
-              selectedOptionId,
-            });
-          }}
-          onCheckAnswer={() => {
-            onEvent({ kind: "MultipleChoiceQuestionCheckAnswer" });
-          }}
-          onBack={() => {
-            onEvent({ kind: "GoToPreviousItem" });
-          }}
-          onNext={() => {
-            onEvent({ kind: "GoToNextItem" });
-          }}
-        />
-      );
-    }
-  }
+        >
+          Next
+        </Button>
+      </footer>
+    </div>
+  );
 }

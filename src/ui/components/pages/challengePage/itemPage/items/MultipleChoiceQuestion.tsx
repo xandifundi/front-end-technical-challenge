@@ -6,52 +6,32 @@ import {
 } from "@/state/types";
 import { Button } from "@/ui/components/common/Button";
 import { HtmlContent } from "@/ui/components/common/HtmlContent";
-import { ChallengeItemLayout } from "../common/ChallengeItemLayout";
-import { ChallengeItemFooter } from "../common/ChallengeItemFooter";
 import styles from "./MultipleChoiceQuestionPage.module.css";
 
-export type MultipleChoiceQuestionPageProps = {
+export type MultipleChoiceQuestionProps = {
   item: MultipleChoiceQuestionItem;
-  onBack: () => void;
-  onNext: () => void;
   onOptionSelected: (optionId: string) => void;
   onCheckAnswer: () => void;
 };
 
-export function MultipleChoiceQuestionPage(
-  props: MultipleChoiceQuestionPageProps
-) {
-  const { item, onOptionSelected, onCheckAnswer, onBack, onNext } = props;
+export function MultipleChoiceQuestion(props: MultipleChoiceQuestionProps) {
+  const { item, onOptionSelected, onCheckAnswer } = props;
 
   const { question, state } = item;
-
-  const footer = <ChallengeItemFooter onBack={onBack} onNext={onNext} />;
 
   switch (state.kind) {
     case "NotMarked": {
       return (
-        <ChallengeItemLayout
-          main={
-            <MultipleChoiceQuestionNotMarked
-              question={question}
-              state={state}
-              onOptionSelected={onOptionSelected}
-              onCheckAnswer={onCheckAnswer}
-            />
-          }
-          footer={footer}
+        <MultipleChoiceQuestionNotMarked
+          question={question}
+          state={state}
+          onOptionSelected={onOptionSelected}
+          onCheckAnswer={onCheckAnswer}
         />
       );
     }
     case "Marked": {
-      return (
-        <ChallengeItemLayout
-          main={
-            <MultipleChoiceQuestionMarked question={question} state={state} />
-          }
-          footer={footer}
-        />
-      );
+      return <MultipleChoiceQuestionMarked question={question} state={state} />;
     }
   }
 }

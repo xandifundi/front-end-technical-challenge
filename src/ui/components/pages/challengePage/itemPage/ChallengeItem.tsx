@@ -1,0 +1,35 @@
+import React from "react";
+import type { ChallengeItem, ChallengeEvent } from "@/state/types";
+import { MultipleChoiceQuestion } from "./items/MultipleChoiceQuestion";
+import { TextSnippet } from "./items/TextSnippet";
+
+export type ChallengeItemProps = {
+  item: ChallengeItem;
+  onEvent: (event: ChallengeEvent) => void;
+};
+
+export function ChallengeItem(props: ChallengeItemProps): React.JSX.Element {
+  const { item, onEvent } = props;
+
+  switch (item.kind) {
+    case "TextSnippet": {
+      return <TextSnippet item={item} />;
+    }
+    case "MultipleChoiceQuestion": {
+      return (
+        <MultipleChoiceQuestion
+          item={item}
+          onOptionSelected={(selectedOptionId) => {
+            onEvent({
+              kind: "MultipleChoiceQuestionOptionSelected",
+              selectedOptionId,
+            });
+          }}
+          onCheckAnswer={() => {
+            onEvent({ kind: "MultipleChoiceQuestionCheckAnswer" });
+          }}
+        />
+      );
+    }
+  }
+}
