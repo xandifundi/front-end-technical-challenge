@@ -20,6 +20,9 @@ export function handleEvent(props: HandleEventProps): ChallengeState {
     case "StartChallenge": {
       return handleStartChallengeEvent(state);
     }
+    case "FinishChallenge": {
+      return handleFinishChallengeEvent(state);
+    }
     case "RestartChallenge": {
       return handleRestartChallengeEvent(state);
     }
@@ -42,6 +45,13 @@ function handleStartChallengeEvent(state: ChallengeState): ChallengeState {
   return {
     ...state,
     page: { kind: "ItemPage", itemIndex: 0 },
+  };
+}
+
+function handleFinishChallengeEvent(state: ChallengeState): ChallengeState {
+  return {
+    ...state,
+    page: { kind: "ResultsPage" },
   };
 }
 

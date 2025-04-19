@@ -10,33 +10,51 @@ import styles from "./ChallengeItemPage.module.css";
 
 export type ChallengeItemPageProps = {
   item: ChallengeItemType;
+  isLastItem: boolean;
   onEvent: (event: ChallengeEvent) => void;
 };
 
 export function ChallengeItemPage(
   props: ChallengeItemPageProps
 ): React.JSX.Element {
-  const { item, onEvent } = props;
+  const { item, isLastItem, onEvent } = props;
+
+  const backButton = (
+    <Button
+      onClick={() => {
+        onEvent({ kind: "GoToPreviousItem" });
+      }}
+    >
+      Back
+    </Button>
+  );
+
+  const nextButton = isLastItem ? (
+    <Button
+      onClick={() => {
+        onEvent({ kind: "FinishChallenge" });
+      }}
+    >
+      Finish
+    </Button>
+  ) : (
+    <Button
+      onClick={() => {
+        onEvent({ kind: "GoToNextItem" });
+      }}
+    >
+      Next
+    </Button>
+  );
+
   return (
     <div className={pageStyles.page}>
       <main>
         <ChallengeItem item={item} onEvent={onEvent} />
       </main>
       <footer className={styles.footer}>
-        <Button
-          onClick={() => {
-            onEvent({ kind: "GoToPreviousItem" });
-          }}
-        >
-          Back
-        </Button>
-        <Button
-          onClick={() => {
-            onEvent({ kind: "GoToNextItem" });
-          }}
-        >
-          Next
-        </Button>
+        {backButton}
+        {nextButton}
       </footer>
     </div>
   );

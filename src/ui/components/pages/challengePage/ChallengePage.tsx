@@ -37,7 +37,14 @@ export function ChallengePage(props: ChallengePageProps) {
     case "ItemPage": {
       const { itemIndex } = state.page;
       const item = state.items[itemIndex];
-      return <ChallengeItemPage item={item} onEvent={handleEvent} />;
+      const isLastItem = itemIndex === state.items.length - 1;
+      return (
+        <ChallengeItemPage
+          item={item}
+          isLastItem={isLastItem}
+          onEvent={handleEvent}
+        />
+      );
     }
   }
 }
