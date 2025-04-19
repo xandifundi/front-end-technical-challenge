@@ -11,6 +11,8 @@ import styles from "./ChallengeItemPage.module.css";
 export type ChallengeItemPageProps = {
   item: ChallengeItemType;
   isLastItem: boolean;
+  itemNumber: number;
+  itemCount: number;
   onEvent: (event: ChallengeEvent) => void;
 };
 
@@ -49,6 +51,9 @@ export function ChallengeItemPage(
 
   return (
     <div className={pageStyles.page}>
+      <header className={styles.header}>
+        <ProgressBar current={props.itemNumber} total={props.itemCount} />
+      </header>
       <main>
         <ChallengeItem item={item} onEvent={onEvent} />
       </main>
@@ -56,6 +61,21 @@ export function ChallengeItemPage(
         {backButton}
         {nextButton}
       </footer>
+    </div>
+  );
+}
+
+function ProgressBar({
+  current,
+  total,
+}: {
+  current: number;
+  total: number;
+}): React.JSX.Element {
+  const widthPercent = (current / total) * 100;
+  return (
+    <div className={styles.progressBar}>
+      <div className={styles.progress} style={{ width: `${widthPercent}%` }} />
     </div>
   );
 }

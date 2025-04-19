@@ -38,10 +38,14 @@ export function ChallengePage(props: ChallengePageProps) {
       const { itemIndex } = state.page;
       const item = state.items[itemIndex];
       const isLastItem = itemIndex === state.items.length - 1;
+      const itemCount = state.items.length;
+      const itemNumber = itemIndex + 1;
       return (
         <ChallengeItemPage
           item={item}
           isLastItem={isLastItem}
+          itemNumber={itemNumber}
+          itemCount={itemCount}
           onEvent={handleEvent}
         />
       );
