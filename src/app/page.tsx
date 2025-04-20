@@ -3,5 +3,5 @@
 import { ChallengeContainer } from "@/ui/components/ChallengeContainer";
 
 export default function Challenge() {
-  return <ChallengeContainer challengeId="1" />;
+  return <ChallengeContainer challengeId="123" />;
 }
