@@ -1,4 +1,4 @@
-import * as Marking from "@/utils/marking";
+import * as Marking from "@/marking";
 import type { ChallengeAttempt } from "@/domain/types";
 import type {
   ChallengeEvent,
