@@ -10,41 +10,30 @@ export type ChallengeItemPageProps = {
   itemIndex: number;
   itemCount: number;
   item: ChallengeItemType;
-  isLastItem: boolean;
   onEvent: (event: ChallengeEvent) => void;
 };
 
 export function ChallengeItemPage(
   props: ChallengeItemPageProps
 ): React.JSX.Element {
-  const { itemIndex, item, itemCount, isLastItem, onEvent } = props;
+  const { itemIndex, item, itemCount, onEvent } = props;
+
+  const isFirstItem = itemIndex === 0;
+  const isLastItem = itemIndex === itemCount - 1;
 
   const backButton = (
     <Button
-      onClick={() => {
-        onEvent({ kind: "GoToPreviousItem" });
-      }}
+      disabled={isFirstItem}
+      onClick={() => onEvent({ kind: "GoToPreviousItem" })}
     >
       Back
     </Button>
   );
 
   const nextButton = isLastItem ? (
-    <Button
-      onClick={() => {
-        onEvent({ kind: "FinishChallenge" });
-      }}
-    >
-      Finish
-    </Button>
+    <Button onClick={() => onEvent({ kind: "FinishChallenge" })}>Finish</Button>
   ) : (
-    <Button
-      onClick={() => {
-        onEvent({ kind: "GoToNextItem" });
-      }}
-    >
-      Next
-    </Button>
+    <Button onClick={() => onEvent({ kind: "GoToNextItem" })}>Next</Button>
   );
 
   return (

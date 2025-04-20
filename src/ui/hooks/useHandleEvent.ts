@@ -1,11 +1,11 @@
 import { saveChallengeAttempt } from "@/utils/api/saveChallengeAttempt";
 import type { ChallengeStore } from "@/store/types";
-import type { ChallengeEvent } from "@/events/types/event";
-import {
-  handleEvent as handleEventInternal,
-  type HandleEventContext,
-  type ChallengeAPI,
-} from "@/events/handleEvent";
+import type {
+  ChallengeEvent,
+  HandleEventContext,
+  ChallengeAPI,
+} from "@/events/types";
+import { handleEvent as handleEventInternal } from "@/events/handleEvent";
 
 export type UseChallengeEventsProps = {
   store: ChallengeStore;

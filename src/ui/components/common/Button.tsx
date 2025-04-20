@@ -13,7 +13,13 @@ export function Button({
 }) {
   const className = size === "small" ? styles.buttonSmall : styles.buttonLarge;
   return (
-    <button className={className} onClick={onClick} disabled={disabled}>
+    <button
+      className={className}
+      disabled={disabled}
+      onClick={() => {
+        onClick();
+      }}
+    >
       {children}
     </button>
   );

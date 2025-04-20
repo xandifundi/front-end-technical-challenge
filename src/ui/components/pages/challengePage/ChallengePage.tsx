@@ -39,14 +39,12 @@ export function ChallengePage(props: ChallengePageProps) {
     case "ItemPage": {
       const { itemIndex } = state.page;
       const item = state.items[itemIndex];
-      const isLastItem = itemIndex === state.items.length - 1;
       const itemCount = state.items.length;
       return (
         <ChallengeItemPage
           itemIndex={itemIndex}
-          item={item}
-          isLastItem={isLastItem}
           itemCount={itemCount}
+          item={item}
           onEvent={handleEvent}
         />
       );
