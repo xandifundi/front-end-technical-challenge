@@ -1,7 +1,7 @@
 import type { ChallengeAttempt } from "@/domain/types";
 
 export async function saveChallengeAttempt(challengeAttempt: ChallengeAttempt) {
-  const response = await fetch("/api/save-challenge-attempt", {
+  const response = await fetch("/api/challenge-attempt", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
