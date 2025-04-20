@@ -1,7 +1,5 @@
 import type { Challenge } from "@/domain/types";
-import { useStore } from "@/ui/hooks/useStore";
-import { useStateFromStore } from "@/ui/hooks/useStateFromStore";
-import { useHandleEvent } from "@/ui/hooks/useHandleEvent";
+import { useChallenge } from "@/ui/hooks/useChallenge";
 import { ChallengeStartPage } from "./startPage/ChallengeStartPage";
 import { ChallengeResultsPage } from "./resultsPage/ChallengeResultsPage";
 import { ChallengeItemPage } from "./itemPage/ChallengeItemPage";
@@ -13,11 +11,7 @@ export type ChallengePageProps = {
 export function ChallengePage(props: ChallengePageProps) {
   const { challenge } = props;
 
-  const challengeStore = useStore({ challenge });
-
-  const handleEvent = useHandleEvent({ challengeStore });
-
-  const state = useStateFromStore(challengeStore);
+  const { state, handleEvent } = useChallenge({ challenge });
 
   switch (state.page.kind) {
     case "StartPage": {
