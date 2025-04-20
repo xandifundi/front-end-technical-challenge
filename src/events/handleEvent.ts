@@ -1,6 +1,10 @@
 import * as Marking from "@/utils/marking";
 import type { ChallengeState, ChallengeAction } from "@/state/types";
 import type {
+  ChallengeAttempt,
+  saveChallengeAttempt,
+} from "@/utils/api/saveChallengeAttempt";
+import type {
   ChallengeEvent,
   MultipleChoiceQuestionOptionSelectedEvent,
 } from "./types";
@@ -10,51 +14,62 @@ export type ChallengeStore = {
   dispatch: (action: ChallengeAction) => void;
 };
 
-export type HandleEventProps = {
+export type ChallengeAPI = {
+  saveChallengeAttempt: typeof saveChallengeAttempt;
+};
+
+export type HandleEventContext = {
   store: ChallengeStore;
+  api: ChallengeAPI;
+};
+
+export type HandleEventProps = {
+  context: HandleEventContext;
   event: ChallengeEvent;
 };
 
 export async function handleEvent(props: HandleEventProps): Promise<void> {
-  const { store, event } = props;
+  const { context, event } = props;
   switch (event.kind) {
     case "StartChallenge": {
-      return handleStartChallengeEvent(store);
+      return handleStartChallengeEvent(context);
     }
     case "CloseChallenge": {
-      return handleCloseChallengeEvent(store);
+      return handleCloseChallengeEvent(context);
     }
     case "FinishChallenge": {
-      return handleFinishChallengeEvent(store);
+      return handleFinishChallengeEvent(context);
     }
     case "RestartChallenge": {
-      return handleRestartChallengeEvent(store);
+      return handleRestartChallengeEvent(context);
     }
     case "GoToNextItem": {
-      return handleGoToNextItemEvent(store);
+      return handleGoToNextItemEvent(context);
     }
     case "GoToPreviousItem": {
-      return handleGoToPreviousItemEvent(store);
+      return handleGoToPreviousItemEvent(context);
     }
     case "MultipleChoiceQuestionOptionSelected": {
-      return handleMultipleChoiceQuestionOptionSelectedEvent(store, event);
+      return handleMultipleChoiceQuestionOptionSelectedEvent(context, event);
     }
     case "MultipleChoiceQuestionCheckAnswer": {
-      return handleMultipleChoiceQuestionCheckAnswerEvent(store);
+      return handleMultipleChoiceQuestionCheckAnswerEvent(context);
     }
   }
 }
 
-function handleStartChallengeEvent(store: ChallengeStore): void {
-  store.dispatch({ kind: "GoToFirstItem" });
+function handleStartChallengeEvent(context: HandleEventContext): void {
+  context.store.dispatch({ kind: "GoToFirstItem" });
 }
 
-function handleCloseChallengeEvent(store: ChallengeStore): void {
-  store.dispatch({ kind: "ResetChallege" });
+function handleCloseChallengeEvent(context: HandleEventContext): void {
+  context.store.dispatch({ kind: "ResetChallege" });
 }
 
-function handleFinishChallengeEvent(store: ChallengeStore): void {
-  const state = store.getState();
+async function handleFinishChallengeEvent(
+  context: HandleEventContext
+): Promise<void> {
+  const state = context.store.getState();
 
   const totalMarks = state.items.reduce((acc, item) => {
     switch (item.kind) {
@@ -80,30 +95,60 @@ function handleFinishChallengeEvent(store: ChallengeStore): void {
     }
   }, 0);
 
-  store.dispatch({
+  const challengeAttempt: ChallengeAttempt = {
+    challengeId: state.challenge.id,
+    items: state.items.map((item) => {
+      switch (item.kind) {
+        case "TextSnippet": {
+          return {
+            kind: "TextSnippetAttempt",
+            itemId: item.snippet.id,
+          };
+        }
+        case "MultipleChoiceQuestion": {
+          const result =
+            item.state.kind === "Marked"
+              ? item.state.result
+              : Marking.markMultipleChoiceQuestion({
+                  question: item.question,
+                  selectedOptionId: item.state.selectedOptionId,
+                });
+          return {
+            kind: "MultipleChoiceQuestionAttempt",
+            itemId: item.question.id,
+            result,
+          };
+        }
+      }
+    }),
+  };
+
+  await context.api.saveChallengeAttempt({ challengeAttempt });
+
+  context.store.dispatch({
     kind: "GoToResultsPage",
     totalMarks,
     marks,
   });
 }
 
-function handleRestartChallengeEvent(store: ChallengeStore): void {
-  store.dispatch({ kind: "ResetChallege" });
+function handleRestartChallengeEvent(context: HandleEventContext): void {
+  context.store.dispatch({ kind: "ResetChallege" });
 }
 
-function handleGoToNextItemEvent(store: ChallengeStore): void {
-  store.dispatch({ kind: "GoToNextItem" });
+function handleGoToNextItemEvent(context: HandleEventContext): void {
+  context.store.dispatch({ kind: "GoToNextItem" });
 }
 
-function handleGoToPreviousItemEvent(store: ChallengeStore): void {
-  store.dispatch({ kind: "GoToPreviousItem" });
+function handleGoToPreviousItemEvent(context: HandleEventContext): void {
+  context.store.dispatch({ kind: "GoToPreviousItem" });
 }
 
 function handleMultipleChoiceQuestionOptionSelectedEvent(
-  store: ChallengeStore,
+  context: HandleEventContext,
   event: MultipleChoiceQuestionOptionSelectedEvent
 ): void {
-  store.dispatch({
+  context.store.dispatch({
     kind: "SetMultipleChoiceQuestionSelectedOption",
     itemIndex: event.itemIndex,
     selectedOptionId: event.selectedOptionId,
@@ -111,9 +156,9 @@ function handleMultipleChoiceQuestionOptionSelectedEvent(
 }
 
 function handleMultipleChoiceQuestionCheckAnswerEvent(
-  store: ChallengeStore
+  context: HandleEventContext
 ): void {
-  const state = store.getState();
+  const state = context.store.getState();
 
   const { items, page } = state;
 
@@ -136,7 +181,7 @@ function handleMultipleChoiceQuestionCheckAnswerEvent(
     selectedOptionId: item.state.selectedOptionId,
   });
 
-  store.dispatch({
+  context.store.dispatch({
     kind: "SetMultipleChoiceQuestionResult",
     itemIndex: page.itemIndex,
     result,
