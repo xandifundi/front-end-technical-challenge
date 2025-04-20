@@ -1,16 +1,16 @@
 import type { ChallengeAttempt } from "@/domain/types";
 import type { ChallengeState, ChallengeAction } from "@/state/types";
 
-export type ChallengeStore = {
+export type HandleEventStore = {
   getState: () => ChallengeState;
   dispatch: (action: ChallengeAction) => void;
 };
 
-export type ChallengeAPI = {
+export type HandleEventAPI = {
   saveChallengeAttempt: (challengeAttempt: ChallengeAttempt) => Promise<void>;
 };
 
 export type HandleEventContext = {
-  store: ChallengeStore;
-  api: ChallengeAPI;
+  store: HandleEventStore;
+  api: HandleEventAPI;
 };

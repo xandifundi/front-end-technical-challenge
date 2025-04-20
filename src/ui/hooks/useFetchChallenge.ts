@@ -1,5 +1,5 @@
 import React from "react";
-import * as API from "@/utils/api";
+import * as API from "@/api";
 import { Challenge } from "@/domain/types";
 
 export type UseChallengeProps = {

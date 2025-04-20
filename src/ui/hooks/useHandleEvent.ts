@@ -1,9 +1,9 @@
-import { saveChallengeAttempt } from "@/utils/api/saveChallengeAttempt";
+import * as API from "@/api";
 import type { ChallengeStore } from "@/store/types";
 import type {
   ChallengeEvent,
   HandleEventContext,
-  ChallengeAPI,
+  HandleEventAPI,
 } from "@/events/types";
 import { handleEvent as handleEventInternal } from "@/events/handleEvent";
 
@@ -15,8 +15,8 @@ export function useHandleEvent(props: UseChallengeEventsProps) {
   const { store } = props;
 
   async function handleEvent(event: ChallengeEvent) {
-    const api: ChallengeAPI = {
-      saveChallengeAttempt,
+    const api: HandleEventAPI = {
+      saveChallengeAttempt: API.saveChallengeAttempt,
     };
 
     const context: HandleEventContext = {
