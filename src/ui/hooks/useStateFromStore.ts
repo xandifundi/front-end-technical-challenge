@@ -1,6 +1,6 @@
 import React from "react";
 import { type ChallengeState } from "@/state/types";
-import { type ChallengeStore } from "@/store/makeStore";
+import { type ChallengeStore } from "@/store/types";
 
 export function useStateFromStore(store: ChallengeStore) {
   const [state, setState] = React.useState(store.getState());

@@ -1,7 +1,7 @@
 import type { Challenge } from "@/domain/types";
 import { useStore } from "@/ui/hooks/useStore";
 import { useStateFromStore } from "@/ui/hooks/useStateFromStore";
-import { useHandleChallengeEvent } from "@/ui/hooks/useHandleChallengeEvent";
+import { useHandleEvent } from "@/ui/hooks/useHandleEvent";
 import { ChallengeStartPage } from "./startPage/ChallengeStartPage";
 import { ChallengeResultsPage } from "./resultsPage/ChallengeResultsPage";
 import { ChallengeItemPage } from "./itemPage/ChallengeItemPage";
@@ -15,7 +15,7 @@ export function ChallengePage(props: ChallengePageProps) {
 
   const challengeStore = useStore({ challenge });
 
-  const handleEvent = useHandleChallengeEvent({ challengeStore });
+  const handleEvent = useHandleEvent({ challengeStore });
 
   const state = useStateFromStore(challengeStore);
 

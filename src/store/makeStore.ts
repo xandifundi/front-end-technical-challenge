@@ -2,16 +2,13 @@ import type { Challenge } from "@/domain/types";
 import { ChallengeState, ChallengeAction } from "@/state/types";
 import { handleAction } from "@/state/handleAction";
 import { makeInitialState } from "@/state/makeInitialState";
-
-export type ChallengeStore = ReturnType<typeof makeStore>;
-
-type StoreListener = (state: ChallengeState) => void;
+import type { ChallengeStore, StoreListener } from "./types";
 
 type MakeStoreParams = {
   challenge: Challenge;
 };
 
-export function makeStore(params: MakeStoreParams) {
+export function makeStore(params: MakeStoreParams): ChallengeStore {
   const { challenge } = params;
 
   let listeners: StoreListener[] = [];

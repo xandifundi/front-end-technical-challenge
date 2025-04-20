@@ -1,6 +1,7 @@
 import * as React from "react";
-import { type Challenge } from "@/domain/types";
-import { makeStore, type ChallengeStore } from "@/store/makeStore";
+import type { Challenge } from "@/domain/types";
+import type { ChallengeStore } from "@/store/types";
+import { makeStore } from "@/store/makeStore";
 
 type UseStoreParams = {
   challenge: Challenge;
