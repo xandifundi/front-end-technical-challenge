@@ -49,7 +49,10 @@ function resetChallenge(state: ChallengeState): ChallengeState {
 function goToFirstItem(state: ChallengeState): ChallengeState {
   return {
     ...state,
-    page: { kind: "ItemPage", itemIndex: 0 },
+    page: {
+      kind: "ItemPage",
+      itemIndex: 0,
+    },
   };
 }
 
