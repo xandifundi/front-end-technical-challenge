@@ -32,10 +32,20 @@ export type TextSnippetItem = {
 
 export type ChallengeItem = TextSnippetItem | MultipleChoiceQuestionItem;
 
+export type ChallengePage_StartPage = { kind: "StartPage" };
+
+export type ChallengePage_ResultsPage = {
+  kind: "ResultsPage";
+  totalMarks: number;
+  marks: number;
+};
+
+export type ChallengePage_ItemPage = { kind: "ItemPage"; itemIndex: number };
+
 export type ChallengePage =
-  | { kind: "StartPage" }
-  | { kind: "ResultsPage"; totalMarks: number; marks: number }
-  | { kind: "ItemPage"; itemIndex: number };
+  | ChallengePage_StartPage
+  | ChallengePage_ResultsPage
+  | ChallengePage_ItemPage;
 
 export type ChallengeState = {
   challenge: Challenge;

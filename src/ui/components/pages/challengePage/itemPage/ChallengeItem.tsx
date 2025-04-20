@@ -5,13 +5,12 @@ import { MultipleChoiceQuestion } from "./items/MultipleChoiceQuestion";
 import { TextSnippet } from "./items/TextSnippet";
 
 export type ChallengeItemProps = {
-  itemIndex: number;
   item: ChallengeItem;
   onEvent: (event: ChallengeEvent) => void;
 };
 
 export function ChallengeItem(props: ChallengeItemProps): React.JSX.Element {
-  const { itemIndex, item, onEvent } = props;
+  const { item, onEvent } = props;
 
   switch (item.kind) {
     case "TextSnippet": {
@@ -24,12 +23,13 @@ export function ChallengeItem(props: ChallengeItemProps): React.JSX.Element {
           onOptionSelected={(selectedOptionId) => {
             onEvent({
               kind: "MultipleChoiceQuestionOptionSelected",
-              itemIndex,
               selectedOptionId,
             });
           }}
           onCheckAnswer={() => {
-            onEvent({ kind: "MultipleChoiceQuestionCheckAnswer" });
+            onEvent({
+              kind: "MultipleChoiceQuestionCheckAnswer",
+            });
           }}
         />
       );

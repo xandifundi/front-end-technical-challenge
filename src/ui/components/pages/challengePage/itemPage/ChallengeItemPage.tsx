@@ -54,7 +54,7 @@ export function ChallengeItemPage(
       </header>
 
       <main className={styles.main}>
-        <ChallengeItem itemIndex={itemIndex} item={item} onEvent={onEvent} />
+        <ChallengeItem item={item} onEvent={onEvent} />
       </main>
 
       <footer className={styles.footer}>

@@ -131,9 +131,27 @@ function handleMultipleChoiceQuestionOptionSelectedEvent(
   context: HandleEventContext,
   event: MultipleChoiceQuestionOptionSelectedEvent
 ): void {
+  const state = context.store.getState();
+
+  const { items, page } = state;
+
+  if (page.kind !== "ItemPage") {
+    return;
+  }
+
+  const item = items[page.itemIndex];
+
+  if (item.kind !== "MultipleChoiceQuestion") {
+    return;
+  }
+
+  if (item.state.kind !== "NotMarked") {
+    return;
+  }
+
   context.store.dispatch({
     kind: "SetMultipleChoiceQuestionSelectedOption",
-    itemIndex: event.itemIndex,
+    itemIndex: page.itemIndex,
     selectedOptionId: event.selectedOptionId,
   });
 }

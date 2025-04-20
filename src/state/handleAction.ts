@@ -7,6 +7,7 @@ import type {
   SetMultipleChoiceQuestionSelectedOptionAction,
   SetMultipleChoiceQuestionResultAction,
 } from "./types";
+import { getItemPage, getMultipleChoiceQuestionItem } from "./utils";
 import { makeInitialState } from "./makeInitialState";
 
 export type HandleActionProps = {
@@ -53,32 +54,48 @@ function goToFirstItem(state: ChallengeState): ChallengeState {
 }
 
 function goToNextItem(state: ChallengeState): ChallengeState {
-  const { items, page } = state;
-  if (page.kind !== "ItemPage") {
+  const { items } = state;
+
+  const page = getItemPage(state);
+
+  if (!page) {
     return state;
   }
+
   const { itemIndex } = page;
+
   if (itemIndex >= items.length - 1) {
     return state;
   }
+
   return {
     ...state,
-    page: { kind: "ItemPage", itemIndex: itemIndex + 1 },
+    page: {
+      kind: "ItemPage",
+      itemIndex: itemIndex + 1,
+    },
   };
 }
 
 function goToPreviousItem(state: ChallengeState): ChallengeState {
-  const { page } = state;
-  if (page.kind !== "ItemPage") {
+  const page = getItemPage(state);
+
+  if (!page) {
     return state;
   }
+
   const { itemIndex } = page;
+
   if (itemIndex <= 0) {
     return state;
   }
+
   return {
     ...state,
-    page: { kind: "ItemPage", itemIndex: itemIndex - 1 },
+    page: {
+      kind: "ItemPage",
+      itemIndex: itemIndex - 1,
+    },
   };
 }
 
@@ -97,19 +114,9 @@ function setMultipleChoiceQuestionSelectedOption(
   state: ChallengeState,
   action: SetMultipleChoiceQuestionSelectedOptionAction
 ): ChallengeState {
-  const { items, page } = state;
+  const item = getMultipleChoiceQuestionItem(state);
 
-  if (page.kind !== "ItemPage") {
-    return state;
-  }
-
-  const item = items[page.itemIndex];
-
-  if (item.kind !== "MultipleChoiceQuestion") {
-    return state;
-  }
-
-  if (item.state.kind === "Marked") {
+  if (!item) {
     return state;
   }
 
@@ -121,8 +128,8 @@ function setMultipleChoiceQuestionSelectedOption(
     },
   };
 
-  const newItems: ChallengeItem[] = items.map((_, index) =>
-    index === action.itemIndex ? newItem : items[index]
+  const newItems: ChallengeItem[] = state.items.map((_, index) =>
+    index === action.itemIndex ? newItem : state.items[index]
   );
 
   return {
@@ -135,15 +142,9 @@ function setMultipleChoiceQuestionResult(
   state: ChallengeState,
   action: SetMultipleChoiceQuestionResultAction
 ): ChallengeState {
-  const { items, page } = state;
+  const item = getMultipleChoiceQuestionItem(state);
 
-  if (page.kind !== "ItemPage") {
-    return state;
-  }
-
-  const item = items[page.itemIndex];
-
-  if (item.kind !== "MultipleChoiceQuestion") {
+  if (!item) {
     return state;
   }
 
@@ -155,8 +156,8 @@ function setMultipleChoiceQuestionResult(
     },
   };
 
-  const newItems: ChallengeItem[] = items.map((_, index) =>
-    index === action.itemIndex ? newItem : items[index]
+  const newItems: ChallengeItem[] = state.items.map((_, index) =>
+    index === action.itemIndex ? newItem : state.items[index]
   );
 
   return {
