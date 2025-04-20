@@ -1,15 +1,17 @@
 import React from "react";
-import type { ChallengeItem, ChallengeEvent } from "@/state/types";
+import type { ChallengeItem } from "@/state/types";
+import type { ChallengeEvent } from "@/events/types";
 import { MultipleChoiceQuestion } from "./items/MultipleChoiceQuestion";
 import { TextSnippet } from "./items/TextSnippet";
 
 export type ChallengeItemProps = {
+  itemIndex: number;
   item: ChallengeItem;
   onEvent: (event: ChallengeEvent) => void;
 };
 
 export function ChallengeItem(props: ChallengeItemProps): React.JSX.Element {
-  const { item, onEvent } = props;
+  const { itemIndex, item, onEvent } = props;
 
   switch (item.kind) {
     case "TextSnippet": {
@@ -22,6 +24,7 @@ export function ChallengeItem(props: ChallengeItemProps): React.JSX.Element {
           onOptionSelected={(selectedOptionId) => {
             onEvent({
               kind: "MultipleChoiceQuestionOptionSelected",
+              itemIndex,
               selectedOptionId,
             });
           }}

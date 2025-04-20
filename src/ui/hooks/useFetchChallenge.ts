@@ -11,7 +11,7 @@ export type UseChallengeResult =
   | { kind: "Error"; error: string }
   | { kind: "Success"; challenge: Challenge };
 
-export function useChallenge(props: UseChallengeProps) {
+export function useFetchChallenge(props: UseChallengeProps) {
   const { challengeId } = props;
 
   const [result, setResult] = React.useState<UseChallengeResult>({

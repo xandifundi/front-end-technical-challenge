@@ -24,6 +24,7 @@ export type GoToPreviousItemEvent = {
 
 export type MultipleChoiceQuestionOptionSelectedEvent = {
   kind: "MultipleChoiceQuestionOptionSelected";
+  itemIndex: number;
   selectedOptionId: string;
 };
 

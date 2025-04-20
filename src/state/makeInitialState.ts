@@ -8,7 +8,7 @@ import type {
   ChallengeItem,
   MultipleChoiceQuestionItem,
   TextSnippetItem,
-} from "@/state/types";
+} from "./types";
 
 function makeMultipleChoiceQuestionItem(
   question: MultipleChoiceQuestion
@@ -24,7 +24,6 @@ function makeTextSnippetItem(page: TextSnippet): TextSnippetItem {
   return {
     kind: "TextSnippet",
     snippet: page,
-    state: { kind: "NotViewed" },
   };
 }
 

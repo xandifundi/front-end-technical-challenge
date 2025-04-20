@@ -25,12 +25,9 @@ export type MultipleChoiceQuestionItem = {
   state: MultipleChoiceQuestionState;
 };
 
-export type TextSnippetState = { kind: "NotViewed" } | { kind: "Viewed" };
-
 export type TextSnippetItem = {
   kind: "TextSnippet";
   snippet: TextSnippet;
-  state: TextSnippetState;
 };
 
 export type ChallengeItem = TextSnippetItem | MultipleChoiceQuestionItem;

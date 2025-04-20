@@ -1,5 +1,7 @@
 import type { Challenge } from "@/domain/types";
-import { useChallengeState } from "@/ui/hooks/useChallengeState";
+import { useStore } from "@/ui/hooks/useStore";
+import { useStateFromStore } from "@/ui/hooks/useStateFromStore";
+import { useHandleChallengeEvent } from "@/ui/hooks/useHandleChallengeEvent";
 import { ChallengeStartPage } from "./startPage/ChallengeStartPage";
 import { ChallengeResultsPage } from "./resultsPage/ChallengeResultsPage";
 import { ChallengeItemPage } from "./itemPage/ChallengeItemPage";
@@ -11,7 +13,11 @@ export type ChallengePageProps = {
 export function ChallengePage(props: ChallengePageProps) {
   const { challenge } = props;
 
-  const { state, handleEvent } = useChallengeState({ challenge });
+  const challengeStore = useStore({ challenge });
+
+  const handleEvent = useHandleChallengeEvent({ challengeStore });
+
+  const state = useStateFromStore(challengeStore);
 
   switch (state.page.kind) {
     case "StartPage": {
@@ -41,12 +47,11 @@ export function ChallengePage(props: ChallengePageProps) {
       const item = state.items[itemIndex];
       const isLastItem = itemIndex === state.items.length - 1;
       const itemCount = state.items.length;
-      const itemNumber = itemIndex + 1;
       return (
         <ChallengeItemPage
+          itemIndex={itemIndex}
           item={item}
           isLastItem={isLastItem}
-          itemNumber={itemNumber}
           itemCount={itemCount}
           onEvent={handleEvent}
         />
