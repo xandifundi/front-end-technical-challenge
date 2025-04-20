@@ -78,6 +78,12 @@ async function handleFinishChallengeEvent(
     }
   }, 0);
 
+  context.store.dispatch({
+    kind: "GoToResultsPage",
+    totalMarks,
+    marks,
+  });
+
   const challengeAttempt: ChallengeAttempt = {
     challengeId: state.challenge.id,
     items: state.items.map((item) => {
@@ -107,12 +113,6 @@ async function handleFinishChallengeEvent(
   };
 
   await context.api.saveChallengeAttempt(challengeAttempt);
-
-  context.store.dispatch({
-    kind: "GoToResultsPage",
-    totalMarks,
-    marks,
-  });
 }
 
 function handleRestartChallengeEvent(context: HandleEventContext): void {
