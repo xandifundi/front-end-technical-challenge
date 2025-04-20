@@ -2,6 +2,6 @@
 
 import { ChallengeContainer } from "@/ui/components/ChallengeContainer";
 
-export default function Home() {
+export default function Challenge() {
   return <ChallengeContainer challengeId="1" />;
 }
