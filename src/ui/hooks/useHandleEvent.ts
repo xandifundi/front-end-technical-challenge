@@ -1,6 +1,6 @@
 import { saveChallengeAttempt } from "@/utils/api/saveChallengeAttempt";
 import type { ChallengeStore } from "@/store/types";
-import type { ChallengeEvent } from "@/events/types";
+import type { ChallengeEvent } from "@/events/types/event";
 import {
   handleEvent as handleEventInternal,
   type HandleEventContext,

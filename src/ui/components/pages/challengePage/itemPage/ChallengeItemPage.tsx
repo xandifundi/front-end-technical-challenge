@@ -1,6 +1,6 @@
 import React from "react";
 import type { ChallengeItem as ChallengeItemType } from "@/state/types";
-import type { ChallengeEvent } from "@/events/types";
+import type { ChallengeEvent } from "@/events/types/event";
 import pageStyles from "@/ui/styles/page.module.css";
 import { Button } from "@/ui/components/common/Button";
 import { ChallengeItem } from "./ChallengeItem";

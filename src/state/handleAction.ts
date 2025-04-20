@@ -2,13 +2,11 @@ import type {
   ChallengeState,
   ChallengeItem,
   MultipleChoiceQuestionItem,
-} from "./types";
-import type {
   ChallengeAction,
   GoToResultsPageAction,
   SetMultipleChoiceQuestionSelectedOptionAction,
   SetMultipleChoiceQuestionResultAction,
-} from "./types/actions";
+} from "./types";
 import { makeInitialState } from "./makeInitialState";
 
 export type HandleActionProps = {

@@ -1,27 +1,10 @@
 import * as Marking from "@/utils/marking";
-import type { ChallengeState, ChallengeAction } from "@/state/types";
-import type {
-  ChallengeAttempt,
-  saveChallengeAttempt,
-} from "@/utils/api/saveChallengeAttempt";
+import type { ChallengeAttempt } from "@/domain/types";
 import type {
   ChallengeEvent,
   MultipleChoiceQuestionOptionSelectedEvent,
+  HandleEventContext,
 } from "./types";
-
-export type ChallengeStore = {
-  getState: () => ChallengeState;
-  dispatch: (action: ChallengeAction) => void;
-};
-
-export type ChallengeAPI = {
-  saveChallengeAttempt: typeof saveChallengeAttempt;
-};
-
-export type HandleEventContext = {
-  store: ChallengeStore;
-  api: ChallengeAPI;
-};
 
 export type HandleEventProps = {
   context: HandleEventContext;
@@ -123,7 +106,7 @@ async function handleFinishChallengeEvent(
     }),
   };
 
-  await context.api.saveChallengeAttempt({ challengeAttempt });
+  await context.api.saveChallengeAttempt(challengeAttempt);
 
   context.store.dispatch({
     kind: "GoToResultsPage",

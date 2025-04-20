@@ -1,2 +1,2 @@
-export type * from "./actions";
+export type * from "./challengeAction";
 export type * from "./challengeState";
