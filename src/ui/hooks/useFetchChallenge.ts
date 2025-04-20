@@ -2,19 +2,19 @@ import React from "react";
 import * as API from "@/api";
 import { Challenge } from "@/domain/types";
 
-export type UseChallengeProps = {
+export type UseFetchChallengeProps = {
   challengeId: string;
 };
 
-export type UseChallengeResult =
+export type UseFetchChallengeResult =
   | { kind: "Loading" }
   | { kind: "Error"; error: string }
   | { kind: "Success"; challenge: Challenge };
 
-export function useFetchChallenge(props: UseChallengeProps) {
+export function useFetchChallenge(props: UseFetchChallengeProps) {
   const { challengeId } = props;
 
-  const [result, setResult] = React.useState<UseChallengeResult>({
+  const [result, setResult] = React.useState<UseFetchChallengeResult>({
     kind: "Loading",
   });
 
