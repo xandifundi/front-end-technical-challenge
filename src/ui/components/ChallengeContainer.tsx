@@ -20,7 +20,12 @@ export function ChallengeContainer(props: ChallengeContainerProps) {
       return <ErrorPage message={challengeResult.error} />;
     }
     case "Success": {
-      return <ChallengePage challenge={challengeResult.challenge} />;
+      return (
+        <ChallengePage
+          challenge={challengeResult.challenge}
+          challengeSession={challengeResult.challengeSession}
+        />
+      );
     }
   }
 }

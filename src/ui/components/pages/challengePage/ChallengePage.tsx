@@ -1,17 +1,32 @@
-import type { Challenge } from "@/domain/types";
+import React from "react";
+import type { Challenge, ChallengeSession } from "@/domain/types";
 import { useChallenge } from "@/ui/hooks/useChallenge";
+import { makeChallengeSession } from "@/events/utils/makeChallengeSession";
+import { saveChallengeSession } from "@/session/api";
 import { ChallengeStartPage } from "./startPage/ChallengeStartPage";
 import { ChallengeResultsPage } from "./resultsPage/ChallengeResultsPage";
 import { ChallengeItemPage } from "./itemPage/ChallengeItemPage";
 
 export type ChallengePageProps = {
   challenge: Challenge;
+  challengeSession: ChallengeSession | null;
 };
 
 export function ChallengePage(props: ChallengePageProps) {
-  const { challenge } = props;
+  const { challenge, challengeSession } = props;
 
-  const { state, handleEvent } = useChallenge({ challenge });
+  const { state, handleEvent } = useChallenge({ challenge, challengeSession });
+
+  // Save the session every second
+  React.useEffect(() => {
+    const intervalId = setInterval(() => {
+      const session = makeChallengeSession(state);
+      saveChallengeSession(session);
+    }, 1000);
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [state]);
 
   switch (state.page.kind) {
     case "StartPage": {
