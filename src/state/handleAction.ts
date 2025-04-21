@@ -1,7 +1,7 @@
 import type {
   ChallengeState,
-  ChallengeItem,
-  MultipleChoiceQuestionItem,
+  ChallengeStateItem,
+  ChallengeStateItem_MultipleChoiceQuestion,
   ChallengeAction,
   GoToResultsPageAction,
   SetMultipleChoiceQuestionSelectedOptionAction,
@@ -123,7 +123,7 @@ function setMultipleChoiceQuestionSelectedOption(
     return state;
   }
 
-  const newItem: MultipleChoiceQuestionItem = {
+  const newItem: ChallengeStateItem_MultipleChoiceQuestion = {
     ...item,
     state: {
       kind: "NotMarked",
@@ -131,7 +131,7 @@ function setMultipleChoiceQuestionSelectedOption(
     },
   };
 
-  const newItems: ChallengeItem[] = state.items.map((_, index) =>
+  const newItems: ChallengeStateItem[] = state.items.map((_, index) =>
     index === action.itemIndex ? newItem : state.items[index]
   );
 
@@ -151,7 +151,7 @@ function setMultipleChoiceQuestionResult(
     return state;
   }
 
-  const newItem: MultipleChoiceQuestionItem = {
+  const newItem: ChallengeStateItem_MultipleChoiceQuestion = {
     ...item,
     state: {
       kind: "Marked",
@@ -159,7 +159,7 @@ function setMultipleChoiceQuestionResult(
     },
   };
 
-  const newItems: ChallengeItem[] = state.items.map((_, index) =>
+  const newItems: ChallengeStateItem[] = state.items.map((_, index) =>
     index === action.itemIndex ? newItem : state.items[index]
   );
 

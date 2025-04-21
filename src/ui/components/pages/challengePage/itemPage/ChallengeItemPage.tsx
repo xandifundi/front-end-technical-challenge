@@ -1,5 +1,5 @@
 import React from "react";
-import type { ChallengeItem as ChallengeItemType } from "@/state/types";
+import type { ChallengeStateItem } from "@/state/types";
 import type { ChallengeEvent } from "@/events/types/event";
 import pageStyles from "@/ui/styles/page.module.css";
 import { Button } from "@/ui/components/common/Button";
@@ -10,7 +10,7 @@ import styles from "./ChallengeItemPage.module.css";
 export type ChallengeItemPageProps = {
   itemIndex: number;
   itemCount: number;
-  item: ChallengeItemType;
+  item: ChallengeStateItem;
   onEvent: (event: ChallengeEvent) => void;
 };
 

@@ -5,14 +5,14 @@ import type {
 } from "@/domain/types";
 import type {
   ChallengeState,
-  ChallengeItem,
-  MultipleChoiceQuestionItem,
-  TextSnippetItem,
+  ChallengeStateItem,
+  ChallengeStateItem_MultipleChoiceQuestion,
+  ChallengeStateItem_TextSnippet,
 } from "./types";
 
 function makeMultipleChoiceQuestionItem(
   question: MultipleChoiceQuestion
-): MultipleChoiceQuestionItem {
+): ChallengeStateItem_MultipleChoiceQuestion {
   return {
     kind: "MultipleChoiceQuestion",
     question,
@@ -20,14 +20,16 @@ function makeMultipleChoiceQuestionItem(
   };
 }
 
-function makeTextSnippetItem(page: TextSnippet): TextSnippetItem {
+function makeTextSnippetItem(
+  page: TextSnippet
+): ChallengeStateItem_TextSnippet {
   return {
     kind: "TextSnippet",
     snippet: page,
   };
 }
 
-function makeItems(challenge: Challenge): ChallengeItem[] {
+function makeItems(challenge: Challenge): ChallengeStateItem[] {
   return challenge.items.map((item) => {
     switch (item.kind) {
       case "MultipleChoiceQuestion":

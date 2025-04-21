@@ -1,6 +1,6 @@
 import type {
   ChallengeState,
-  MultipleChoiceQuestionItem,
+  ChallengeStateItem_MultipleChoiceQuestion,
   ChallengePage_ItemPage,
 } from "./types";
 
@@ -13,7 +13,7 @@ export function getItemPage(
 
 export function getMultipleChoiceQuestionItem(
   state: ChallengeState
-): MultipleChoiceQuestionItem | null {
+): ChallengeStateItem_MultipleChoiceQuestion | null {
   const itemPage = getItemPage(state);
 
   if (!itemPage) {

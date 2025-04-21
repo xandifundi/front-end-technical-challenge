@@ -3,13 +3,13 @@ import {
   MultipleChoiceQuestionStateNotMarked,
   MultipleChoiceQuestionStateMarked,
 } from "@/domain/types";
-import { MultipleChoiceQuestionItem } from "@/state/types";
+import { ChallengeStateItem_MultipleChoiceQuestion } from "@/state/types";
 import { Button } from "@/ui/components/common/Button";
 import { Markdown } from "@/ui/components/common/Markdown";
 import styles from "./MultipleChoiceQuestion.module.css";
 
 export type MultipleChoiceQuestionProps = {
-  item: MultipleChoiceQuestionItem;
+  item: ChallengeStateItem_MultipleChoiceQuestion;
   onOptionSelected: (optionId: string) => void;
   onCheckAnswer: () => void;
 };
@@ -37,7 +37,7 @@ export function MultipleChoiceQuestion(props: MultipleChoiceQuestionProps) {
 }
 
 type MultipleChoiceQuestionNotMarkedProps = {
-  question: MultipleChoiceQuestionItem["question"];
+  question: ChallengeStateItem_MultipleChoiceQuestion["question"];
   state: MultipleChoiceQuestionStateNotMarked;
   onOptionSelected: (optionId: string) => void;
   onCheckAnswer: () => void;
@@ -83,7 +83,7 @@ function MultipleChoiceQuestionNotMarked(
 }
 
 type MultipleChoiceQuestionMarkedProps = {
-  question: MultipleChoiceQuestionItem["question"];
+  question: ChallengeStateItem_MultipleChoiceQuestion["question"];
   state: MultipleChoiceQuestionStateMarked;
 };
 

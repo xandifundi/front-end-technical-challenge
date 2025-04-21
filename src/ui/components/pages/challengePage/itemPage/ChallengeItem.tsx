@@ -1,11 +1,11 @@
 import React from "react";
-import type { ChallengeItem } from "@/state/types";
+import type { ChallengeStateItem } from "@/state/types";
 import type { ChallengeEvent } from "@/events/types/event";
 import { MultipleChoiceQuestion } from "./items/MultipleChoiceQuestion";
 import { TextSnippet } from "./items/TextSnippet";
 
 export type ChallengeItemProps = {
-  item: ChallengeItem;
+  item: ChallengeStateItem;
   onEvent: (event: ChallengeEvent) => void;
 };
 

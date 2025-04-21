@@ -1,8 +1,8 @@
-import { TextSnippetItem } from "@/state/types";
+import { ChallengeStateItem_TextSnippet } from "@/state/types";
 import { Markdown } from "@/ui/components/common/Markdown";
 
 export type TextSnippetProps = {
-  item: TextSnippetItem;
+  item: ChallengeStateItem_TextSnippet;
 };
 
 export function TextSnippet(props: TextSnippetProps) {

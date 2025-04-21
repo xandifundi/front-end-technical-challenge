@@ -1,4 +1,4 @@
-import { ChallengeState, ChallengeItem } from "@/state/types";
+import { ChallengeState, ChallengeStateItem } from "@/state/types";
 import * as Marking from "@/marking";
 
 export function ensureItemsAreMarked(state: ChallengeState): ChallengeState {
@@ -19,7 +19,7 @@ export function ensureItemsAreMarked(state: ChallengeState): ChallengeState {
           selectedOptionId: item.state.selectedOptionId,
         });
 
-        const newItem: ChallengeItem = {
+        const newItem: ChallengeStateItem = {
           kind: "MultipleChoiceQuestion",
           question: item.question,
           state: { kind: "Marked", result },

@@ -5,18 +5,20 @@ import {
   Challenge,
 } from "@/domain/types";
 
-export type MultipleChoiceQuestionItem = {
+export type ChallengeStateItem_MultipleChoiceQuestion = {
   kind: "MultipleChoiceQuestion";
   question: MultipleChoiceQuestion;
   state: MultipleChoiceQuestionState;
 };
 
-export type TextSnippetItem = {
+export type ChallengeStateItem_TextSnippet = {
   kind: "TextSnippet";
   snippet: TextSnippet;
 };
 
-export type ChallengeItem = TextSnippetItem | MultipleChoiceQuestionItem;
+export type ChallengeStateItem =
+  | ChallengeStateItem_TextSnippet
+  | ChallengeStateItem_MultipleChoiceQuestion;
 
 export type ChallengePage_StartPage = { kind: "StartPage" };
 
@@ -35,6 +37,6 @@ export type ChallengePage =
 
 export type ChallengeState = {
   challenge: Challenge;
-  items: ChallengeItem[];
+  items: ChallengeStateItem[];
   page: ChallengePage;
 };
