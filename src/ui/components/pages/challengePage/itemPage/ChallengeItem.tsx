@@ -1,6 +1,6 @@
 import React from "react";
 import type { ChallengeStateItem } from "@/state/types";
-import type { ChallengeEvent } from "@/events/types/event";
+import type { ChallengeEvent } from "@/events/types";
 import { MultipleChoiceQuestion } from "./items/MultipleChoiceQuestion";
 import { TextSnippet } from "./items/TextSnippet";
 

@@ -1,6 +1,6 @@
 import React from "react";
 import type { ChallengeStateItem } from "@/state/types";
-import type { ChallengeEvent } from "@/events/types/event";
+import type { ChallengeEvent } from "@/events/types";
 import pageStyles from "@/ui/styles/page.module.css";
 import { Button } from "@/ui/components/common/Button";
 import { ProgressBar } from "@/ui/components/common/ProgressBar";

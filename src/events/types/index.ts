@@ -1,2 +1,2 @@
-export type * from "./context";
-export type * from "./event";
+export type * from "./handleEventContext";
+export type * from "./challengeEvent";
