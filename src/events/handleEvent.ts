@@ -41,6 +41,9 @@ export async function handleEvent(props: HandleEventProps): Promise<void> {
     case "MultipleChoiceQuestionCheckAnswer": {
       return handleMultipleChoiceQuestionCheckAnswerEvent(context);
     }
+    default: {
+      event satisfies never;
+    }
   }
 }
 
