@@ -3,7 +3,7 @@ import type { ChallengeState, ChallengeAction } from "@/state/types";
 
 export type HandleEventStore = {
   getState: () => ChallengeState;
-  dispatch: (action: ChallengeAction) => void;
+  dispatch: (action: ChallengeAction) => ChallengeState;
 };
 
 export type HandleEventAPI = {
