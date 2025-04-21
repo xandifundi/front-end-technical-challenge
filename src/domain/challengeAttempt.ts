@@ -1,9 +1,25 @@
-import { MultipleChoiceQuestionResult } from "./marking";
+export type MultipleChoiceQuestionStateNotMarked = {
+  kind: "NotMarked";
+  selectedOptionId: string | null;
+};
+
+export type MultipleChoiceQuestionResult =
+  | { kind: "Correct"; selectedOptionId: string; marks: number }
+  | { kind: "Incorrect"; selectedOptionId: string | null; marks: number };
+
+export type MultipleChoiceQuestionStateMarked = {
+  kind: "Marked";
+  result: MultipleChoiceQuestionResult;
+};
+
+export type MultipleChoiceQuestionState =
+  | MultipleChoiceQuestionStateNotMarked
+  | MultipleChoiceQuestionStateMarked;
 
 export type MultipleChoiceQuestionAttempt = {
   kind: "MultipleChoiceQuestionAttempt";
   itemId: string;
-  result: MultipleChoiceQuestionResult;
+  state: MultipleChoiceQuestionState;
 };
 
 export type TextSnippetAttempt = {

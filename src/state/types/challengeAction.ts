@@ -1,4 +1,4 @@
-import { MultipleChoiceQuestionResult } from "@/domain/marking";
+import { MultipleChoiceQuestionResult } from "@/domain/types";
 
 export type ResetChallengeAction = {
   kind: "ResetChallege";

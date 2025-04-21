@@ -1,9 +1,9 @@
 import React from "react";
 import {
-  MultipleChoiceQuestionItem,
   MultipleChoiceQuestionStateNotMarked,
   MultipleChoiceQuestionStateMarked,
-} from "@/state/types";
+} from "@/domain/types";
+import { MultipleChoiceQuestionItem } from "@/state/types";
 import { Button } from "@/ui/components/common/Button";
 import { Markdown } from "@/ui/components/common/Markdown";
 import styles from "./MultipleChoiceQuestion.module.css";

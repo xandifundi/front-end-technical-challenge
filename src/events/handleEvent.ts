@@ -1,10 +1,12 @@
 import * as Marking from "@/marking";
-import type { ChallengeAttempt } from "@/domain/types";
 import type {
   ChallengeEvent,
   MultipleChoiceQuestionOptionSelectedEvent,
   HandleEventContext,
 } from "./types";
+import { ensureItemsAreMarked } from "./utils/ensureItemsAreMarked";
+import { makeChallengeAttempt } from "./utils/makeChallengeAttempt";
+import { calculateChallengeMarks } from "./utils/calculateChallengeMarks";
 
 export type HandleEventProps = {
   context: HandleEventContext;
@@ -52,31 +54,9 @@ function handleCloseChallengeEvent(context: HandleEventContext): void {
 async function handleFinishChallengeEvent(
   context: HandleEventContext
 ): Promise<void> {
-  const state = context.store.getState();
+  const state = ensureItemsAreMarked(context.store.getState());
 
-  const totalMarks = state.items.reduce((acc, item) => {
-    switch (item.kind) {
-      case "TextSnippet": {
-        return acc;
-      }
-      case "MultipleChoiceQuestion": {
-        return acc + item.question.marks;
-      }
-    }
-  }, 0);
-
-  const marks = state.items.reduce((acc, item) => {
-    switch (item.kind) {
-      case "TextSnippet": {
-        return acc;
-      }
-      case "MultipleChoiceQuestion": {
-        return item.state.kind === "Marked"
-          ? acc + item.state.result.marks
-          : acc;
-      }
-    }
-  }, 0);
+  const { totalMarks, marks } = calculateChallengeMarks(state);
 
   context.store.dispatch({
     kind: "GoToResultsPage",
@@ -84,33 +64,7 @@ async function handleFinishChallengeEvent(
     marks,
   });
 
-  const challengeAttempt: ChallengeAttempt = {
-    challengeId: state.challenge.id,
-    items: state.items.map((item) => {
-      switch (item.kind) {
-        case "TextSnippet": {
-          return {
-            kind: "TextSnippetAttempt",
-            itemId: item.snippet.id,
-          };
-        }
-        case "MultipleChoiceQuestion": {
-          const result =
-            item.state.kind === "Marked"
-              ? item.state.result
-              : Marking.markMultipleChoiceQuestion({
-                  question: item.question,
-                  selectedOptionId: item.state.selectedOptionId,
-                });
-          return {
-            kind: "MultipleChoiceQuestionAttempt",
-            itemId: item.question.id,
-            result,
-          };
-        }
-      }
-    }),
-  };
+  const challengeAttempt = makeChallengeAttempt(state);
 
   await context.api.saveChallengeAttempt(challengeAttempt);
 }

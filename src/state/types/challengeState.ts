@@ -1,23 +1,9 @@
 import {
   MultipleChoiceQuestion,
-  MultipleChoiceQuestionResult,
+  MultipleChoiceQuestionState,
   TextSnippet,
   Challenge,
 } from "@/domain/types";
-
-export type MultipleChoiceQuestionStateNotMarked = {
-  kind: "NotMarked";
-  selectedOptionId: string | null;
-};
-
-export type MultipleChoiceQuestionStateMarked = {
-  kind: "Marked";
-  result: MultipleChoiceQuestionResult;
-};
-
-export type MultipleChoiceQuestionState =
-  | MultipleChoiceQuestionStateNotMarked
-  | MultipleChoiceQuestionStateMarked;
 
 export type MultipleChoiceQuestionItem = {
   kind: "MultipleChoiceQuestion";
