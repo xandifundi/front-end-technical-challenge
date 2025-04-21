@@ -44,11 +44,11 @@ export async function handleEvent(props: HandleEventProps): Promise<void> {
   }
 }
 
-function handleStartChallengeEvent(context: HandleEventContext): void {
+function handleStartChallengeEvent(context: HandleEventContext) {
   context.store.dispatch({ kind: "GoToFirstItem" });
 }
 
-function handleCloseChallengeEvent(context: HandleEventContext): void {
+function handleCloseChallengeEvent(context: HandleEventContext) {
   const { challenge } = context.store.getState();
   const challengeSession = Session.makeInitialSession({ challenge });
   context.store.dispatch({ kind: "ResetChallenge", challengeSession });
@@ -72,24 +72,24 @@ async function handleFinishChallengeEvent(
   await context.api.completeChallengeSession(challengeSession);
 }
 
-function handleRestartChallengeEvent(context: HandleEventContext): void {
+function handleRestartChallengeEvent(context: HandleEventContext) {
   const { challenge } = context.store.getState();
   const challengeSession = Session.makeInitialSession({ challenge });
   context.store.dispatch({ kind: "ResetChallenge", challengeSession });
 }
 
-function handleGoToNextItemEvent(context: HandleEventContext): void {
+function handleGoToNextItemEvent(context: HandleEventContext) {
   context.store.dispatch({ kind: "GoToNextItem" });
 }
 
-function handleGoToPreviousItemEvent(context: HandleEventContext): void {
+function handleGoToPreviousItemEvent(context: HandleEventContext) {
   context.store.dispatch({ kind: "GoToPreviousItem" });
 }
 
 function handleMultipleChoiceQuestionOptionSelectedEvent(
   context: HandleEventContext,
   event: MultipleChoiceQuestionOptionSelectedEvent
-): void {
+) {
   const state = context.store.getState();
 
   const { items, page } = state;
@@ -117,7 +117,7 @@ function handleMultipleChoiceQuestionOptionSelectedEvent(
 
 function handleMultipleChoiceQuestionCheckAnswerEvent(
   context: HandleEventContext
-): void {
+) {
   const state = context.store.getState();
 
   const { items, page } = state;
