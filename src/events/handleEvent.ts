@@ -26,8 +26,8 @@ export async function handleEvent(props: HandleEventProps): Promise<void> {
     case "FinishChallenge": {
       return handleFinishChallengeEvent(context);
     }
-    case "RestartChallenge": {
-      return handleRestartChallengeEvent(context);
+    case "RepeatChallenge": {
+      return handleRepeatChallengeEvent(context);
     }
     case "GoToNextItem": {
       return handleGoToNextItemEvent(context);
@@ -75,7 +75,7 @@ async function handleFinishChallengeEvent(
   await context.api.completeChallengeSession(challengeSession);
 }
 
-function handleRestartChallengeEvent(context: HandleEventContext) {
+function handleRepeatChallengeEvent(context: HandleEventContext) {
   const { challenge } = context.store.getState();
   const challengeSession = Session.makeInitialSession({ challenge });
   context.store.dispatch({ kind: "ResetChallenge", challengeSession });

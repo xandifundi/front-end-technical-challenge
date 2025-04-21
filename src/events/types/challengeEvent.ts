@@ -10,8 +10,8 @@ export type FinishChallengeEvent = {
   kind: "FinishChallenge";
 };
 
-export type RestartChallengeEvent = {
-  kind: "RestartChallenge";
+export type RepeatChallengeEvent = {
+  kind: "RepeatChallenge";
 };
 
 export type GoToNextItemEvent = {
@@ -35,7 +35,7 @@ export type ChallengeEvent =
   | StartChallengeEvent
   | CloseChallengeEvent
   | FinishChallengeEvent
-  | RestartChallengeEvent
+  | RepeatChallengeEvent
   | GoToNextItemEvent
   | GoToPreviousItemEvent
   | MultipleChoiceQuestionOptionSelectedEvent

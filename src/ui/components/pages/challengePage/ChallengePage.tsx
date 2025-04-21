@@ -30,8 +30,8 @@ export function ChallengePage(props: ChallengePageProps) {
           challenge={challenge}
           totalMarks={state.page.totalMarks}
           marks={state.page.marks}
-          onRestart={() => {
-            handleEvent({ kind: "RestartChallenge" });
+          onRepeatChallenge={() => {
+            handleEvent({ kind: "RepeatChallenge" });
           }}
         />
       );

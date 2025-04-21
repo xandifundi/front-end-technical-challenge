@@ -8,11 +8,11 @@ export type ChallengeResultsPageProps = {
   challenge: Challenge;
   totalMarks: number;
   marks: number;
-  onRestart: () => void;
+  onRepeatChallenge: () => void;
 };
 
 export function ChallengeResultsPage(props: ChallengeResultsPageProps) {
-  const { challenge, onRestart } = props;
+  const { challenge, onRepeatChallenge } = props;
 
   const percentage = (props.marks / props.totalMarks) * 100;
   const percentageInt = Math.floor(percentage);
@@ -28,7 +28,7 @@ export function ChallengeResultsPage(props: ChallengeResultsPageProps) {
         </div>
 
         <div>
-          <Button onClick={onRestart}>Restart</Button>
+          <Button onClick={onRepeatChallenge}>Try again</Button>
         </div>
       </main>
     </div>
