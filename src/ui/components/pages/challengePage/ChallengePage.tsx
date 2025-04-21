@@ -2,7 +2,7 @@ import React from "react";
 import type { Challenge, ChallengeSession } from "@/domain/types";
 import { useChallenge } from "@/ui/hooks/useChallenge";
 import { makeChallengeSession } from "@/events/utils/makeChallengeSession";
-import { saveChallengeSession } from "@/session/api";
+import { saveChallengeSession } from "@/session";
 import { ChallengeStartPage } from "./startPage/ChallengeStartPage";
 import { ChallengeResultsPage } from "./resultsPage/ChallengeResultsPage";
 import { ChallengeItemPage } from "./itemPage/ChallengeItemPage";
