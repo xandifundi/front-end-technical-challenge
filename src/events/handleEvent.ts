@@ -29,6 +29,9 @@ export async function handleEvent(props: HandleEventProps): Promise<void> {
     case "RepeatChallenge": {
       return handleRepeatChallengeEvent(context);
     }
+    case "GoToStart": {
+      return handleGoToStartEvent(context);
+    }
     case "GoToNextItem": {
       return handleGoToNextItemEvent(context);
     }
@@ -52,9 +55,7 @@ function handleStartChallengeEvent(context: HandleEventContext) {
 }
 
 function handleCloseChallengeEvent(context: HandleEventContext) {
-  const { challenge } = context.store.getState();
-  const challengeSession = Session.makeInitialSession({ challenge });
-  context.store.dispatch({ kind: "ResetChallenge", challengeSession });
+  context.store.dispatch({ kind: "GoToStart" });
 }
 
 async function handleFinishChallengeEvent(
@@ -79,6 +80,10 @@ function handleRepeatChallengeEvent(context: HandleEventContext) {
   const { challenge } = context.store.getState();
   const challengeSession = Session.makeInitialSession({ challenge });
   context.store.dispatch({ kind: "ResetChallenge", challengeSession });
+}
+
+function handleGoToStartEvent(context: HandleEventContext) {
+  context.store.dispatch({ kind: "GoToStart" });
 }
 
 function handleGoToNextItemEvent(context: HandleEventContext) {

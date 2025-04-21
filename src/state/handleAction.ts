@@ -22,6 +22,9 @@ export function handleAction(props: HandleActionProps): ChallengeState {
     case "ResetChallenge": {
       return resetChallenge(state, action);
     }
+    case "GoToStart": {
+      return goToStart(state);
+    }
     case "GoToFirstItem": {
       return goToFirstItem(state);
     }
@@ -51,6 +54,15 @@ function resetChallenge(
     challenge: state.challenge,
     challengeSession: action.challengeSession,
   });
+}
+
+function goToStart(state: ChallengeState): ChallengeState {
+  return {
+    ...state,
+    page: {
+      kind: "StartPage",
+    },
+  };
 }
 
 function goToFirstItem(state: ChallengeState): ChallengeState {

@@ -5,6 +5,10 @@ export type ResetChallengeAction = {
   challengeSession: ChallengeSession;
 };
 
+export type GoToStartAction = {
+  kind: "GoToStart";
+};
+
 export type GoToFirstItemAction = {
   kind: "GoToFirstItem";
 };
@@ -37,6 +41,7 @@ export type SetMultipleChoiceQuestionResultAction = {
 
 export type ChallengeAction =
   | ResetChallengeAction
+  | GoToStartAction
   | GoToFirstItemAction
   | GoToNextItemAction
   | GoToPreviousItemAction

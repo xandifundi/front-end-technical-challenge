@@ -14,6 +14,10 @@ export type RepeatChallengeEvent = {
   kind: "RepeatChallenge";
 };
 
+export type GoToStartEvent = {
+  kind: "GoToStart";
+};
+
 export type GoToNextItemEvent = {
   kind: "GoToNextItem";
 };
@@ -36,6 +40,7 @@ export type ChallengeEvent =
   | CloseChallengeEvent
   | FinishChallengeEvent
   | RepeatChallengeEvent
+  | GoToStartEvent
   | GoToNextItemEvent
   | GoToPreviousItemEvent
   | MultipleChoiceQuestionOptionSelectedEvent
