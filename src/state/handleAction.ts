@@ -6,6 +6,7 @@ import type {
   GoToResultsPageAction,
   SetMultipleChoiceQuestionSelectedOptionAction,
   SetMultipleChoiceQuestionResultAction,
+  ResetChallengeAction,
 } from "./types";
 import { getItemPage, getMultipleChoiceQuestionItem } from "./utils";
 import { makeInitialState } from "./makeInitialState";
@@ -18,8 +19,8 @@ export type HandleActionProps = {
 export function handleAction(props: HandleActionProps): ChallengeState {
   const { state, action } = props;
   switch (action.kind) {
-    case "ResetChallege": {
-      return resetChallenge(state);
+    case "ResetChallenge": {
+      return resetChallenge(state, action);
     }
     case "GoToFirstItem": {
       return goToFirstItem(state);
@@ -42,8 +43,14 @@ export function handleAction(props: HandleActionProps): ChallengeState {
   }
 }
 
-function resetChallenge(state: ChallengeState): ChallengeState {
-  return makeInitialState({ challenge: state.challenge });
+function resetChallenge(
+  state: ChallengeState,
+  action: ResetChallengeAction
+): ChallengeState {
+  return makeInitialState({
+    challenge: state.challenge,
+    challengeSession: action.challengeSession,
+  });
 }
 
 function goToFirstItem(state: ChallengeState): ChallengeState {

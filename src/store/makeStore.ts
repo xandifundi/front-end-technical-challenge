@@ -1,11 +1,13 @@
-import type { Challenge } from "@/domain/types";
-import { ChallengeState, ChallengeAction } from "@/state/types";
+import * as Session from "@/session";
+import type { Challenge, ChallengeSession } from "@/domain/types";
+import type { ChallengeState, ChallengeAction } from "@/state/types";
 import { handleAction } from "@/state/handleAction";
 import { makeInitialState } from "@/state/makeInitialState";
 import type { ChallengeStore, StoreListener } from "./types";
 
 type MakeStoreParams = {
   challenge: Challenge;
+  challengeSession: ChallengeSession | null;
 };
 
 export function makeStore(params: MakeStoreParams): ChallengeStore {
@@ -13,8 +15,13 @@ export function makeStore(params: MakeStoreParams): ChallengeStore {
 
   let listeners: StoreListener[] = [];
 
+  // If a session has not been provided then create one.
+  const challengeSession =
+    params.challengeSession ?? Session.makeInitialSession({ challenge });
+
   let state: ChallengeState = makeInitialState({
     challenge,
+    challengeSession,
   });
 
   function getState(): ChallengeState {

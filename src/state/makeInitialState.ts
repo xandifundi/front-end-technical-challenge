@@ -2,6 +2,9 @@ import type {
   Challenge,
   MultipleChoiceQuestion,
   TextSnippet,
+  ChallengeSession,
+  ChallengeSessionItem_MultipleChoiceQuestion,
+  MultipleChoiceQuestionState,
 } from "@/domain/types";
 import type {
   ChallengeState,
@@ -11,12 +14,16 @@ import type {
 } from "./types";
 
 function makeMultipleChoiceQuestionItem(
-  question: MultipleChoiceQuestion
+  question: MultipleChoiceQuestion,
+  sessionItem: ChallengeSessionItem_MultipleChoiceQuestion | null
 ): ChallengeStateItem_MultipleChoiceQuestion {
+  const state: MultipleChoiceQuestionState = sessionItem
+    ? sessionItem.state
+    : { kind: "NotMarked", selectedOptionId: null };
   return {
     kind: "MultipleChoiceQuestion",
     question,
-    state: { kind: "NotMarked", selectedOptionId: null },
+    state,
   };
 }
 
@@ -29,11 +36,26 @@ function makeTextSnippetItem(
   };
 }
 
-function makeItems(challenge: Challenge): ChallengeStateItem[] {
-  return challenge.items.map((item) => {
+export type MakeItemsProps = {
+  challenge: Challenge;
+  challengeSession: ChallengeSession;
+};
+
+function makeItems(props: MakeItemsProps): ChallengeStateItem[] {
+  const { challenge, challengeSession } = props;
+
+  return challenge.items.map((item, index) => {
+    const baseSessionItem = challengeSession.items[index] ?? null;
+
     switch (item.kind) {
-      case "MultipleChoiceQuestion":
-        return makeMultipleChoiceQuestionItem(item);
+      case "MultipleChoiceQuestion": {
+        const sessionItem = baseSessionItem
+          ? baseSessionItem.kind === "MultipleChoiceQuestion"
+            ? baseSessionItem
+            : null
+          : null;
+        return makeMultipleChoiceQuestionItem(item, sessionItem);
+      }
       case "TextSnippet":
         return makeTextSnippetItem(item);
     }
@@ -42,12 +64,13 @@ function makeItems(challenge: Challenge): ChallengeStateItem[] {
 
 export type MakeInitialStateProps = {
   challenge: Challenge;
+  challengeSession: ChallengeSession;
 };
 
 export function makeInitialState(props: MakeInitialStateProps): ChallengeState {
-  const { challenge } = props;
+  const { challenge, challengeSession } = props;
 
-  const items = makeItems(challenge);
+  const items = makeItems({ challenge, challengeSession });
 
   return {
     challenge,

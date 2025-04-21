@@ -1,4 +1,5 @@
 import * as Marking from "@/marking";
+import * as Session from "@/session";
 import type {
   ChallengeEvent,
   MultipleChoiceQuestionOptionSelectedEvent,
@@ -48,7 +49,9 @@ function handleStartChallengeEvent(context: HandleEventContext): void {
 }
 
 function handleCloseChallengeEvent(context: HandleEventContext): void {
-  context.store.dispatch({ kind: "ResetChallege" });
+  const { challenge } = context.store.getState();
+  const challengeSession = Session.makeInitialSession({ challenge });
+  context.store.dispatch({ kind: "ResetChallenge", challengeSession });
 }
 
 async function handleFinishChallengeEvent(
@@ -70,7 +73,9 @@ async function handleFinishChallengeEvent(
 }
 
 function handleRestartChallengeEvent(context: HandleEventContext): void {
-  context.store.dispatch({ kind: "ResetChallege" });
+  const { challenge } = context.store.getState();
+  const challengeSession = Session.makeInitialSession({ challenge });
+  context.store.dispatch({ kind: "ResetChallenge", challengeSession });
 }
 
 function handleGoToNextItemEvent(context: HandleEventContext): void {

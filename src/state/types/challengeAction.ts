@@ -1,7 +1,8 @@
-import { MultipleChoiceQuestionResult } from "@/domain/types";
+import { ChallengeSession, MultipleChoiceQuestionResult } from "@/domain/types";
 
 export type ResetChallengeAction = {
-  kind: "ResetChallege";
+  kind: "ResetChallenge";
+  challengeSession: ChallengeSession;
 };
 
 export type GoToFirstItemAction = {

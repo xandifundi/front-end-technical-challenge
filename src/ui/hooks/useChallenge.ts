@@ -10,7 +10,7 @@ export type ChallengePageProps = {
 export function useChallenge(props: ChallengePageProps) {
   const { challenge } = props;
 
-  const store = useStore({ challenge });
+  const store = useStore({ challenge, challengeSession: null });
 
   const handleEvent = useHandleEvent({ store });
 
