@@ -16,22 +16,22 @@ export type MultipleChoiceQuestionState =
   | MultipleChoiceQuestionStateNotMarked
   | MultipleChoiceQuestionStateMarked;
 
-export type MultipleChoiceQuestionAttempt = {
-  kind: "MultipleChoiceQuestionAttempt";
+export type ChallengeSessionItem_MultipleChoiceQuestion = {
+  kind: "MultipleChoiceQuestion";
   itemId: string;
   state: MultipleChoiceQuestionState;
 };
 
-export type TextSnippetAttempt = {
-  kind: "TextSnippetAttempt";
+export type ChallengeSessionItem_TextSnippet = {
+  kind: "TextSnippet";
   itemId: string;
 };
 
-export type ChallengeAttemptItem =
-  | MultipleChoiceQuestionAttempt
-  | TextSnippetAttempt;
+export type ChallengeSessionItem =
+  | ChallengeSessionItem_MultipleChoiceQuestion
+  | ChallengeSessionItem_TextSnippet;
 
-export type ChallengeAttempt = {
+export type ChallengeSession = {
   challengeId: string;
-  items: ChallengeAttemptItem[];
+  items: ChallengeSessionItem[];
 };

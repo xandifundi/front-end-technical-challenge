@@ -1,4 +1,4 @@
-import type { ChallengeAttempt } from "@/domain/types";
+import type { ChallengeSession } from "@/domain/types";
 import type { ChallengeState, ChallengeAction } from "@/state/types";
 
 export type HandleEventStore = {
@@ -7,7 +7,9 @@ export type HandleEventStore = {
 };
 
 export type HandleEventAPI = {
-  saveChallengeAttempt: (challengeAttempt: ChallengeAttempt) => Promise<void>;
+  completeChallengeSession: (
+    challengeSession: ChallengeSession
+  ) => Promise<void>;
 };
 
 export type HandleEventContext = {

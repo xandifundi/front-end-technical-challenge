@@ -16,7 +16,7 @@ export function useHandleEvent(props: UseChallengeEventsProps) {
 
   async function handleEvent(event: ChallengeEvent) {
     const api: HandleEventAPI = {
-      saveChallengeAttempt: API.saveChallengeAttempt,
+      completeChallengeSession: API.completeChallengeSession,
     };
 
     const context: HandleEventContext = {

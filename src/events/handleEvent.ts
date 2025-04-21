@@ -5,7 +5,7 @@ import type {
   HandleEventContext,
 } from "./types";
 import { ensureItemsAreMarked } from "./utils/ensureItemsAreMarked";
-import { makeChallengeAttempt } from "./utils/makeChallengeAttempt";
+import { makeChallengeSession } from "./utils/makeChallengeSession";
 import { calculateChallengeMarks } from "./utils/calculateChallengeMarks";
 
 export type HandleEventProps = {
@@ -64,9 +64,9 @@ async function handleFinishChallengeEvent(
     marks,
   });
 
-  const challengeAttempt = makeChallengeAttempt(state);
+  const challengeSession = makeChallengeSession(state);
 
-  await context.api.saveChallengeAttempt(challengeAttempt);
+  await context.api.completeChallengeSession(challengeSession);
 }
 
 function handleRestartChallengeEvent(context: HandleEventContext): void {

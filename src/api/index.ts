@@ -1,2 +1,2 @@
 export * from "./fetchChallenge";
-export * from "./saveChallengeAttempt";
+export * from "./completeChallengeSession";
