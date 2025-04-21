@@ -12,7 +12,7 @@ export async function completeChallengeSession(
   });
 
   if (!response.ok) {
-    throw new Error("Failed to complete challenge session");
+    throw new Error("Failed to complete the challenge session");
   }
 
   return response.json();
