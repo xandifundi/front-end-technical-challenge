@@ -38,9 +38,11 @@ export function useLoadQuizState(props: UseLoadQuizStateProps) {
 
         const quiz = await QuizAPI.fetchQuiz({ quizId });
 
+        const quizState = makeInitialState(quiz);
+
         setResult({
           kind: "Success",
-          quizState: makeInitialState(quiz),
+          quizState,
         });
       } catch (error) {
         setResult({ kind: "Error", error: String(error) });
