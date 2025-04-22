@@ -4,7 +4,7 @@ import { PageLayout } from "@/ui/components/layouts/PageLayout";
 import { Button } from "@/ui/components/common/Button";
 import { ProgressBar } from "@/ui/components/common/ProgressBar";
 import { MultipleChoiceQuestion } from "./MultipleChoiceQuestion";
-import styles from "./ChallengeItemPage.module.css";
+import styles from "./ChallengeQuestionPage.module.css";
 
 export type ChallengeItemPageProps = {
   itemIndex: number;

@@ -3,7 +3,7 @@ import type { Challenge } from "@/domain/types";
 import { useChallenge } from "@/ui/hooks/useChallenge";
 import { ChallengeStartPage } from "./startPage/ChallengeStartPage";
 import { ChallengeResultsPage } from "./resultsPage/ChallengeResultsPage";
-import { ChallengeItemPage } from "./itemPage/ChallengeItemPage";
+import { ChallengeItemPage } from "./questionPage/ChallengeQuestionPage";
 
 export type ChallengePageProps = {
   challenge: Challenge;
