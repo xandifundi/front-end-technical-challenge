@@ -14,6 +14,8 @@ export type MultipleChoiceQuestionProps = {
   onCheckAnswer: () => void;
 };
 
+const optionLabels = "ABCD".split("");
+
 export function MultipleChoiceQuestion(props: MultipleChoiceQuestionProps) {
   const { item, onOptionSelected, onCheckAnswer } = props;
 
@@ -57,20 +59,23 @@ function MultipleChoiceQuestionNotMarked(
       </div>
 
       <div className={styles.options}>
-        {question.options.map((option) => (
-          <div key={option.id} className={styles.option}>
-            <input
-              type="radio"
-              id={option.id}
-              className={styles.optionInput}
-              checked={state.selectedOptionId === option.id}
-              onChange={() => {
-                onOptionSelected(option.id);
-              }}
-            />
-            <label htmlFor={option.id}>{option.text}</label>
-          </div>
-        ))}
+        {question.options.map((option, index) => {
+          const label = optionLabels[index];
+          return (
+            <div key={option.id} className={styles.option}>
+              <span className={styles.optionLabel}>{label}</span>
+              <input
+                type="radio"
+                className={styles.optionInput}
+                checked={state.selectedOptionId === option.id}
+                onChange={() => {
+                  onOptionSelected(option.id);
+                }}
+              />
+              <span>{option.text}</span>
+            </div>
+          );
+        })}
       </div>
 
       <div>
@@ -104,18 +109,21 @@ function MultipleChoiceQuestionMarked(
       </div>
 
       <div className={styles.options}>
-        {question.options.map((option) => (
-          <div key={option.id} className={styles.option}>
-            <input
-              type="radio"
-              id={option.id}
-              className={styles.optionInput}
-              checked={selectedOptionId === option.id}
-              disabled
-            />
-            <label htmlFor={option.id}>{option.text}</label>
-          </div>
-        ))}
+        {question.options.map((option, index) => {
+          const label = optionLabels[index];
+          return (
+            <div key={option.id} className={styles.option}>
+              <span className={styles.optionLabel}>{label}</span>
+              <input
+                type="radio"
+                className={styles.optionInput}
+                checked={selectedOptionId === option.id}
+                disabled
+              />
+              <label htmlFor={option.id}>{option.text}</label>
+            </div>
+          );
+        })}
       </div>
 
       <div className={styles.result}>

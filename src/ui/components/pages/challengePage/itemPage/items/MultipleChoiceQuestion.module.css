@@ -10,6 +10,11 @@
   margin-bottom: 0.5rem;
 }
 
+.optionLabel {
+  margin-right: 0.5rem;
+  color: #aaa
+}
+
 .optionInput {
   margin-right: 0.5rem;
 }
