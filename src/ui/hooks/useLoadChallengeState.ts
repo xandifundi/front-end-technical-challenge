@@ -4,19 +4,19 @@ import * as ChallengeAPI from "@/api/challengeAPI";
 import * as LocalStorageAPI from "@/api/localStorageAPI";
 import { makeInitialState } from "./makeInitialState";
 
-export type UseGetChallengeStateProps = {
+export type UseLoadChallengeStateProps = {
   challengeId: string;
 };
 
-export type UseGetChallengeStateResult =
+export type UseLoadChallengeStateResult =
   | { kind: "Loading" }
   | { kind: "Error"; error: string }
   | { kind: "Success"; challengeState: ChallengeState };
 
-export function useGetChallengeState(props: UseGetChallengeStateProps) {
+export function useLoadChallengeState(props: UseLoadChallengeStateProps) {
   const { challengeId } = props;
 
-  const [result, setResult] = React.useState<UseGetChallengeStateResult>({
+  const [result, setResult] = React.useState<UseLoadChallengeStateResult>({
     kind: "Loading",
   });
 

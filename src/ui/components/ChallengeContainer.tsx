@@ -1,4 +1,4 @@
-import { useGetChallengeState } from "@/ui/hooks/useGetChallengeState";
+import { useLoadChallengeState } from "@/ui/hooks/useLoadChallengeState";
 import { ChallengePage } from "./pages/challengePage/ChallengePage";
 import { LoadingPage } from "./pages/loadingPage/LoadingPage";
 import { ErrorPage } from "./pages/errorPage/ErrorPage";
@@ -10,7 +10,7 @@ export type ChallengeContainerProps = {
 export function ChallengeContainer(props: ChallengeContainerProps) {
   const { challengeId } = props;
 
-  const result = useGetChallengeState({ challengeId });
+  const result = useLoadChallengeState({ challengeId });
 
   switch (result.kind) {
     case "Loading": {
