@@ -10,17 +10,17 @@ export type ChallengeContainerProps = {
 export function ChallengeContainer(props: ChallengeContainerProps) {
   const { challengeId } = props;
 
-  const challengeResult = useGetChallengeState({ challengeId });
+  const result = useGetChallengeState({ challengeId });
 
-  switch (challengeResult.kind) {
+  switch (result.kind) {
     case "Loading": {
       return <LoadingPage />;
     }
     case "Error": {
-      return <ErrorPage message={challengeResult.error} />;
+      return <ErrorPage message={result.error} />;
     }
     case "Success": {
-      return <ChallengePage challengeState={challengeResult.challengeState} />;
+      return <ChallengePage challengeState={result.challengeState} />;
     }
   }
 }
