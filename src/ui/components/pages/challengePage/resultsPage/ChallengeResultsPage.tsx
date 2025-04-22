@@ -1,7 +1,7 @@
 import type { Challenge } from "@/domain/types";
+import { PageLayout } from "@/ui/components/layouts/PageLayout";
 import { Heading } from "@/ui/components/common/Heading";
 import { Button } from "@/ui/components/common/Button";
-import pageStyles from "@/ui/styles/page.module.css";
 import styles from "./ChallengeResultsPage.module.css";
 
 export type ChallengeResultsPageProps = {
@@ -18,7 +18,7 @@ export function ChallengeResultsPage(props: ChallengeResultsPageProps) {
   const percentageInt = Math.floor(percentage);
 
   return (
-    <div className={pageStyles.page}>
+    <PageLayout>
       <main>
         <Heading>{challenge.name} Results</Heading>
 
@@ -31,6 +31,6 @@ export function ChallengeResultsPage(props: ChallengeResultsPageProps) {
           <Button onClick={onRepeatChallenge}>Try again</Button>
         </div>
       </main>
-    </div>
+    </PageLayout>
   );
 }

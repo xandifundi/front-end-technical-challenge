@@ -1,9 +1,9 @@
-import pageStyles from "@/ui/styles/page.module.css";
+import { PageLayout } from "@/ui/components/layouts/PageLayout";
 
 export function LoadingPage() {
   return (
-    <div className={pageStyles.page}>
+    <PageLayout>
       <main>Loading ...</main>
-    </div>
+    </PageLayout>
   );
 }

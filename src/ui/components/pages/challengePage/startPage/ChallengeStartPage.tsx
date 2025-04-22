@@ -1,8 +1,8 @@
 import type { Challenge } from "@/domain/types";
+import { PageLayout } from "@/ui/components/layouts/PageLayout";
 import { Heading } from "@/ui/components/common/Heading";
 import { Button } from "@/ui/components/common/Button";
 import { Markdown } from "@/ui/components/common/Markdown";
-import pageStyles from "@/ui/styles/page.module.css";
 import styles from "./ChallengeStartPage.module.css";
 
 export type ChallengeStartPageProps = {
@@ -14,7 +14,7 @@ export function ChallengeStartPage(props: ChallengeStartPageProps) {
   const { challenge, onStart } = props;
 
   return (
-    <div className={pageStyles.page}>
+    <PageLayout>
       <main>
         <Heading>{challenge.name}</Heading>
 
@@ -26,6 +26,6 @@ export function ChallengeStartPage(props: ChallengeStartPageProps) {
           <Button onClick={onStart}>Start Challenge</Button>
         </div>
       </main>
-    </div>
+    </PageLayout>
   );
 }

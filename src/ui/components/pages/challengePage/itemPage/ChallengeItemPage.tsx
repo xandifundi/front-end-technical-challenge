@@ -1,7 +1,7 @@
 import React from "react";
 import type { ChallengeStateItem } from "@/state/types";
 import type { ChallengeEvent } from "@/events/types";
-import pageStyles from "@/ui/styles/page.module.css";
+import { PageLayout } from "@/ui/components/layouts/PageLayout";
 import { Button } from "@/ui/components/common/Button";
 import { ProgressBar } from "@/ui/components/common/ProgressBar";
 import { ChallengeItem } from "./ChallengeItem";
@@ -38,7 +38,7 @@ export function ChallengeItemPage(
   );
 
   return (
-    <div className={pageStyles.page}>
+    <PageLayout>
       <header className={styles.header}>
         <div className={styles.headerProgress}>
           <ProgressBar current={itemIndex + 1} total={itemCount} />
@@ -61,6 +61,6 @@ export function ChallengeItemPage(
         {backButton}
         {nextButton}
       </footer>
-    </div>
+    </PageLayout>
   );
 }

@@ -1,4 +1,4 @@
-import pageStyles from "@/ui/styles/page.module.css";
+import { PageLayout } from "@/ui/components/layouts/PageLayout";
 
 export type ErrorPageProps = {
   message: string;
@@ -7,8 +7,8 @@ export type ErrorPageProps = {
 export function ErrorPage(props: ErrorPageProps) {
   const { message } = props;
   return (
-    <div className={pageStyles.page}>
+    <PageLayout>
       <main>{message}</main>
-    </div>
+    </PageLayout>
   );
 }
