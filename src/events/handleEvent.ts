@@ -65,15 +65,15 @@ async function handleFinishChallengeEvent(
 
   const { totalMarks, marks } = calculateChallengeMarks(state);
 
+  const challengeSession = makeChallengeSession(state);
+
+  await context.api.completeChallengeSession(challengeSession);
+
   context.store.dispatch({
     kind: "GoToResultsPage",
     totalMarks,
     marks,
   });
-
-  const challengeSession = makeChallengeSession(state);
-
-  await context.api.completeChallengeSession(challengeSession);
 }
 
 function handleRepeatChallengeEvent(context: HandleEventContext) {
