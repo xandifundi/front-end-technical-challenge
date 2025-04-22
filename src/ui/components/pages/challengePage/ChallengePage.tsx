@@ -1,6 +1,6 @@
 import React from "react";
 import type { ChallengeState } from "@/domain/types";
-import { saveChallengeState } from "@/api/localStorageAPI";
+import * as LocalStorageAPI from "@/api/localStorageAPI";
 import { useChallengeState } from "@/ui/hooks/useChallengeState";
 import { ChallengeStartPage } from "./startPage/ChallengeStartPage";
 import { ChallengeResultsPage } from "./resultsPage/ChallengeResultsPage";
@@ -11,14 +11,14 @@ export type ChallengePageProps = {
 };
 
 export function ChallengePage(props: ChallengePageProps) {
-  const { challengeState } = props;
+  const { state, handleEvent } = useChallengeState({
+    challengeState: props.challengeState,
+  });
 
-  const { state, handleEvent } = useChallengeState({ challengeState });
-
-  // Save the state every state change when on a Question page
+  // Save the current state
   React.useEffect(() => {
     if (state.page.kind === "QuestionPage") {
-      saveChallengeState(state);
+      LocalStorageAPI.saveChallengeState(state);
     }
   }, [state]);
 
@@ -26,7 +26,7 @@ export function ChallengePage(props: ChallengePageProps) {
     case "StartPage": {
       return (
         <ChallengeStartPage
-          challenge={challengeState.challenge}
+          challenge={state.challenge}
           onStart={() => {
             handleEvent({ kind: "StartChallenge" });
           }}
@@ -36,7 +36,7 @@ export function ChallengePage(props: ChallengePageProps) {
     case "ResultsPage": {
       return (
         <ChallengeResultsPage
-          challenge={challengeState.challenge}
+          challenge={state.challenge}
           totalMarks={state.page.totalMarks}
           marks={state.page.marks}
           onRepeatChallenge={() => {
