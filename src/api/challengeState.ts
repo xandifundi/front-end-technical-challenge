@@ -1,5 +1,5 @@
-import * as Storage from "@/utils/storage";
 import type { ChallengeState } from "@/domain/types";
+import * as Storage from "./utils/storage";
 
 export function loadChallengeState(): ChallengeState | null {
   const session = Storage.getStorageItem("atomi_challenge_session");

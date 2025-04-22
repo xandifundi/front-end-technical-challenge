@@ -1,1 +1,2 @@
-export * from "./fetchChallenge";
+export * from "./challenge";
+export * from "./challengeState";
