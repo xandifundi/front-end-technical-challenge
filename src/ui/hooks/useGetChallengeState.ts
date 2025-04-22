@@ -2,7 +2,7 @@ import React from "react";
 import type { ChallengeState } from "@/domain/types";
 import * as ChallengeAPI from "@/api/challengeAPI";
 import * as LocalStorageAPI from "@/api/localStorageAPI";
-import { makeInitialState } from "@/state/makeInitialState";
+import { makeInitialState } from "./makeInitialState";
 
 export type UseGetChallengeStateProps = {
   challengeId: string;

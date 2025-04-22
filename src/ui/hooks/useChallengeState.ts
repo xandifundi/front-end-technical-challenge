@@ -1,7 +1,7 @@
 import React from "react";
 import type { ChallengeState, ChallengeEvent } from "@/domain/types";
 import * as LocalStorageAPI from "@/api/localStorageAPI";
-import { makeInitialState } from "@/state/makeInitialState";
+import { makeInitialState } from "./makeInitialState";
 
 export function useChallengeState({
   challengeState,
