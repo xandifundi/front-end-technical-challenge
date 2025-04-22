@@ -120,7 +120,7 @@ function MultipleChoiceQuestionMarked(
                 checked={selectedOptionId === option.id}
                 disabled
               />
-              <label htmlFor={option.id}>{option.text}</label>
+              <span>{option.text}</span>
             </div>
           );
         })}
