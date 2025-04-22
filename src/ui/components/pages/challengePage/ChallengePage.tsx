@@ -3,7 +3,7 @@ import type { Challenge } from "@/domain/types";
 import { useChallenge } from "@/ui/hooks/useChallenge";
 import { ChallengeStartPage } from "./startPage/ChallengeStartPage";
 import { ChallengeResultsPage } from "./resultsPage/ChallengeResultsPage";
-import { ChallengeItemPage } from "./questionPage/ChallengeQuestionPage";
+import { ChallengeQuestionPage } from "./questionPage/ChallengeQuestionPage";
 
 export type ChallengePageProps = {
   challenge: Challenge;
@@ -54,9 +54,9 @@ export function ChallengePage(props: ChallengePageProps) {
       const questionState = state.questionStates[itemIndex];
       const itemCount = state.challenge.questions.length;
       return (
-        <ChallengeItemPage
-          itemIndex={itemIndex}
-          itemCount={itemCount}
+        <ChallengeQuestionPage
+          questionIndex={itemIndex}
+          questionCount={itemCount}
           question={question}
           questionState={questionState}
           onEvent={handleEvent}

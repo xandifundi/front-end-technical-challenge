@@ -6,21 +6,22 @@ import { ProgressBar } from "@/ui/components/common/ProgressBar";
 import { MultipleChoiceQuestion } from "./MultipleChoiceQuestion";
 import styles from "./ChallengeQuestionPage.module.css";
 
-export type ChallengeItemPageProps = {
-  itemIndex: number;
-  itemCount: number;
+export type ChallengeQuestionPageProps = {
+  questionIndex: number;
+  questionCount: number;
   question: Question;
   questionState: QuestionState;
   onEvent: (event: ChallengeEvent) => void;
 };
 
-export function ChallengeItemPage(
-  props: ChallengeItemPageProps
+export function ChallengeQuestionPage(
+  props: ChallengeQuestionPageProps
 ): React.JSX.Element {
-  const { itemIndex, question, questionState, itemCount, onEvent } = props;
+  const { questionIndex, questionCount, question, questionState, onEvent } =
+    props;
 
-  const isFirstItem = itemIndex === 0;
-  const isLastItem = itemIndex === itemCount - 1;
+  const isFirstItem = questionIndex === 0;
+  const isLastItem = questionIndex === questionCount - 1;
 
   const backButton = (
     <Button
@@ -41,7 +42,7 @@ export function ChallengeItemPage(
     <PageLayout>
       <header className={styles.header}>
         <div className={styles.headerProgress}>
-          <ProgressBar current={itemIndex + 1} total={itemCount} />
+          <ProgressBar current={questionIndex + 1} total={questionCount} />
         </div>
         <div>
           <Button
