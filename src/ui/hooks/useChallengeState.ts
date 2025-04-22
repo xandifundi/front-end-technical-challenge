@@ -11,8 +11,6 @@ export function useChallengeState({ challengeState }: UseChallengeStateProps) {
   const [state, setState] = React.useState(challengeState);
 
   function handleEvent(event: ChallengeEvent) {
-    console.log(event);
-
     switch (event.kind) {
       case "StartChallenge": {
         const newState: ChallengeState = {
@@ -58,9 +56,9 @@ export function useChallengeState({ challengeState }: UseChallengeStateProps) {
           page: { kind: "ResultsPage", marks, totalMarks },
         };
 
-        LocalStorageAPI.clearChallengeState();
-
         setState(newState);
+
+        LocalStorageAPI.clearChallengeState();
 
         return;
       }

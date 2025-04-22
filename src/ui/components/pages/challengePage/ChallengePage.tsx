@@ -15,16 +15,11 @@ export function ChallengePage(props: ChallengePageProps) {
 
   const { state, handleEvent } = useChallengeState({ challengeState });
 
-  // Save the state every second
+  // Save the state every state change when on a Question page
   React.useEffect(() => {
-    const intervalId = setInterval(() => {
-      if (state.page.kind === "QuestionPage") {
-        saveChallengeState(state);
-      }
-    }, 1000);
-    return () => {
-      clearInterval(intervalId);
-    };
+    if (state.page.kind === "QuestionPage") {
+      saveChallengeState(state);
+    }
   }, [state]);
 
   switch (state.page.kind) {
