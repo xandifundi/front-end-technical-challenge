@@ -1,5 +1,6 @@
 import React from "react";
 import type { QuizState, QuizEvent } from "@/domain/types";
+import * as QuizAPI from "@/api/quizAPI";
 import * as LocalStorageAPI from "@/api/localStorageAPI";
 import { makeInitialState } from "./makeInitialState";
 
@@ -10,7 +11,7 @@ export type UseQuizStateProps = {
 export function useQuizState({ quizState }: UseQuizStateProps) {
   const [state, setState] = React.useState(quizState);
 
-  function handleEvent(event: QuizEvent) {
+  async function handleEvent(event: QuizEvent) {
     switch (event.kind) {
       case "StartQuiz": {
         const newState: QuizState = {
@@ -59,6 +60,8 @@ export function useQuizState({ quizState }: UseQuizStateProps) {
         setState(newState);
 
         LocalStorageAPI.clearQuizState();
+
+        QuizAPI.completeQuiz({ quizId: state.quiz.id, marks });
 
         return;
       }

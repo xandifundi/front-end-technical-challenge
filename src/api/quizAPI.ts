@@ -17,3 +17,26 @@ export async function fetchQuiz(props: FetchQuizProps): Promise<Quiz> {
 
   return data;
 }
+
+export type CompleteQuizProps = {
+  quizId: string;
+  marks: number;
+};
+
+export async function completeQuiz(props: CompleteQuizProps) {
+  const { quizId, marks } = props;
+
+  const response = await fetch(`/api/quiz/${quizId}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ quizId, marks }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to complete the quiz");
+  }
+
+  return response.json();
+}
