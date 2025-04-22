@@ -11,10 +11,16 @@ export type ChallengePageProps = {
 export function useChallenge(props: ChallengePageProps) {
   const { challenge, challengeSession } = props;
 
+  // The store contains the application state.
+  // We use `store.getState()` to get the current state.
+  // We use `store.dispatch(action)` to update the state.
   const store = useStore({ challenge, challengeSession });
 
+  // `handleEvent` handles application events sent from the UI.
+  // It interacts with the store to update the state and also executes side effects.
   const handleEvent = useHandleEvent({ store });
 
+  // `useStateFromStore` listens to changes to the store and triggers re-renders.
   const state = useStateFromStore({ store });
 
   return { state, handleEvent };
