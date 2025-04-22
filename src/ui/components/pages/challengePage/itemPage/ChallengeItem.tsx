@@ -1,38 +1,32 @@
 import React from "react";
-import type { ChallengeStateItem } from "@/state/types";
-import type { ChallengeEvent } from "@/events/types";
+import type { Question, QuestionState } from "@/domain/types";
+import type { ChallengeEvent } from "@/ui/hooks/useChallenge";
 import { MultipleChoiceQuestion } from "./items/MultipleChoiceQuestion";
-import { TextSnippet } from "./items/TextSnippet";
 
 export type ChallengeItemProps = {
-  item: ChallengeStateItem;
+  question: Question;
+  questionState: QuestionState;
   onEvent: (event: ChallengeEvent) => void;
 };
 
 export function ChallengeItem(props: ChallengeItemProps): React.JSX.Element {
-  const { item, onEvent } = props;
+  const { question, questionState, onEvent } = props;
 
-  switch (item.kind) {
-    case "TextSnippet": {
-      return <TextSnippet item={item} />;
-    }
-    case "MultipleChoiceQuestion": {
-      return (
-        <MultipleChoiceQuestion
-          item={item}
-          onOptionSelected={(selectedOptionId) => {
-            onEvent({
-              kind: "MultipleChoiceQuestionOptionSelected",
-              selectedOptionId,
-            });
-          }}
-          onCheckAnswer={() => {
-            onEvent({
-              kind: "MultipleChoiceQuestionCheckAnswer",
-            });
-          }}
-        />
-      );
-    }
-  }
+  return (
+    <MultipleChoiceQuestion
+      question={question}
+      questionState={questionState}
+      onOptionSelected={(selectedOptionId) => {
+        onEvent({
+          kind: "MultipleChoiceQuestionOptionSelected",
+          selectedOptionId,
+        });
+      }}
+      onCheckAnswer={() => {
+        onEvent({
+          kind: "MultipleChoiceQuestionCheckAnswer",
+        });
+      }}
+    />
+  );
 }

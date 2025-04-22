@@ -1,29 +1,19 @@
-export type MultipleChoiceQuestionOption = {
+export type QuestionOption = {
   id: string;
   text: string;
 };
 
-export type MultipleChoiceQuestion = {
-  kind: "MultipleChoiceQuestion";
+export type Question = {
   id: string;
   prompt: string;
-  options: MultipleChoiceQuestionOption[];
+  options: QuestionOption[];
   correctOptionId: string;
   explanation: string;
-  marks: number;
 };
-
-export type TextSnippet = {
-  kind: "TextSnippet";
-  id: string;
-  content: string;
-};
-
-export type ChallengeItem = TextSnippet | MultipleChoiceQuestion;
 
 export type Challenge = {
   id: string;
   name: string;
   description: string;
-  items: ChallengeItem[];
+  questions: Question[];
 };

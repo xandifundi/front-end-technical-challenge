@@ -1,8 +1,8 @@
 import React from "react";
 import type { Challenge, ChallengeSession } from "@/domain/types";
 import { useChallenge } from "@/ui/hooks/useChallenge";
-import { makeChallengeSession } from "@/events/utils/makeChallengeSession";
-import { saveChallengeSession } from "@/session";
+// import { makeChallengeSession } from "@/events/utils/makeChallengeSession";
+// import { saveChallengeSession } from "@/session";
 import { ChallengeStartPage } from "./startPage/ChallengeStartPage";
 import { ChallengeResultsPage } from "./resultsPage/ChallengeResultsPage";
 import { ChallengeItemPage } from "./itemPage/ChallengeItemPage";
@@ -13,20 +13,20 @@ export type ChallengePageProps = {
 };
 
 export function ChallengePage(props: ChallengePageProps) {
-  const { challenge, challengeSession } = props;
+  const { challenge } = props;
 
-  const { state, handleEvent } = useChallenge({ challenge, challengeSession });
+  const { state, handleEvent } = useChallenge({ challenge });
 
   // Save the session every second
-  React.useEffect(() => {
-    const intervalId = setInterval(() => {
-      const session = makeChallengeSession(state);
-      saveChallengeSession(session);
-    }, 1000);
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [state]);
+  // React.useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     const session = makeChallengeSession(state);
+  //     saveChallengeSession(session);
+  //   }, 1000);
+  //   return () => {
+  //     clearInterval(intervalId);
+  //   };
+  // }, [state]);
 
   switch (state.page.kind) {
     case "StartPage": {
@@ -51,15 +51,17 @@ export function ChallengePage(props: ChallengePageProps) {
         />
       );
     }
-    case "ItemPage": {
+    case "QuestionPage": {
       const { itemIndex } = state.page;
-      const item = state.items[itemIndex];
-      const itemCount = state.items.length;
+      const question = state.challenge.questions[itemIndex];
+      const questionState = state.questionStates[itemIndex];
+      const itemCount = state.challenge.questions.length;
       return (
         <ChallengeItemPage
           itemIndex={itemIndex}
           itemCount={itemCount}
-          item={item}
+          question={question}
+          questionState={questionState}
           onEvent={handleEvent}
         />
       );

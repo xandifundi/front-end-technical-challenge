@@ -1,15 +1,12 @@
 import React from "react";
-import {
-  MultipleChoiceQuestionStateNotMarked,
-  MultipleChoiceQuestionStateMarked,
-} from "@/domain/types";
-import { ChallengeStateItem_MultipleChoiceQuestion } from "@/state/types";
+import { Question, QuestionState, QuestionStateResult } from "@/domain/types";
 import { Button } from "@/ui/components/common/Button";
 import { Markdown } from "@/ui/components/common/Markdown";
 import styles from "./MultipleChoiceQuestion.module.css";
 
 export type MultipleChoiceQuestionProps = {
-  item: ChallengeStateItem_MultipleChoiceQuestion;
+  question: Question;
+  questionState: QuestionState;
   onOptionSelected: (optionId: string) => void;
   onCheckAnswer: () => void;
 };
@@ -17,30 +14,31 @@ export type MultipleChoiceQuestionProps = {
 const optionLabels = "ABCD".split("");
 
 export function MultipleChoiceQuestion(props: MultipleChoiceQuestionProps) {
-  const { item, onOptionSelected, onCheckAnswer } = props;
+  const { question, questionState, onOptionSelected, onCheckAnswer } = props;
 
-  const { question, state } = item;
-
-  switch (state.kind) {
-    case "NotMarked": {
-      return (
-        <MultipleChoiceQuestionNotMarked
-          question={question}
-          state={state}
-          onOptionSelected={onOptionSelected}
-          onCheckAnswer={onCheckAnswer}
-        />
-      );
-    }
-    case "Marked": {
-      return <MultipleChoiceQuestionMarked question={question} state={state} />;
-    }
+  if (questionState.result) {
+    return (
+      <MultipleChoiceQuestionMarked
+        question={question}
+        selectedOptionId={questionState.selectedOptionId}
+        result={questionState.result}
+      />
+    );
   }
+
+  return (
+    <MultipleChoiceQuestionNotMarked
+      question={question}
+      selectedOptionId={questionState.selectedOptionId}
+      onOptionSelected={onOptionSelected}
+      onCheckAnswer={onCheckAnswer}
+    />
+  );
 }
 
 type MultipleChoiceQuestionNotMarkedProps = {
-  question: ChallengeStateItem_MultipleChoiceQuestion["question"];
-  state: MultipleChoiceQuestionStateNotMarked;
+  question: Question;
+  selectedOptionId: string | null;
   onOptionSelected: (optionId: string) => void;
   onCheckAnswer: () => void;
 };
@@ -48,9 +46,9 @@ type MultipleChoiceQuestionNotMarkedProps = {
 function MultipleChoiceQuestionNotMarked(
   props: MultipleChoiceQuestionNotMarkedProps
 ) {
-  const { question, state, onOptionSelected, onCheckAnswer } = props;
+  const { question, selectedOptionId, onOptionSelected, onCheckAnswer } = props;
 
-  const canCheckAnswer = Boolean(state.selectedOptionId);
+  const canCheckAnswer = Boolean(selectedOptionId);
 
   return (
     <div>
@@ -67,7 +65,7 @@ function MultipleChoiceQuestionNotMarked(
               <input
                 type="radio"
                 className={styles.optionInput}
-                checked={state.selectedOptionId === option.id}
+                checked={selectedOptionId === option.id}
                 onChange={() => {
                   onOptionSelected(option.id);
                 }}
@@ -88,19 +86,15 @@ function MultipleChoiceQuestionNotMarked(
 }
 
 type MultipleChoiceQuestionMarkedProps = {
-  question: ChallengeStateItem_MultipleChoiceQuestion["question"];
-  state: MultipleChoiceQuestionStateMarked;
+  question: Question;
+  selectedOptionId: string | null;
+  result: QuestionStateResult;
 };
 
 function MultipleChoiceQuestionMarked(
   props: MultipleChoiceQuestionMarkedProps
 ) {
-  const { question, state } = props;
-
-  const selectedOptionId =
-    state.result.kind === "Correct"
-      ? question.correctOptionId
-      : state.result.selectedOptionId;
+  const { question, selectedOptionId, result } = props;
 
   return (
     <div>
@@ -127,7 +121,7 @@ function MultipleChoiceQuestionMarked(
       </div>
 
       <div className={styles.result}>
-        <MultipleChoiceQuestionResult state={state} />
+        <MultipleChoiceQuestionResult result={result} />
       </div>
 
       <div>
@@ -138,11 +132,11 @@ function MultipleChoiceQuestionMarked(
 }
 
 function MultipleChoiceQuestionResult({
-  state,
+  result,
 }: {
-  state: MultipleChoiceQuestionStateMarked;
+  result: QuestionStateResult;
 }) {
-  switch (state.result.kind) {
+  switch (result) {
     case "Correct": {
       return <div>✅ Correct</div>;
     }

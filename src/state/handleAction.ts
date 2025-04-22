@@ -1,189 +1,189 @@
-import type {
-  ChallengeState,
-  ChallengeStateItem,
-  ChallengeStateItem_MultipleChoiceQuestion,
-  ChallengeAction,
-  GoToResultsPageAction,
-  SetMultipleChoiceQuestionSelectedOptionAction,
-  SetMultipleChoiceQuestionResultAction,
-  ResetChallengeAction,
-} from "./types";
-import { getItemPage, getMultipleChoiceQuestionItem } from "./utils";
-import { makeInitialState } from "./makeInitialState";
+// import type {
+//   ChallengeState,
+//   ChallengeStateItem,
+//   ChallengeStateItem_MultipleChoiceQuestion,
+//   ChallengeAction,
+//   GoToResultsPageAction,
+//   SetMultipleChoiceQuestionSelectedOptionAction,
+//   SetMultipleChoiceQuestionResultAction,
+//   ResetChallengeAction,
+// } from "./types";
+// import { getItemPage, getMultipleChoiceQuestionItem } from "./utils";
+// import { makeInitialState } from "./makeInitialState";
 
-export type HandleActionProps = {
-  state: ChallengeState;
-  action: ChallengeAction;
-};
+// export type HandleActionProps = {
+//   state: ChallengeState;
+//   action: ChallengeAction;
+// };
 
-export function handleAction(props: HandleActionProps): ChallengeState {
-  const { state, action } = props;
-  switch (action.kind) {
-    case "ResetChallenge": {
-      return resetChallenge(state, action);
-    }
-    case "GoToStart": {
-      return goToStart(state);
-    }
-    case "GoToFirstItem": {
-      return goToFirstItem(state);
-    }
-    case "GoToResultsPage": {
-      return goToResultsPage(state, action);
-    }
-    case "GoToNextItem": {
-      return goToNextItem(state);
-    }
-    case "GoToPreviousItem": {
-      return goToPreviousItem(state);
-    }
-    case "SetMultipleChoiceQuestionSelectedOption": {
-      return setMultipleChoiceQuestionSelectedOption(state, action);
-    }
-    case "SetMultipleChoiceQuestionResult": {
-      return setMultipleChoiceQuestionResult(state, action);
-    }
-  }
-}
+// export function handleAction(props: HandleActionProps): ChallengeState {
+//   const { state, action } = props;
+//   switch (action.kind) {
+//     case "ResetChallenge": {
+//       return resetChallenge(state, action);
+//     }
+//     case "GoToStart": {
+//       return goToStart(state);
+//     }
+//     case "GoToFirstItem": {
+//       return goToFirstItem(state);
+//     }
+//     case "GoToResultsPage": {
+//       return goToResultsPage(state, action);
+//     }
+//     case "GoToNextItem": {
+//       return goToNextItem(state);
+//     }
+//     case "GoToPreviousItem": {
+//       return goToPreviousItem(state);
+//     }
+//     case "SetMultipleChoiceQuestionSelectedOption": {
+//       return setMultipleChoiceQuestionSelectedOption(state, action);
+//     }
+//     case "SetMultipleChoiceQuestionResult": {
+//       return setMultipleChoiceQuestionResult(state, action);
+//     }
+//   }
+// }
 
-function resetChallenge(
-  state: ChallengeState,
-  action: ResetChallengeAction
-): ChallengeState {
-  return makeInitialState({
-    challenge: state.challenge,
-    challengeSession: action.challengeSession,
-  });
-}
+// function resetChallenge(
+//   state: ChallengeState,
+//   action: ResetChallengeAction
+// ): ChallengeState {
+//   return makeInitialState({
+//     challenge: state.challenge,
+//     challengeSession: action.challengeSession,
+//   });
+// }
 
-function goToStart(state: ChallengeState): ChallengeState {
-  return {
-    ...state,
-    page: {
-      kind: "StartPage",
-    },
-  };
-}
+// function goToStart(state: ChallengeState): ChallengeState {
+//   return {
+//     ...state,
+//     page: {
+//       kind: "StartPage",
+//     },
+//   };
+// }
 
-function goToFirstItem(state: ChallengeState): ChallengeState {
-  return {
-    ...state,
-    page: {
-      kind: "ItemPage",
-      itemIndex: 0,
-    },
-  };
-}
+// function goToFirstItem(state: ChallengeState): ChallengeState {
+//   return {
+//     ...state,
+//     page: {
+//       kind: "ItemPage",
+//       itemIndex: 0,
+//     },
+//   };
+// }
 
-function goToNextItem(state: ChallengeState): ChallengeState {
-  const { items } = state;
+// function goToNextItem(state: ChallengeState): ChallengeState {
+//   const { items } = state;
 
-  const page = getItemPage(state);
+//   const page = getItemPage(state);
 
-  if (!page) {
-    return state;
-  }
+//   if (!page) {
+//     return state;
+//   }
 
-  const { itemIndex } = page;
+//   const { itemIndex } = page;
 
-  if (itemIndex >= items.length - 1) {
-    return state;
-  }
+//   if (itemIndex >= items.length - 1) {
+//     return state;
+//   }
 
-  return {
-    ...state,
-    page: {
-      kind: "ItemPage",
-      itemIndex: itemIndex + 1,
-    },
-  };
-}
+//   return {
+//     ...state,
+//     page: {
+//       kind: "ItemPage",
+//       itemIndex: itemIndex + 1,
+//     },
+//   };
+// }
 
-function goToPreviousItem(state: ChallengeState): ChallengeState {
-  const page = getItemPage(state);
+// function goToPreviousItem(state: ChallengeState): ChallengeState {
+//   const page = getItemPage(state);
 
-  if (!page) {
-    return state;
-  }
+//   if (!page) {
+//     return state;
+//   }
 
-  const { itemIndex } = page;
+//   const { itemIndex } = page;
 
-  if (itemIndex <= 0) {
-    return state;
-  }
+//   if (itemIndex <= 0) {
+//     return state;
+//   }
 
-  return {
-    ...state,
-    page: {
-      kind: "ItemPage",
-      itemIndex: itemIndex - 1,
-    },
-  };
-}
+//   return {
+//     ...state,
+//     page: {
+//       kind: "ItemPage",
+//       itemIndex: itemIndex - 1,
+//     },
+//   };
+// }
 
-function goToResultsPage(
-  state: ChallengeState,
-  action: GoToResultsPageAction
-): ChallengeState {
-  const { marks, totalMarks } = action;
-  return {
-    ...state,
-    page: { kind: "ResultsPage", totalMarks, marks },
-  };
-}
+// function goToResultsPage(
+//   state: ChallengeState,
+//   action: GoToResultsPageAction
+// ): ChallengeState {
+//   const { marks, totalMarks } = action;
+//   return {
+//     ...state,
+//     page: { kind: "ResultsPage", totalMarks, marks },
+//   };
+// }
 
-function setMultipleChoiceQuestionSelectedOption(
-  state: ChallengeState,
-  action: SetMultipleChoiceQuestionSelectedOptionAction
-): ChallengeState {
-  const item = getMultipleChoiceQuestionItem(state);
+// function setMultipleChoiceQuestionSelectedOption(
+//   state: ChallengeState,
+//   action: SetMultipleChoiceQuestionSelectedOptionAction
+// ): ChallengeState {
+//   const item = getMultipleChoiceQuestionItem(state);
 
-  if (!item) {
-    return state;
-  }
+//   if (!item) {
+//     return state;
+//   }
 
-  const newItem: ChallengeStateItem_MultipleChoiceQuestion = {
-    ...item,
-    state: {
-      kind: "NotMarked",
-      selectedOptionId: action.selectedOptionId,
-    },
-  };
+//   const newItem: ChallengeStateItem_MultipleChoiceQuestion = {
+//     ...item,
+//     state: {
+//       kind: "NotMarked",
+//       selectedOptionId: action.selectedOptionId,
+//     },
+//   };
 
-  const newItems: ChallengeStateItem[] = state.items.map((_, index) =>
-    index === action.itemIndex ? newItem : state.items[index]
-  );
+//   const newItems: ChallengeStateItem[] = state.items.map((_, index) =>
+//     index === action.itemIndex ? newItem : state.items[index]
+//   );
 
-  return {
-    ...state,
-    items: newItems,
-  };
-}
+//   return {
+//     ...state,
+//     items: newItems,
+//   };
+// }
 
-function setMultipleChoiceQuestionResult(
-  state: ChallengeState,
-  action: SetMultipleChoiceQuestionResultAction
-): ChallengeState {
-  const item = getMultipleChoiceQuestionItem(state);
+// function setMultipleChoiceQuestionResult(
+//   state: ChallengeState,
+//   action: SetMultipleChoiceQuestionResultAction
+// ): ChallengeState {
+//   const item = getMultipleChoiceQuestionItem(state);
 
-  if (!item) {
-    return state;
-  }
+//   if (!item) {
+//     return state;
+//   }
 
-  const newItem: ChallengeStateItem_MultipleChoiceQuestion = {
-    ...item,
-    state: {
-      kind: "Marked",
-      result: action.result,
-    },
-  };
+//   const newItem: ChallengeStateItem_MultipleChoiceQuestion = {
+//     ...item,
+//     state: {
+//       kind: "Marked",
+//       result: action.result,
+//     },
+//   };
 
-  const newItems: ChallengeStateItem[] = state.items.map((_, index) =>
-    index === action.itemIndex ? newItem : state.items[index]
-  );
+//   const newItems: ChallengeStateItem[] = state.items.map((_, index) =>
+//     index === action.itemIndex ? newItem : state.items[index]
+//   );
 
-  return {
-    ...state,
-    items: newItems,
-  };
-}
+//   return {
+//     ...state,
+//     items: newItems,
+//   };
+// }

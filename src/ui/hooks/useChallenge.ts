@@ -1,27 +1,158 @@
-import type { Challenge, ChallengeSession } from "@/domain/types";
-import { useStore } from "@/ui/hooks/useStore";
-import { useStateFromStore } from "@/ui/hooks/useStateFromStore";
-import { useHandleEvent } from "@/ui/hooks/useHandleEvent";
+import React from "react";
+import type { Challenge } from "@/domain/types";
 
-export type ChallengePageProps = {
-  challenge: Challenge;
-  challengeSession: ChallengeSession | null;
+export type ChallengePage =
+  | { kind: "StartPage" }
+  | { kind: "QuestionPage"; itemIndex: number }
+  | { kind: "ResultsPage"; totalMarks: number; marks: number };
+
+export type QuestionState = {
+  selectedOptionId: string | null;
+  result: "Correct" | "Incorrect" | null;
 };
 
-export function useChallenge(props: ChallengePageProps) {
-  const { challenge, challengeSession } = props;
+export type ChallengeState = {
+  challenge: Challenge;
+  page: ChallengePage;
+  questionStates: QuestionState[];
+};
 
-  // The store contains the application state.
-  // We use `store.getState()` to get the current state.
-  // We use `store.dispatch(action)` to update the state.
-  const store = useStore({ challenge, challengeSession });
+export type ChallengeEvent =
+  | { kind: "StartChallenge" }
+  | { kind: "RepeatChallenge" }
+  | { kind: "GoToNextItem" }
+  | { kind: "GoToPreviousItem" }
+  | { kind: "FinishChallenge" }
+  | { kind: "CloseChallenge" }
+  | { kind: "MultipleChoiceQuestionOptionSelected"; selectedOptionId: string }
+  | { kind: "MultipleChoiceQuestionCheckAnswer" };
 
-  // `handleEvent` handles application events sent from the UI.
-  // It interacts with the store to update the state and also executes side effects.
-  const handleEvent = useHandleEvent({ store });
+function makeInitialState(challenge: Challenge): ChallengeState {
+  return {
+    challenge,
+    page: { kind: "StartPage" },
+    questionStates: challenge.questions.map(() => {
+      return { selectedOptionId: null, result: null };
+    }),
+  };
+}
 
-  // `useStateFromStore` listens to changes to the store and triggers re-renders.
-  const state = useStateFromStore({ store });
+export function useChallenge({ challenge }: { challenge: Challenge }) {
+  const [state, setState] = React.useState(() => makeInitialState(challenge));
 
-  return { state, handleEvent };
+  function handleEvent(event: ChallengeEvent) {
+    switch (event.kind) {
+      case "StartChallenge": {
+        setState({
+          ...state,
+          page: { kind: "QuestionPage", itemIndex: 0 },
+        });
+        return;
+      }
+
+      case "RepeatChallenge": {
+        setState(makeInitialState(challenge));
+        return;
+      }
+
+      case "CloseChallenge": {
+        setState({
+          ...state,
+          page: { kind: "StartPage" },
+        });
+        return;
+      }
+
+      case "FinishChallenge": {
+        const marks = state.questionStates.reduce(
+          (acc, questionState) =>
+            questionState.result === "Correct" ? acc + 1 : acc,
+          0
+        );
+
+        const totalMarks = state.challenge.questions.length;
+
+        setState({
+          ...state,
+          page: { kind: "ResultsPage", marks, totalMarks },
+        });
+        return;
+      }
+
+      case "GoToNextItem": {
+        if (state.page.kind !== "QuestionPage") {
+          return;
+        }
+        const { itemIndex } = state.page;
+        setState({
+          ...state,
+          page: { kind: "QuestionPage", itemIndex: itemIndex + 1 },
+        });
+        return;
+      }
+
+      case "GoToPreviousItem": {
+        if (state.page.kind !== "QuestionPage") {
+          return;
+        }
+        const { itemIndex } = state.page;
+        setState({
+          ...state,
+          page: { kind: "QuestionPage", itemIndex: itemIndex - 1 },
+        });
+        return;
+      }
+
+      case "MultipleChoiceQuestionCheckAnswer": {
+        if (state.page.kind !== "QuestionPage") {
+          return;
+        }
+        const { challenge, page } = state;
+        const newState: ChallengeState = {
+          ...state,
+          questionStates: state.questionStates.map((questionState, index) => {
+            if (index === page.itemIndex) {
+              const question = challenge.questions[index];
+              const isCorrect =
+                questionState.selectedOptionId === question.correctOptionId;
+              return {
+                ...questionState,
+                result: isCorrect ? "Correct" : "Incorrect",
+              };
+            }
+            return questionState;
+          }),
+        };
+        setState(newState);
+        return;
+      }
+
+      case "MultipleChoiceQuestionOptionSelected": {
+        if (state.page.kind !== "QuestionPage") {
+          return;
+        }
+        const { itemIndex } = state.page;
+        const { selectedOptionId } = event;
+        const newState: ChallengeState = {
+          ...state,
+          questionStates: state.questionStates.map((questionState, index) => {
+            return index === itemIndex
+              ? { ...questionState, selectedOptionId }
+              : questionState;
+          }),
+        };
+        setState(newState);
+        return;
+      }
+
+      default: {
+        event satisfies never;
+      }
+    }
+  }
+
+  return {
+    state,
+    handleEvent,
+  };
 }

@@ -1,30 +1,30 @@
-import type {
-  ChallengeState,
-  ChallengeStateItem_MultipleChoiceQuestion,
-  ChallengePage_ItemPage,
-} from "./types";
+// import type {
+//   ChallengeState,
+//   ChallengeStateItem_MultipleChoiceQuestion,
+//   ChallengePage_ItemPage,
+// } from "./types";
 
-export function getItemPage(
-  state: ChallengeState
-): ChallengePage_ItemPage | null {
-  const { page } = state;
-  return page.kind === "ItemPage" ? page : null;
-}
+// export function getItemPage(
+//   state: ChallengeState
+// ): ChallengePage_ItemPage | null {
+//   const { page } = state;
+//   return page.kind === "ItemPage" ? page : null;
+// }
 
-export function getMultipleChoiceQuestionItem(
-  state: ChallengeState
-): ChallengeStateItem_MultipleChoiceQuestion | null {
-  const itemPage = getItemPage(state);
+// export function getMultipleChoiceQuestionItem(
+//   state: ChallengeState
+// ): ChallengeStateItem_MultipleChoiceQuestion | null {
+//   const itemPage = getItemPage(state);
 
-  if (!itemPage) {
-    return null;
-  }
+//   if (!itemPage) {
+//     return null;
+//   }
 
-  const item = state.items[itemPage.itemIndex];
+//   const item = state.items[itemPage.itemIndex];
 
-  if (item.kind !== "MultipleChoiceQuestion") {
-    return null;
-  }
+//   if (item.kind !== "MultipleChoiceQuestion") {
+//     return null;
+//   }
 
-  return item;
-}
+//   return item;
+// }

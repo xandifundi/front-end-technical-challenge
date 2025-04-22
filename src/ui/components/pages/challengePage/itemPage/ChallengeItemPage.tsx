@@ -1,6 +1,6 @@
 import React from "react";
-import type { ChallengeStateItem } from "@/state/types";
-import type { ChallengeEvent } from "@/events/types";
+import type { Question, QuestionState } from "@/domain/types";
+import type { ChallengeEvent } from "@/ui/hooks/useChallenge";
 import { PageLayout } from "@/ui/components/layouts/PageLayout";
 import { Button } from "@/ui/components/common/Button";
 import { ProgressBar } from "@/ui/components/common/ProgressBar";
@@ -10,14 +10,15 @@ import styles from "./ChallengeItemPage.module.css";
 export type ChallengeItemPageProps = {
   itemIndex: number;
   itemCount: number;
-  item: ChallengeStateItem;
+  question: Question;
+  questionState: QuestionState;
   onEvent: (event: ChallengeEvent) => void;
 };
 
 export function ChallengeItemPage(
   props: ChallengeItemPageProps
 ): React.JSX.Element {
-  const { itemIndex, item, itemCount, onEvent } = props;
+  const { itemIndex, question, questionState, itemCount, onEvent } = props;
 
   const isFirstItem = itemIndex === 0;
   const isLastItem = itemIndex === itemCount - 1;
@@ -54,7 +55,11 @@ export function ChallengeItemPage(
       </header>
 
       <main className={styles.main}>
-        <ChallengeItem item={item} onEvent={onEvent} />
+        <ChallengeItem
+          question={question}
+          questionState={questionState}
+          onEvent={onEvent}
+        />
       </main>
 
       <footer className={styles.footer}>
