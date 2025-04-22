@@ -3,7 +3,7 @@ import type { Question, QuestionState, ChallengeEvent } from "@/domain/types";
 import { PageLayout } from "@/ui/components/layouts/PageLayout";
 import { Button } from "@/ui/components/common/Button";
 import { ProgressBar } from "@/ui/components/common/ProgressBar";
-import { ChallengeItem } from "./ChallengeItem";
+import { MultipleChoiceQuestion } from "./MultipleChoiceQuestion";
 import styles from "./ChallengeItemPage.module.css";
 
 export type ChallengeItemPageProps = {
@@ -54,10 +54,18 @@ export function ChallengeItemPage(
       </header>
 
       <main className={styles.main}>
-        <ChallengeItem
+        <MultipleChoiceQuestion
           question={question}
           questionState={questionState}
-          onEvent={onEvent}
+          onOptionSelected={(selectedOptionId) => {
+            onEvent({
+              kind: "MultipleChoiceQuestionOptionSelected",
+              selectedOptionId,
+            });
+          }}
+          onCheckAnswer={() => {
+            onEvent({ kind: "MultipleChoiceQuestionCheckAnswer" });
+          }}
         />
       </main>
 
