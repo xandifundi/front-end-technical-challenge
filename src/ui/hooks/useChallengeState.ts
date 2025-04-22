@@ -3,11 +3,11 @@ import type { ChallengeState, ChallengeEvent } from "@/domain/types";
 import * as LocalStorageAPI from "@/api/localStorageAPI";
 import { makeInitialState } from "./makeInitialState";
 
-export function useChallengeState({
-  challengeState,
-}: {
+export type UseChallengeStateProps = {
   challengeState: ChallengeState;
-}) {
+};
+
+export function useChallengeState({ challengeState }: UseChallengeStateProps) {
   const [state, setState] = React.useState(challengeState);
 
   function handleEvent(event: ChallengeEvent) {
