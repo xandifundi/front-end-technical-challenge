@@ -1,6 +1,5 @@
 import React from "react";
-import type { Question, QuestionState } from "@/domain/types";
-import type { ChallengeEvent } from "@/ui/hooks/useChallenge";
+import type { Question, QuestionState, ChallengeEvent } from "@/domain/types";
 import { MultipleChoiceQuestion } from "./items/MultipleChoiceQuestion";
 
 export type ChallengeItemProps = {

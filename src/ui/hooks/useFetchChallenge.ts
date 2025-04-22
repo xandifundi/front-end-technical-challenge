@@ -1,7 +1,6 @@
 import React from "react";
 import * as API from "@/api";
-import * as SessionAPI from "@/session";
-import { Challenge, ChallengeSession } from "@/domain/types";
+import { Challenge } from "@/domain/types";
 
 export type UseFetchChallengeProps = {
   challengeId: string;
@@ -10,11 +9,7 @@ export type UseFetchChallengeProps = {
 export type UseFetchChallengeResult =
   | { kind: "Loading" }
   | { kind: "Error"; error: string }
-  | {
-      kind: "Success";
-      challenge: Challenge;
-      challengeSession: ChallengeSession | null;
-    };
+  | { kind: "Success"; challenge: Challenge };
 
 export function useFetchChallenge(props: UseFetchChallengeProps) {
   const { challengeId } = props;
@@ -27,8 +22,7 @@ export function useFetchChallenge(props: UseFetchChallengeProps) {
     async function fetchChallenge() {
       try {
         const challenge = await API.fetchChallenge({ challengeId });
-        const challengeSession = SessionAPI.loadChallengeSession();
-        setResult({ kind: "Success", challenge, challengeSession });
+        setResult({ kind: "Success", challenge });
       } catch (error) {
         setResult({ kind: "Error", error: String(error) });
       }

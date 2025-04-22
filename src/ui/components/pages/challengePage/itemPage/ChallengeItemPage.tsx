@@ -1,6 +1,5 @@
 import React from "react";
-import type { Question, QuestionState } from "@/domain/types";
-import type { ChallengeEvent } from "@/ui/hooks/useChallenge";
+import type { Question, QuestionState, ChallengeEvent } from "@/domain/types";
 import { PageLayout } from "@/ui/components/layouts/PageLayout";
 import { Button } from "@/ui/components/common/Button";
 import { ProgressBar } from "@/ui/components/common/ProgressBar";
