@@ -29,7 +29,10 @@ export function useLoadChallengeState(props: UseLoadChallengeStateProps) {
         if (challengeStateFromLocalStorage) {
           setResult({
             kind: "Success",
-            challengeState: challengeStateFromLocalStorage,
+            challengeState: {
+              ...challengeStateFromLocalStorage,
+              page: { kind: "StartPage" },
+            },
           });
           return;
         }
