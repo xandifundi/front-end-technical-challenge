@@ -1,30 +1,16 @@
 import type { ChallengeState } from "@/domain/types";
 
-function setStorageItem(key: string, value: unknown): void {
-  localStorage.setItem(key, JSON.stringify(value));
-}
-
-function getStorageItem(key: string): unknown {
-  const item = localStorage.getItem(key);
-  return item ? JSON.parse(item) : null;
-}
-
-function removeStorageItem(key: string): void {
-  localStorage.removeItem(key);
-}
+const key = "atomi_challenge_state";
 
 export function loadChallengeState(): ChallengeState | null {
-  const session = getStorageItem("atomi_challenge_state");
-  if (session) {
-    return session as ChallengeState;
-  }
-  return null;
+  const state = localStorage.getItem(key);
+  return state ? (JSON.parse(state) as ChallengeState) : null;
 }
 
-export function saveChallengeState(session: ChallengeState): void {
-  setStorageItem("atomi_challenge_state", session);
+export function saveChallengeState(state: ChallengeState): void {
+  localStorage.setItem(key, JSON.stringify(state));
 }
 
 export function clearChallengeState(): void {
-  removeStorageItem("atomi_challenge_state");
+  localStorage.removeItem(key);
 }

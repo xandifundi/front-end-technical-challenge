@@ -1,5 +1,6 @@
 import React from "react";
 import type { ChallengeState, ChallengeEvent } from "@/domain/types";
+import * as LocalStorageAPI from "@/api/localStorageAPI";
 import { makeInitialState } from "@/state/makeInitialState";
 
 export function useChallengeState({
@@ -10,6 +11,8 @@ export function useChallengeState({
   const [state, setState] = React.useState(challengeState);
 
   function handleEvent(event: ChallengeEvent) {
+    console.log(event);
+
     switch (event.kind) {
       case "StartChallenge": {
         setState({
@@ -45,6 +48,9 @@ export function useChallengeState({
           ...state,
           page: { kind: "ResultsPage", marks, totalMarks },
         });
+
+        LocalStorageAPI.clearChallengeState();
+
         return;
       }
 
