@@ -15,23 +15,32 @@ export function useChallengeState({
 
     switch (event.kind) {
       case "StartChallenge": {
-        setState({
+        const newState: ChallengeState = {
           ...state,
           page: { kind: "QuestionPage", itemIndex: 0 },
-        });
+        };
+
+        setState(newState);
+
         return;
       }
 
       case "RepeatChallenge": {
-        setState(makeInitialState(state.challenge));
+        const newState = makeInitialState(state.challenge);
+
+        setState(newState);
+
         return;
       }
 
       case "CloseChallenge": {
-        setState({
+        const newState: ChallengeState = {
           ...state,
           page: { kind: "StartPage" },
-        });
+        };
+
+        setState(newState);
+
         return;
       }
 
@@ -44,12 +53,14 @@ export function useChallengeState({
 
         const totalMarks = state.challenge.questions.length;
 
-        setState({
+        const newState: ChallengeState = {
           ...state,
           page: { kind: "ResultsPage", marks, totalMarks },
-        });
+        };
 
         LocalStorageAPI.clearChallengeState();
+
+        setState(newState);
 
         return;
       }
@@ -58,11 +69,16 @@ export function useChallengeState({
         if (state.page.kind !== "QuestionPage") {
           return;
         }
+
         const { itemIndex } = state.page;
-        setState({
+
+        const newState: ChallengeState = {
           ...state,
           page: { kind: "QuestionPage", itemIndex: itemIndex + 1 },
-        });
+        };
+
+        setState(newState);
+
         return;
       }
 
@@ -70,11 +86,16 @@ export function useChallengeState({
         if (state.page.kind !== "QuestionPage") {
           return;
         }
+
         const { itemIndex } = state.page;
-        setState({
+
+        const newState: ChallengeState = {
           ...state,
           page: { kind: "QuestionPage", itemIndex: itemIndex - 1 },
-        });
+        };
+
+        setState(newState);
+
         return;
       }
 
@@ -82,7 +103,9 @@ export function useChallengeState({
         if (state.page.kind !== "QuestionPage") {
           return;
         }
+
         const { challenge, page } = state;
+
         const newState: ChallengeState = {
           ...state,
           questionStates: state.questionStates.map((questionState, index) => {
@@ -98,7 +121,9 @@ export function useChallengeState({
             return questionState;
           }),
         };
+
         setState(newState);
+
         return;
       }
 
@@ -106,8 +131,11 @@ export function useChallengeState({
         if (state.page.kind !== "QuestionPage") {
           return;
         }
+
         const { itemIndex } = state.page;
+
         const { selectedOptionId } = event;
+
         const newState: ChallengeState = {
           ...state,
           questionStates: state.questionStates.map((questionState, index) => {
@@ -116,7 +144,9 @@ export function useChallengeState({
               : questionState;
           }),
         };
+
         setState(newState);
+
         return;
       }
 
