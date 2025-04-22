@@ -1,35 +1,35 @@
 import React from "react";
-import type { Challenge } from "@/domain/types";
-import { useChallenge } from "@/ui/hooks/useChallenge";
+import type { ChallengeState } from "@/domain/types";
+import { saveChallengeState } from "@/api/localStorageAPI";
+import { useChallengeState } from "@/ui/hooks/useChallengeState";
 import { ChallengeStartPage } from "./startPage/ChallengeStartPage";
 import { ChallengeResultsPage } from "./resultsPage/ChallengeResultsPage";
 import { ChallengeQuestionPage } from "./questionPage/ChallengeQuestionPage";
 
 export type ChallengePageProps = {
-  challenge: Challenge;
+  challengeState: ChallengeState;
 };
 
 export function ChallengePage(props: ChallengePageProps) {
-  const { challenge } = props;
+  const { challengeState } = props;
 
-  const { state, handleEvent } = useChallenge({ challenge });
+  const { state, handleEvent } = useChallengeState({ challengeState });
 
-  // Save the session every second
-  // React.useEffect(() => {
-  //   const intervalId = setInterval(() => {
-  //     const session = makeChallengeSession(state);
-  //     saveChallengeSession(session);
-  //   }, 1000);
-  //   return () => {
-  //     clearInterval(intervalId);
-  //   };
-  // }, [state]);
+  // Save the state every second
+  React.useEffect(() => {
+    const intervalId = setInterval(() => {
+      saveChallengeState(state);
+    }, 1000);
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [state]);
 
   switch (state.page.kind) {
     case "StartPage": {
       return (
         <ChallengeStartPage
-          challenge={challenge}
+          challenge={challengeState.challenge}
           onStart={() => {
             handleEvent({ kind: "StartChallenge" });
           }}
@@ -39,7 +39,7 @@ export function ChallengePage(props: ChallengePageProps) {
     case "ResultsPage": {
       return (
         <ChallengeResultsPage
-          challenge={challenge}
+          challenge={challengeState.challenge}
           totalMarks={state.page.totalMarks}
           marks={state.page.marks}
           onRepeatChallenge={() => {

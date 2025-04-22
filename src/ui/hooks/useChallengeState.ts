@@ -1,18 +1,13 @@
 import React from "react";
-import type { Challenge, ChallengeState, ChallengeEvent } from "@/domain/types";
+import type { ChallengeState, ChallengeEvent } from "@/domain/types";
+import { makeInitialState } from "@/state/makeInitialState";
 
-function makeInitialState(challenge: Challenge): ChallengeState {
-  return {
-    challenge,
-    page: { kind: "StartPage" },
-    questionStates: challenge.questions.map(() => {
-      return { selectedOptionId: null, result: null };
-    }),
-  };
-}
-
-export function useChallenge({ challenge }: { challenge: Challenge }) {
-  const [state, setState] = React.useState(() => makeInitialState(challenge));
+export function useChallengeState({
+  challengeState,
+}: {
+  challengeState: ChallengeState;
+}) {
+  const [state, setState] = React.useState(challengeState);
 
   function handleEvent(event: ChallengeEvent) {
     switch (event.kind) {
@@ -25,7 +20,7 @@ export function useChallenge({ challenge }: { challenge: Challenge }) {
       }
 
       case "RepeatChallenge": {
-        setState(makeInitialState(challenge));
+        setState(makeInitialState(state.challenge));
         return;
       }
 
