@@ -11,7 +11,7 @@ export type Question = {
   explanation: string;
 };
 
-export type Challenge = {
+export type Quiz = {
   id: string;
   name: string;
   description: string;

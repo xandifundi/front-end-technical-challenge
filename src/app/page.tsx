@@ -1,8 +1,8 @@
 "use client";
 
-import { challenge } from "@/data/challenge";
-import { ChallengeContainer } from "@/ui/components/ChallengeContainer";
+import { sampleQuiz } from "@/data/sampleQuiz";
+import { QuizContainer } from "@/ui/components/QuizContainer";
 
-export default function Challenge() {
-  return <ChallengeContainer challengeId={challenge.id} />;
+export default function Quiz() {
+  return <QuizContainer quizId={sampleQuiz.id} />;
 }

@@ -1,21 +1,21 @@
 import React from "react";
-import type { Question, QuestionState, ChallengeEvent } from "@/domain/types";
+import type { Question, QuestionState, QuizEvent } from "@/domain/types";
 import { PageLayout } from "@/ui/components/layouts/PageLayout";
 import { Button } from "@/ui/components/common/Button";
 import { ProgressBar } from "@/ui/components/common/ProgressBar";
 import { MultipleChoiceQuestion } from "./MultipleChoiceQuestion";
-import styles from "./ChallengeQuestionPage.module.css";
+import styles from "./QuizQuestionPage.module.css";
 
-export type ChallengeQuestionPageProps = {
+export type QuizQuestionPageProps = {
   questionIndex: number;
   questionCount: number;
   question: Question;
   questionState: QuestionState;
-  onEvent: (event: ChallengeEvent) => void;
+  onEvent: (event: QuizEvent) => void;
 };
 
-export function ChallengeQuestionPage(
-  props: ChallengeQuestionPageProps
+export function QuizQuestionPage(
+  props: QuizQuestionPageProps
 ): React.JSX.Element {
   const { questionIndex, questionCount, question, questionState, onEvent } =
     props;
@@ -33,7 +33,7 @@ export function ChallengeQuestionPage(
   );
 
   const nextButton = isLastItem ? (
-    <Button onClick={() => onEvent({ kind: "FinishChallenge" })}>Finish</Button>
+    <Button onClick={() => onEvent({ kind: "FinishQuiz" })}>Finish</Button>
   ) : (
     <Button onClick={() => onEvent({ kind: "GoToNextItem" })}>Next</Button>
   );
@@ -45,10 +45,7 @@ export function ChallengeQuestionPage(
           <ProgressBar current={questionIndex + 1} total={questionCount} />
         </div>
         <div>
-          <Button
-            size="small"
-            onClick={() => onEvent({ kind: "CloseChallenge" })}
-          >
+          <Button size="small" onClick={() => onEvent({ kind: "CloseQuiz" })}>
             ✕
           </Button>
         </div>

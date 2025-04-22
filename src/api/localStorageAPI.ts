@@ -1,16 +1,16 @@
-import type { ChallengeState } from "@/domain/types";
+import type { QuizState } from "@/domain/types";
 
-const key = "atomi_challenge_state";
+const key = "atomi_quiz_state";
 
-export function loadChallengeState(): ChallengeState | null {
+export function loadQuizState(): QuizState | null {
   const state = localStorage.getItem(key);
-  return state ? (JSON.parse(state) as ChallengeState) : null;
+  return state ? (JSON.parse(state) as QuizState) : null;
 }
 
-export function saveChallengeState(state: ChallengeState): void {
+export function saveQuizState(state: QuizState): void {
   localStorage.setItem(key, JSON.stringify(state));
 }
 
-export function clearChallengeState(): void {
+export function clearQuizState(): void {
   localStorage.removeItem(key);
 }

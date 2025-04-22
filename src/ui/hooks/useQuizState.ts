@@ -1,19 +1,19 @@
 import React from "react";
-import type { ChallengeState, ChallengeEvent } from "@/domain/types";
+import type { QuizState, QuizEvent } from "@/domain/types";
 import * as LocalStorageAPI from "@/api/localStorageAPI";
 import { makeInitialState } from "./makeInitialState";
 
-export type UseChallengeStateProps = {
-  challengeState: ChallengeState;
+export type UseQuizStateProps = {
+  quizState: QuizState;
 };
 
-export function useChallengeState({ challengeState }: UseChallengeStateProps) {
-  const [state, setState] = React.useState(challengeState);
+export function useQuizState({ quizState }: UseQuizStateProps) {
+  const [state, setState] = React.useState(quizState);
 
-  function handleEvent(event: ChallengeEvent) {
+  function handleEvent(event: QuizEvent) {
     switch (event.kind) {
-      case "StartChallenge": {
-        const newState: ChallengeState = {
+      case "StartQuiz": {
+        const newState: QuizState = {
           ...state,
           page: { kind: "QuestionPage", itemIndex: 0 },
         };
@@ -23,16 +23,16 @@ export function useChallengeState({ challengeState }: UseChallengeStateProps) {
         return;
       }
 
-      case "RepeatChallenge": {
-        const newState = makeInitialState(state.challenge);
+      case "RepeatQuiz": {
+        const newState = makeInitialState(state.quiz);
 
         setState(newState);
 
         return;
       }
 
-      case "CloseChallenge": {
-        const newState: ChallengeState = {
+      case "CloseQuiz": {
+        const newState: QuizState = {
           ...state,
           page: { kind: "StartPage" },
         };
@@ -42,23 +42,23 @@ export function useChallengeState({ challengeState }: UseChallengeStateProps) {
         return;
       }
 
-      case "FinishChallenge": {
+      case "FinishQuiz": {
         const marks = state.questionStates.reduce(
           (acc, questionState) =>
             questionState.result === "Correct" ? acc + 1 : acc,
           0
         );
 
-        const totalMarks = state.challenge.questions.length;
+        const totalMarks = state.quiz.questions.length;
 
-        const newState: ChallengeState = {
+        const newState: QuizState = {
           ...state,
           page: { kind: "ResultsPage", marks, totalMarks },
         };
 
         setState(newState);
 
-        LocalStorageAPI.clearChallengeState();
+        LocalStorageAPI.clearQuizState();
 
         return;
       }
@@ -70,7 +70,7 @@ export function useChallengeState({ challengeState }: UseChallengeStateProps) {
 
         const { itemIndex } = state.page;
 
-        const newState: ChallengeState = {
+        const newState: QuizState = {
           ...state,
           page: { kind: "QuestionPage", itemIndex: itemIndex + 1 },
         };
@@ -87,7 +87,7 @@ export function useChallengeState({ challengeState }: UseChallengeStateProps) {
 
         const { itemIndex } = state.page;
 
-        const newState: ChallengeState = {
+        const newState: QuizState = {
           ...state,
           page: { kind: "QuestionPage", itemIndex: itemIndex - 1 },
         };
@@ -102,13 +102,13 @@ export function useChallengeState({ challengeState }: UseChallengeStateProps) {
           return;
         }
 
-        const { challenge, page } = state;
+        const { quiz, page } = state;
 
-        const newState: ChallengeState = {
+        const newState: QuizState = {
           ...state,
           questionStates: state.questionStates.map((questionState, index) => {
             if (index === page.itemIndex) {
-              const question = challenge.questions[index];
+              const question = quiz.questions[index];
               const isCorrect =
                 questionState.selectedOptionId === question.correctOptionId;
               return {
@@ -134,7 +134,7 @@ export function useChallengeState({ challengeState }: UseChallengeStateProps) {
 
         const { selectedOptionId } = event;
 
-        const newState: ChallengeState = {
+        const newState: QuizState = {
           ...state,
           questionStates: state.questionStates.map((questionState, index) => {
             return index === itemIndex

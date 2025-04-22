@@ -1,10 +1,10 @@
-import type { Challenge, ChallengeState } from "@/domain/types";
+import type { Quiz, QuizState } from "@/domain/types";
 
-export function makeInitialState(challenge: Challenge): ChallengeState {
+export function makeInitialState(quiz: Quiz): QuizState {
   return {
-    challenge,
+    quiz,
     page: { kind: "StartPage" },
-    questionStates: challenge.questions.map(() => {
+    questionStates: quiz.questions.map(() => {
       return { selectedOptionId: null, result: null };
     }),
   };

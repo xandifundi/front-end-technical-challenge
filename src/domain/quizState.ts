@@ -1,6 +1,6 @@
-import type { Challenge } from "./challenge";
+import type { Quiz } from "./quiz";
 
-export type ChallengePage =
+export type QuizPage =
   | { kind: "StartPage" }
   | { kind: "QuestionPage"; itemIndex: number }
   | { kind: "ResultsPage"; totalMarks: number; marks: number };
@@ -12,18 +12,18 @@ export type QuestionState = {
   result: QuestionStateResult | null;
 };
 
-export type ChallengeState = {
-  challenge: Challenge;
-  page: ChallengePage;
+export type QuizState = {
+  quiz: Quiz;
+  page: QuizPage;
   questionStates: QuestionState[];
 };
 
-export type ChallengeEvent =
-  | { kind: "StartChallenge" }
-  | { kind: "RepeatChallenge" }
+export type QuizEvent =
+  | { kind: "StartQuiz" }
+  | { kind: "RepeatQuiz" }
   | { kind: "GoToNextItem" }
   | { kind: "GoToPreviousItem" }
-  | { kind: "FinishChallenge" }
-  | { kind: "CloseChallenge" }
+  | { kind: "FinishQuiz" }
+  | { kind: "CloseQuiz" }
   | { kind: "MultipleChoiceQuestionOptionSelected"; selectedOptionId: string }
   | { kind: "MultipleChoiceQuestionCheckAnswer" };

@@ -1,2 +1,2 @@
-export * from "./challenge";
-export * from "./challengeState";
+export * from "./quiz";
+export * from "./quizState";

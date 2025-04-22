@@ -1,4 +1,4 @@
-import { Challenge, Question } from "@/domain/types";
+import { Quiz, Question } from "@/domain/types";
 
 const q1: Question = {
   id: "a78ce4af",
@@ -41,7 +41,7 @@ const q3: Question = {
   explanation: `Europa is believed to have a subsurface ocean beneath its icy crust, which could potentially harbor life.`,
 };
 
-export const challenge: Challenge = {
+export const sampleQuiz: Quiz = {
   id: "c8a06163",
   name: "The Solar System",
   description: `
