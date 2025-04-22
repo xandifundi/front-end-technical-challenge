@@ -1,4 +1,4 @@
-import type { Quiz, QuizState } from "@/domain/types";
+import type { Quiz, QuizState } from "@/types";
 
 export function makeInitialState(quiz: Quiz): QuizState {
   return {

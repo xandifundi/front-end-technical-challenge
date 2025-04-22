@@ -1,5 +1,5 @@
 import React from "react";
-import type { QuizState, QuizEvent } from "@/domain/types";
+import type { QuizState, QuizEvent } from "@/types";
 import * as QuizAPI from "@/api/quizAPI";
 import * as LocalStorageAPI from "@/api/localStorageAPI";
 import { makeInitialState } from "./makeInitialState";

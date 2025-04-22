@@ -1,4 +1,4 @@
-import type { Quiz } from "@/domain/types";
+import type { Quiz } from "@/types";
 
 export type FetchQuizProps = {
   quizId: string;

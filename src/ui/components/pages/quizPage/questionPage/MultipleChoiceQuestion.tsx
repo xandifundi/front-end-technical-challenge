@@ -1,5 +1,5 @@
 import React from "react";
-import { Question, QuestionState, QuestionStateResult } from "@/domain/types";
+import { Question, QuestionState, QuestionStateResult } from "@/types";
 import { Button } from "@/ui/components/common/Button";
 import { Markdown } from "@/ui/components/common/Markdown";
 import styles from "./MultipleChoiceQuestion.module.css";

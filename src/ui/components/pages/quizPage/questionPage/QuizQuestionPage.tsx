@@ -1,5 +1,5 @@
 import React from "react";
-import type { Question, QuestionState, QuizEvent } from "@/domain/types";
+import type { Question, QuestionState, QuizEvent } from "@/types";
 import { PageLayout } from "@/ui/components/layouts/PageLayout";
 import { Button } from "@/ui/components/common/Button";
 import { ProgressBar } from "@/ui/components/common/ProgressBar";

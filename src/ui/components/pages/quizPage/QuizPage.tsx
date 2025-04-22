@@ -1,5 +1,5 @@
 import React from "react";
-import type { QuizState } from "@/domain/types";
+import type { QuizState } from "@/types";
 import * as LocalStorageAPI from "@/api/localStorageAPI";
 import { useQuizState } from "@/ui/hooks/useQuizState";
 import { QuizStartPage } from "./startPage/QuizStartPage";

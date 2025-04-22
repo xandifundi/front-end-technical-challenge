@@ -1,4 +1,4 @@
-import { Quiz, Question } from "@/domain/types";
+import { Quiz, Question } from "@/types";
 
 const q1: Question = {
   id: "a78ce4af",

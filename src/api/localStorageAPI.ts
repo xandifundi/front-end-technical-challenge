@@ -1,4 +1,4 @@
-import type { QuizState } from "@/domain/types";
+import type { QuizState } from "@/types";
 
 const key = "atomi_quiz_state";
 

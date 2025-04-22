@@ -1,4 +1,4 @@
-import type { Quiz } from "@/domain/types";
+import type { Quiz } from "@/types";
 import { PageLayout } from "@/ui/components/layouts/PageLayout";
 import { Heading } from "@/ui/components/common/Heading";
 import { Button } from "@/ui/components/common/Button";
