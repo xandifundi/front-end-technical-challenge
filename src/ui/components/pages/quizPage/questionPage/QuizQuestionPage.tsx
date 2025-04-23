@@ -20,22 +20,22 @@ export function QuizQuestionPage(
   const { questionIndex, questionCount, question, questionState, onEvent } =
     props;
 
-  const isFirstItem = questionIndex === 0;
-  const isLastItem = questionIndex === questionCount - 1;
+  const isFirstQuestion = questionIndex === 0;
+  const isLastQuestion = questionIndex === questionCount - 1;
 
   const backButton = (
     <Button
-      disabled={isFirstItem}
-      onClick={() => onEvent({ kind: "GoToPreviousItem" })}
+      disabled={isFirstQuestion}
+      onClick={() => onEvent({ kind: "GoToPreviousQuestion" })}
     >
       Back
     </Button>
   );
 
-  const nextButton = isLastItem ? (
+  const nextButton = isLastQuestion ? (
     <Button onClick={() => onEvent({ kind: "FinishQuiz" })}>Finish</Button>
   ) : (
-    <Button onClick={() => onEvent({ kind: "GoToNextItem" })}>Next</Button>
+    <Button onClick={() => onEvent({ kind: "GoToNextQuestion" })}>Next</Button>
   );
 
   return (

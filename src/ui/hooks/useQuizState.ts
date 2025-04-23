@@ -16,7 +16,7 @@ export function useQuizState({ quizState }: UseQuizStateProps) {
       case "StartQuiz": {
         const newState: QuizState = {
           ...state,
-          page: { kind: "QuestionPage", itemIndex: 0 },
+          page: { kind: "QuestionPage", questionIndex: 0 },
         };
 
         setState(newState);
@@ -66,16 +66,16 @@ export function useQuizState({ quizState }: UseQuizStateProps) {
         return;
       }
 
-      case "GoToNextItem": {
+      case "GoToNextQuestion": {
         if (state.page.kind !== "QuestionPage") {
           return;
         }
 
-        const { itemIndex } = state.page;
+        const { questionIndex } = state.page;
 
         const newState: QuizState = {
           ...state,
-          page: { kind: "QuestionPage", itemIndex: itemIndex + 1 },
+          page: { kind: "QuestionPage", questionIndex: questionIndex + 1 },
         };
 
         setState(newState);
@@ -83,16 +83,16 @@ export function useQuizState({ quizState }: UseQuizStateProps) {
         return;
       }
 
-      case "GoToPreviousItem": {
+      case "GoToPreviousQuestion": {
         if (state.page.kind !== "QuestionPage") {
           return;
         }
 
-        const { itemIndex } = state.page;
+        const { questionIndex } = state.page;
 
         const newState: QuizState = {
           ...state,
-          page: { kind: "QuestionPage", itemIndex: itemIndex - 1 },
+          page: { kind: "QuestionPage", questionIndex: questionIndex - 1 },
         };
 
         setState(newState);
@@ -110,7 +110,7 @@ export function useQuizState({ quizState }: UseQuizStateProps) {
         const newState: QuizState = {
           ...state,
           questionStates: state.questionStates.map((questionState, index) => {
-            if (index === page.itemIndex) {
+            if (index === page.questionIndex) {
               const question = quiz.questions[index];
               const isCorrect =
                 questionState.selectedOptionId === question.correctOptionId;
@@ -133,14 +133,14 @@ export function useQuizState({ quizState }: UseQuizStateProps) {
           return;
         }
 
-        const { itemIndex } = state.page;
+        const { questionIndex } = state.page;
 
         const { selectedOptionId } = event;
 
         const newState: QuizState = {
           ...state,
           questionStates: state.questionStates.map((questionState, index) => {
-            return index === itemIndex
+            return index === questionIndex
               ? { ...questionState, selectedOptionId }
               : questionState;
           }),

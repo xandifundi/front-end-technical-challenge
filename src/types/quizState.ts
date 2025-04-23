@@ -2,7 +2,7 @@ import type { Quiz } from "./quiz";
 
 export type QuizPage =
   | { kind: "StartPage" }
-  | { kind: "QuestionPage"; itemIndex: number }
+  | { kind: "QuestionPage"; questionIndex: number }
   | { kind: "ResultsPage"; totalMarks: number; marks: number };
 
 export type QuestionStateResult = "Correct" | "Incorrect";

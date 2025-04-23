@@ -46,13 +46,13 @@ export function QuizPage(props: QuizPageProps) {
       );
     }
     case "QuestionPage": {
-      const { itemIndex } = state.page;
-      const question = state.quiz.questions[itemIndex];
-      const questionState = state.questionStates[itemIndex];
+      const { questionIndex } = state.page;
+      const question = state.quiz.questions[questionIndex];
+      const questionState = state.questionStates[questionIndex];
       const itemCount = state.quiz.questions.length;
       return (
         <QuizQuestionPage
-          questionIndex={itemIndex}
+          questionIndex={questionIndex}
           questionCount={itemCount}
           question={question}
           questionState={questionState}
