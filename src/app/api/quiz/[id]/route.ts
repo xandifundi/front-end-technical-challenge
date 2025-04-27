@@ -1,5 +1,6 @@
 import { sampleQuiz } from "@/data/sampleQuiz";
 
+// Handle fetching a mock quiz.
 export async function GET() {
   // Simulate a delay
   await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -10,6 +11,7 @@ export async function GET() {
   });
 }
 
+// Handle submitting a completed quiz.
 export async function POST() {
   // Simulate a delay
   await new Promise((resolve) => setTimeout(resolve, 1000));
