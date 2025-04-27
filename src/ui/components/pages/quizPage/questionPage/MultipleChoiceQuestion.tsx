@@ -48,13 +48,13 @@ function MultipleChoiceQuestionNotMarked(
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-expect-error
-  const canCheckAnswer = selectedOptionId as boolean;
+  const btnCheck = selectedOptionId as boolean;
 
   const [isButtonDisabled, setIsButtonDisabled] = React.useState(true);
 
   React.useEffect(() => {
-    setIsButtonDisabled(!canCheckAnswer);
-  }, [canCheckAnswer]);
+    setIsButtonDisabled(!btnCheck);
+  }, [btnCheck]);
 
   return (
     <div>
