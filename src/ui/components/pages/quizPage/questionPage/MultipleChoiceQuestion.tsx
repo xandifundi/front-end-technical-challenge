@@ -11,8 +11,6 @@ export type MultipleChoiceQuestionProps = {
   onCheckAnswer: () => void;
 };
 
-const optionLabels = "ABCD".split("");
-
 export function MultipleChoiceQuestion(props: MultipleChoiceQuestionProps) {
   const { question, questionState, onOptionSelected, onCheckAnswer } = props;
 
@@ -58,10 +56,11 @@ function MultipleChoiceQuestionNotMarked(
 
       <div style={{ marginBottom: "2rem" }}>
         {question.options.map((option, index) => {
-          const label = optionLabels[index];
           return (
             <div key={option.id} className={styles.option}>
-              <span className={styles.optionLabel}>{label}</span>
+              <span className={styles.optionLabel}>
+                {"ABCD".split("")[index]}
+              </span>
               <input
                 type="radio"
                 className={styles.optionInput}
@@ -104,10 +103,11 @@ function MultipleChoiceQuestionMarked(
 
       <div style={{ marginBottom: "2rem" }}>
         {question.options.map((option, index) => {
-          const label = optionLabels[index];
           return (
             <div key={option.id} className={styles.option}>
-              <span className={styles.optionLabel}>{label}</span>
+              <span className={styles.optionLabel}>
+                {["A", "B", "C", "D"][index]}
+              </span>
               <input
                 type="radio"
                 className={styles.optionInput}
