@@ -52,11 +52,11 @@ function MultipleChoiceQuestionNotMarked(
 
   return (
     <div>
-      <div className={styles.prompt}>
+      <div style={{ marginBottom: "2rem" }}>
         <Markdown>{question.prompt}</Markdown>
       </div>
 
-      <div className={styles.options}>
+      <div style={{ marginBottom: "2rem" }}>
         {question.options.map((option, index) => {
           const label = optionLabels[index];
           return (
@@ -98,11 +98,11 @@ function MultipleChoiceQuestionMarked(
 
   return (
     <div>
-      <div className={styles.prompt}>
+      <div style={{ marginBottom: "2rem" }}>
         <Markdown>{question.prompt}</Markdown>
       </div>
 
-      <div className={styles.options}>
+      <div style={{ marginBottom: "2rem" }}>
         {question.options.map((option, index) => {
           const label = optionLabels[index];
           return (
@@ -120,7 +120,7 @@ function MultipleChoiceQuestionMarked(
         })}
       </div>
 
-      <div className={styles.result}>
+      <div style={{ marginBottom: "2rem" }}>
         <MultipleChoiceQuestionResult result={result} />
       </div>
 
