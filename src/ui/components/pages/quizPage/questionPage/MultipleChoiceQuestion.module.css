@@ -1,11 +1,14 @@
 .option {
   display: flex;
-  align-items: center;
   margin-bottom: 0.5rem;
 }
 
 .optionLabel {
+  background-color: #ddd;
+  border-radius: 100%;
+  display: inline-block;
   margin-right: 0.5rem;
+  padding: 5px 8px;
   color: #aaa
 }
 

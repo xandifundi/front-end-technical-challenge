@@ -3,6 +3,10 @@
 }
 
 .buttonLarge {
-  padding: .5rem 1rem;
+  background-color: #0057ff;
+  border: 0;
+  border-radius: 5px;
+  color: #fff;
+  padding: .75rem 1rem;
   display: block;
 }
