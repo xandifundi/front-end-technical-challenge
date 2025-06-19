@@ -15,3 +15,9 @@
   background-color: #ccc;
   color: #666;
 }
+
+.buttonInverse {
+  background-color: #fff;
+  color: #0057ff;
+  border: 1px solid #ccc;
+}

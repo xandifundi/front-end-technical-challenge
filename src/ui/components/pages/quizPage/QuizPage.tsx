@@ -10,6 +10,11 @@ export type QuizPageProps = {
   quizState: QuizState;
 };
 
+const hasQuestionStateResults = (quizState: QuizState) => {
+  return quizState.questionStates.some(
+    (questionState) => questionState.result !== null
+  );
+};
 export function QuizPage(props: QuizPageProps) {
   const { state, handleEvent } = useQuizState({
     quizState: props.quizState,
@@ -30,6 +35,13 @@ export function QuizPage(props: QuizPageProps) {
           onStart={() => {
             handleEvent({ kind: "StartQuiz" });
           }}
+          onResume={() => {
+            handleEvent({ kind: "StartQuiz" });
+          }}
+          onRestart={() => {
+            handleEvent({ kind: "RestartQuiz" });
+          }}
+          hasQuestionStateResults={hasQuestionStateResults(state)}
         />
       );
     }

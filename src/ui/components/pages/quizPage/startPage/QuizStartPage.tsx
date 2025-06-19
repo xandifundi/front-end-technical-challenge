@@ -8,10 +8,13 @@ import styles from "./QuizStartPage.module.css";
 export type QuizStartPageProps = {
   quiz: Quiz;
   onStart: () => void;
+  onResume: () => void;
+  onRestart: () => void;
+  hasQuestionStateResults: boolean;
 };
 
 export function QuizStartPage(props: QuizStartPageProps) {
-  const { quiz, onStart } = props;
+  const { quiz, onStart, onResume, onRestart, hasQuestionStateResults } = props;
 
   return (
     <PageLayout>
@@ -23,7 +26,12 @@ export function QuizStartPage(props: QuizStartPageProps) {
         </div>
 
         <div>
-          <Button onClick={onStart}>Start Quiz</Button>
+          {!hasQuestionStateResults ? (<Button onClick={onStart}>Start Quiz</Button>) : (
+            <div className={styles.buttonsRow}>
+              <Button onClick={onResume}>Resume Quiz</Button>
+              <Button onClick={onRestart} buttonInverse>Restart Quiz</Button>
+            </div>
+          )}
         </div>
       </main>
     </PageLayout>

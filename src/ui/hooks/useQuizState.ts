@@ -32,6 +32,17 @@ export function useQuizState({ quizState }: UseQuizStateProps) {
         return;
       }
 
+      case "RestartQuiz": {
+        const newState = makeInitialState(state.quiz);
+
+        setState({
+        ...newState,
+        page: { kind: "QuestionPage", questionIndex: 0 },
+      });
+
+        return;
+      }
+
       case "CloseQuiz": {
         const newState: QuizState = {
           ...state,

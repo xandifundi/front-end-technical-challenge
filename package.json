@@ -10,6 +10,7 @@
     "types:check": "tsc --noEmit"
   },
   "dependencies": {
+    "classnames": "^2.5.1",
     "marked": "^15.0.8",
     "next": "15.3.0",
     "react": "^19.0.0",
